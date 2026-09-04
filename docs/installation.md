@@ -14,7 +14,11 @@ Choose a package manager explicitly when needed:
 ```bash
 npx create-ludicord-app my-activity --package-manager pnpm
 npx create-ludicord-app my-activity --package-manager npm --no-install
+npx create-ludicord-app my-activity --tailwind
+npx create-ludicord-app my-activity --no-tailwind
 ```
+
+Interactive creation asks whether to include Tailwind CSS. Without Tailwind, the generated Activity uses a responsive plain-CSS theme and does not install Tailwind dependencies.
 
 To add Ludicord to an existing React project:
 

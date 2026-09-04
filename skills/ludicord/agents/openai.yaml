@@ -1,0 +1,7 @@
+interface:
+  display_name: "Ludicord"
+  short_description: "Build Discord Activities with Ludicord safely"
+  brand_color: "#5865F2"
+  default_prompt: "Use $ludicord to build this Discord Activity feature while preserving the framework conventions."
+policy:
+  allow_implicit_invocation: true

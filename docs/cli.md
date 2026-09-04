@@ -30,8 +30,10 @@ Use `npx ludicord` inside an application where the package is already installed.
 
 ```bash
 npx create-ludicord-app@latest my-activity
+npx create-ludicord-app@latest my-activity --tailwind
+npx create-ludicord-app@latest my-activity --no-tailwind
 npx create-ludicord-app@latest my-activity --package-manager pnpm
 npx create-ludicord-app@latest my-activity --package-manager npm --no-install
 ```
 
-The target must be empty. `--no-install` writes the starter without installing dependencies. The generator package version and generated framework dependency can differ; inspect `package.json` and the lockfile. Check [release status](../CHANGELOG.md) before pinning an unpublished version.
+The target must be empty. In an interactive terminal, the creator asks whether to add Tailwind CSS when neither styling flag is supplied. Automated runs keep Tailwind by default for compatibility; pass `--no-tailwind` for the polished plain-CSS starter. `--no-install` writes the starter without installing dependencies. The generator package version and generated framework dependency can differ; inspect `package.json` and the lockfile. Check [release status](../CHANGELOG.md) before pinning an unpublished version.

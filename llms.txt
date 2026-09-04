@@ -1,0 +1,28 @@
+# Ludicord
+
+> Ludicord is a full-stack React framework for Discord Activities.
+
+## Agent entry points
+
+- [Agent instructions](./AGENTS.md)
+- [Reusable Ludicord skill](./skills/ludicord/SKILL.md)
+- [Framework rules](./skills/ludicord/references/framework-rules.md)
+- [Validation workflow](./skills/ludicord/references/validation.md)
+
+## Documentation
+
+- [Documentation index](./docs/README.md)
+- [Getting started](./docs/getting-started.md)
+- [Project structure](./docs/project-structure.md)
+- [Pages and automatic files](./docs/pages.md)
+- [Embeds](./docs/embeds.md)
+- [Navigation](./docs/navigation.md)
+- [Discord SDK](./docs/discord-sdk.md)
+- [API routes](./docs/api-routes.md)
+- [WebSockets](./docs/websockets.md)
+- [Configuration](./docs/configuration.md)
+- [CLI](./docs/cli.md)
+- [Security](./docs/security.md)
+- [Deployment](./docs/deployment.md)
+- [API reference](./docs/api-reference.md)
+- [Changelog](./CHANGELOG.md)

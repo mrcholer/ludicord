@@ -1,22 +1,33 @@
 # Package distribution and automated releases
 
-Ludicord 2.2.4 and create-ludicord-app 2.2.4 are published from a private source repository using GitHub Actions and npm trusted publishing.
+> Documentation for Ludicord 2.2.4. See [release status](../releases/README.md).
 
-## Repository links
+Ludicord uses a two-stage release pipeline so its public package links and npm provenance are correct without publishing the original TypeScript implementation.
 
-- Documentation, issues and public release notes are in this public repository.
-- Package `repository.url` identifies the actual private source repository required by npm's trust configuration.
-- The framework's `repository.directory` is `packages/ludicord`; the starter's is `packages/create-ludicord-app`.
-- The source repository link requires maintainer access. This does not prevent installing the public npm packages.
+## Public source links and trusted publishing
 
-## Release checks
+- Both npm packages use this repository for `homepage`, `repository`, issues and release records.
+- Package directories are `packages/ludicord` and `packages/create-ludicord-app`.
+- The public directories contain package metadata and README files. They do not contain the original TypeScript implementation.
+- npm publishing runs in this public repository through a workflow-bound OIDC identity. No long-lived npm publishing token is stored.
+- Public provenance links each npm tarball to the public workflow and staged release payload that published it.
 
-The release workflow checks version alignment, installs the locked dependencies, builds the packages/examples, typechecks and runs regression tests before publishing. Tarballs are checked against an explicit file policy. The framework is published and verified before the starter; both versions are verified before the Discord announcement.
+## Automated release flow
 
-Original TypeScript implementation, source maps, private apps and environment files are excluded. Compiled JavaScript and type declarations remain public. This does not change package licenses or make shipped JavaScript secret.
+1. A matching version change in the maintained packages starts the private build and test pipeline.
+2. The pipeline installs the locked dependency graph, builds packages/examples, typechecks and runs the framework, generator and release regression suites.
+3. An explicit file policy rejects source maps, original source, dependencies, hidden files, path traversal and credential-like content.
+4. Only the approved npm tarballs, package metadata, package READMEs and public release notes are staged in this repository.
+5. The public `publish.yml` workflow validates the tarballs again and publishes both packages using npm trusted publishing with provenance.
+6. Registry integrity is verified before the public changelog, package records, tag and GitHub release are created.
+7. After the public release is visible, a Discord Components V2 card announces the `ludicord` framework release and links to its changelog.
 
-npm OIDC uses short-lived workflow-bound credentials rather than a stored npm publishing token. Public provenance is not available from private source repositories. See [npm's trusted-publishing documentation](https://docs.npmjs.com/trusted-publishers/).
+Every package change requires a new aligned stable version because npm versions are immutable. Re-running a release is safe only when the registry integrity exactly matches the staged tarballs; the workflow refuses different bytes or a backwards `latest` move.
 
-Discord release notifications contain public package/documentation links only, disable mentions and do not forward private repository payloads. The webhook credential is stored outside Git as a repository secret.
+## Public and private boundaries
 
-[Release history](../CHANGELOG.md) · [2.2.4 notes](../releases/2.2.4.md)
+The npm packages necessarily expose compiled JavaScript and TypeScript declarations. The public release payload stores those same distributable bytes so trusted publishing can identify this repository honestly. Original TypeScript, source maps, private applications, credentials, environment files and private Git history remain excluded.
+
+The Discord webhook credential stays in a protected repository secret. Release messages allow only the configured release-role mention and do not include credits or private metadata.
+
+[npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) · [Release history](../CHANGELOG.md) · [Security](security.md)

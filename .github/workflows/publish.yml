@@ -1,0 +1,99 @@
+name: Publish Ludicord release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .release/current.json
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing staged stable version (for example 2.2.5)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ludicord-public-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'mrcholer/ludicord'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Check out the public release payload
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Select the staged release
+        id: version
+        shell: bash
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          VERSION="${REQUESTED_VERSION:-$(node -p "require('./.release/current.json').version")}"
+          node -e "if (!/^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$/.test(process.argv[1])) process.exit(1)" "$VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - name: Install the pinned npm release client
+        run: npm install --global npm@12.0.2
+      - name: Validate public metadata, notes and tarballs
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: node scripts/release.mjs validate
+      - name: Publish and verify both packages with npm OIDC
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: node scripts/release.mjs publish
+
+  release:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      RELEASE_VERSION: ${{ needs.publish.outputs.version }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out public documentation
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Update changelog and package records
+        run: node scripts/release.mjs finalize
+      - name: Commit generated public release records
+        shell: bash
+        run: |
+          git config user.name "ludicord-release[bot]"
+          git config user.email "ludicord-release[bot]@users.noreply.github.com"
+          git add CHANGELOG.md docs releases packages
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish Ludicord v$RELEASE_VERSION records"
+            git push origin HEAD:main
+          fi
+      - name: Create the public tag and GitHub release
+        shell: bash
+        run: |
+          if ! gh release view "v$RELEASE_VERSION" >/dev/null 2>&1; then
+            gh release create "v$RELEASE_VERSION" --target main --title "Ludicord v$RELEASE_VERSION" --notes-file "releases/$RELEASE_VERSION.md"
+          fi

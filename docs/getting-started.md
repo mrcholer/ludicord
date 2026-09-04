@@ -11,6 +11,8 @@ cd my-activity
 pnpm dev
 ```
 
+The interactive creator asks whether to install Tailwind CSS. To make the choice in a script, run `npx create-ludicord-app@latest my-activity --tailwind` or `--no-tailwind`.
+
 Add `LUDICORD_DISCORD_CLIENT_ID`, `LUDICORD_DISCORD_CLIENT_SECRET`, and a random `LUDICORD_SESSION_SECRET` of at least 32 characters to `.env.local`. Configure an HTTPS tunnel and Discord Activity URL Mapping before testing inside Discord.
 
 The generated `app/pages.tsx` mounts one `LudicordActivity` and one `EmbedOutlet`. Files named `app/embeds/**/embed.tsx` become internal Activity screens; they do not change the browser URL. Files under `app/api` and `app/ws` become real server endpoints.
