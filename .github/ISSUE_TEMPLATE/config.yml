@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/mrcholer/ludicord/blob/main/docs/README.md
+    about: Read the guides, public API reference and preview version notice.
+  - name: Security reporting
+    url: https://github.com/mrcholer/ludicord/blob/main/SECURITY.md
+    about: Report vulnerabilities privately; never post secrets in issues.

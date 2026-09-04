@@ -1,0 +1,22 @@
+# Documentation-only allowlist. Never mirror the implementation repository here.
+*
+!/.gitignore
+!/*.md
+!/docs/
+!/docs/*.md
+!/releases/
+!/releases/*.md
+!/.github/
+!/.github/ISSUE_TEMPLATE/
+!/.github/ISSUE_TEMPLATE/*.md
+!/.github/ISSUE_TEMPLATE/config.yml
+# Sensitive and generated content remains excluded everywhere.
+.env
+.env.*
+*.map
+*.tgz
+*.log
+node_modules/
+dist/
+src/
+.ludicord/
