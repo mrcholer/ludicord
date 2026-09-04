@@ -1,6 +1,6 @@
 # Installation
 
-> Documentation for Ludicord 2.2.4. See [release status](../releases/README.md).
+> Documentation for Ludicord 2.2.5. See [release status](../releases/README.md).
 
 
 Node.js 20.19 or newer is required. A new project is the simplest installation:

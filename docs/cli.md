@@ -1,6 +1,6 @@
 # CLI reference
 
-> Documentation for Ludicord 2.2.4. See [release status](../releases/README.md).
+> Documentation for Ludicord 2.2.5. See [release status](../releases/README.md).
 
 Run commands through your generated package scripts or the locally installed `ludicord` executable.
 

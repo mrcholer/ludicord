@@ -1,6 +1,6 @@
 # WebSockets
 
-> Documentation for Ludicord 2.2.4. See [release status](../releases/README.md).
+> Documentation for Ludicord 2.2.5. See [release status](../releases/README.md).
 
 
 Create `app/ws/presence/route.ts`:
