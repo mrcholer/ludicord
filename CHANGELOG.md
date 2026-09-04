@@ -4,17 +4,18 @@ Verified against npm on September 4, 2026. Times are UTC. The packages have sepa
 
 [GitHub release records](https://github.com/mrcholer/ludicord/releases) mirror this published-version list. GitHub records were created for this documentation repository; their creation dates are not the original npm publication dates, and their archives contain only documentation.
 
-## Upcoming: 2.2.4
+## 2.2.4 — September 4, 2026
 
-Both packages are planned to align at 2.2.4. Neither 2.2.4 package was published at the verification time.
+Both packages are published at 2.2.4 through GitHub Actions trusted publishing.
 
-Read the [preview changes and limitations](releases/2.2.4.md). Do not run a 2.2.4 installation command until npm lists that version.
+Read the [changes and limitations](releases/2.2.4.md) and [upgrade guide](docs/migration.md).
 
 ## ludicord
 
 | Version | npm publication (UTC) | Status |
 | --- | --- | --- |
-| [2.2.1](https://www.npmjs.com/package/ludicord/v/2.2.1) | 2026-09-04 12:03:18 | Current latest |
+| [2.2.4](https://www.npmjs.com/package/ludicord/v/2.2.4) | 2026-09-04 17:57:43 | Current latest |
+| [2.2.1](https://www.npmjs.com/package/ludicord/v/2.2.1) | 2026-09-04 12:03:18 | Historical |
 | [2.2.0](https://www.npmjs.com/package/ludicord/v/2.2.0) | 2026-09-03 12:49:49 | Historical |
 | [2.1.0](https://www.npmjs.com/package/ludicord/v/2.1.0) | 2026-09-02 11:39:29 | Historical |
 
@@ -22,7 +23,8 @@ Read the [preview changes and limitations](releases/2.2.4.md). Do not run a 2.2.
 
 | Version | npm publication (UTC) | Status |
 | --- | --- | --- |
-| [2.2.3](https://www.npmjs.com/package/create-ludicord-app/v/2.2.3) | 2026-09-04 12:04:52 | Current latest |
+| [2.2.4](https://www.npmjs.com/package/create-ludicord-app/v/2.2.4) | 2026-09-04 17:57:47 | Current latest |
+| [2.2.3](https://www.npmjs.com/package/create-ludicord-app/v/2.2.3) | 2026-09-04 12:04:52 | Historical |
 | [2.2.2](https://www.npmjs.com/package/create-ludicord-app/v/2.2.2) | 2026-09-03 13:50:52 | Historical |
 | [2.2.1](https://www.npmjs.com/package/create-ludicord-app/v/2.2.1) | 2026-09-03 13:09:52 | Historical |
 | [2.2.0](https://www.npmjs.com/package/create-ludicord-app/v/2.2.0) | 2026-09-03 12:54:07 | Historical |

@@ -24,4 +24,4 @@ This repository's visibility does not change the license of any npm release. Che
 
 ## Documentation versions
 
-The main branch currently documents the upcoming 2.2.4 release. Published version numbers and dates are tracked separately in [release history](CHANGELOG.md). Preview notes are not evidence of an npm publication.
+The main branch currently documents the published 2.2.4 release. Published version numbers and dates are tracked separately in [release history](CHANGELOG.md). The npm registry is authoritative for installable versions.

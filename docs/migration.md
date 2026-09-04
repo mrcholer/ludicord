@@ -1,15 +1,15 @@
 # Upgrading to 2.2.4
 
-> Preview documentation for upcoming 2.2.4, not yet published. See [release status](../releases/README.md).
+> Documentation for Ludicord 2.2.4. See [release status](../releases/README.md).
 
-Do not install 2.2.4 until both packages are published. Verify availability:
+Both packages are published at 2.2.4. Check your current versions:
 
 ```bash
 npm view ludicord version
 npm view create-ludicord-app version
 ```
 
-Once published, update an existing application's framework dependency and lockfile, then run its typecheck/build checks. The generator is for new projects; do not run it over an existing non-empty application.
+Update an existing application's framework dependency with `npm install ludicord@2.2.4` (or your package-manager equivalent), update its lockfile, then run its typecheck/build checks. The generator is for new projects; do not run it over an existing non-empty application.
 
 ## Review your application
 

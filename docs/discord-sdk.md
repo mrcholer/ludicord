@@ -1,6 +1,6 @@
 # Discord SDK
 
-> Preview documentation for the upcoming 2.2.4 release. npm currently provides ludicord 2.2.1 and create-ludicord-app 2.2.3. See [release status](../releases/README.md) before using new features.
+> Documentation for Ludicord 2.2.4. See [release status](../releases/README.md).
 
 
 Ludicord uses the official `@discord/embedded-app-sdk` package and initializes one SDK instance per Activity. `LudicordActivity` waits for SDK readiness before authentication and reuses shared subscriptions rather than registering one listener per component.

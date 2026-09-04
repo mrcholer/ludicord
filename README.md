@@ -28,12 +28,12 @@ Before testing inside Discord, configure your application's credentials in `.env
 
 Registry status checked on September 4, 2026 (UTC):
 
-| Package | Published latest | Upcoming |
-| --- | --- | --- |
-| [ludicord](https://www.npmjs.com/package/ludicord) | 2.2.1 | 2.2.4 |
-| [create-ludicord-app](https://www.npmjs.com/package/create-ludicord-app) | 2.2.3 | 2.2.4 |
+| Package | Published latest |
+| --- | --- |
+| [ludicord](https://www.npmjs.com/package/ludicord) | 2.2.4 |
+| [create-ludicord-app](https://www.npmjs.com/package/create-ludicord-app) | 2.2.4 |
 
-The guides in `docs/` describe the upcoming **2.2.4** API. Some features are not available in the published packages yet. `@latest` installs npm's published version, not this documentation preview. See the [2.2.4 preview notes](releases/2.2.4.md) and [upgrade guide](docs/migration.md).
+The guides in `docs/` describe the published **2.2.4** API. Both packages are aligned at 2.2.4. See the [release notes](releases/2.2.4.md), [upgrade guide](docs/migration.md) and [release delivery](docs/distribution.md).
 
 ## Explore
 

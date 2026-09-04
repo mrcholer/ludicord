@@ -1,6 +1,6 @@
 # Login and sessions
 
-> Preview documentation for the upcoming 2.2.4 release. npm currently provides ludicord 2.2.1 and create-ludicord-app 2.2.3. See [release status](../releases/README.md) before using new features.
+> Documentation for Ludicord 2.2.4. See [release status](../releases/README.md).
 
 
 Ludicord authentication follows the Embedded App SDK authorization-code flow:

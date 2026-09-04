@@ -4,7 +4,7 @@ This repository accepts public documentation corrections, usage-example improvem
 
 Before submitting:
 
-1. Check whether the guide covers a published version or the upcoming 2.2.4 preview.
+1. Check that the guide applies to the installed package version; main currently documents 2.2.4.
 2. Keep changes limited to Markdown documentation and the existing issue-template configuration.
 3. Verify relative links and runnable usage snippets.
 4. Remove credentials, private paths, user data and private implementation details.

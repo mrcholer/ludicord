@@ -2,11 +2,11 @@
 
 This page communicates current work, not release-date commitments.
 
-## Upcoming 2.2.4
+## Released: 2.2.4
 
-Automatic Activity files, server hot updates, branded diagnostics, richer permission-gated Discord data and runtime/security fixes are documented in the [preview notes](releases/2.2.4.md).
+Automatic Activity files, server hot updates, branded diagnostics, richer permission-gated Discord data and runtime/security fixes are documented in the [release notes](releases/2.2.4.md).
 
-Before publication, complete live Discord checks for OAuth, guild access, mobile/PiP, iframe cookies and multi-user reconnect behavior.
+Before deploying your own Activity, complete live Discord checks for OAuth, guild access, mobile/PiP, iframe cookies and multi-user reconnect behavior. These depend on your application and Discord permissions; the automated release tests use fixtures.
 
 ## Current boundaries
 
