@@ -1,0 +1,135 @@
+{
+  "name": "ludicord",
+  "version": "2.2.5",
+  "description": "Full-stack React framework for Discord Activities.",
+  "homepage": "https://github.com/mrcholer/ludicord#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrcholer/ludicord.git",
+    "directory": "packages/ludicord"
+  },
+  "bugs": {
+    "url": "https://github.com/mrcholer/ludicord/issues"
+  },
+  "type": "module",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "files": [
+    "bin",
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "README.md"
+  ],
+  "bin": {
+    "ludicord": "bin/ludicord.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "import": "./dist/config/index.js",
+      "default": "./dist/config/index.js"
+    },
+    "./navigation": {
+      "types": "./dist/navigation/index.d.ts",
+      "import": "./dist/navigation/index.js",
+      "default": "./dist/navigation/index.js"
+    },
+    "./discord": {
+      "types": "./dist/discord/index.d.ts",
+      "import": "./dist/discord/index.js",
+      "default": "./dist/discord/index.js"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "import": "./dist/auth/index.js",
+      "default": "./dist/auth/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
+    },
+    "./security": {
+      "types": "./dist/security/index.d.ts",
+      "import": "./dist/security/index.js",
+      "default": "./dist/security/index.js"
+    },
+    "./ws": {
+      "types": "./dist/ws/index.d.ts",
+      "import": "./dist/ws/index.js",
+      "default": "./dist/ws/index.js"
+    },
+    "./ws/client": {
+      "types": "./dist/ws/client.d.ts",
+      "import": "./dist/ws/client.js",
+      "default": "./dist/ws/client.js"
+    },
+    "./ws/server": {
+      "types": "./dist/ws/server.d.ts",
+      "import": "./dist/ws/server.js",
+      "default": "./dist/ws/server.js"
+    },
+    "./runtime": {
+      "types": "./dist/runtime/index.d.ts",
+      "import": "./dist/runtime/index.js",
+      "default": "./dist/runtime/index.js"
+    },
+    "./runtime/server": {
+      "types": "./dist/runtime/server/index.d.ts",
+      "import": "./dist/runtime/server/index.js",
+      "default": "./dist/runtime/server/index.js"
+    },
+    "./internal": {
+      "types": "./dist/runtime/client/root.d.ts",
+      "import": "./dist/runtime/client/root.js",
+      "default": "./dist/runtime/client/root.js"
+    },
+    "./testing": {
+      "types": "./dist/testing/index.d.ts",
+      "import": "./dist/testing/index.js",
+      "default": "./dist/testing/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepack": "pnpm build"
+  },
+  "peerDependencies": {
+    "react": ">=18.3.0 <20",
+    "react-dom": ">=18.3.0 <20"
+  },
+  "dependencies": {
+    "@discord/embedded-app-sdk": "^2.4.0",
+    "@jridgewell/trace-mapping": "^0.3.31",
+    "@vitejs/plugin-react": "^5.1.2",
+    "esbuild": "^0.28.2",
+    "express": "^5.2.1",
+    "magic-string": "^0.30.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@types/ws": "^8.18.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}

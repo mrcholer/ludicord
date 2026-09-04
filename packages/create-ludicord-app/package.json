@@ -1,0 +1,50 @@
+{
+  "name": "create-ludicord-app",
+  "version": "2.2.5",
+  "description": "Create a new Ludicord Discord Activity project.",
+  "homepage": "https://github.com/mrcholer/ludicord#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrcholer/ludicord.git",
+    "directory": "packages/create-ludicord-app"
+  },
+  "bugs": {
+    "url": "https://github.com/mrcholer/ludicord/issues"
+  },
+  "type": "module",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "files": [
+    "bin",
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "README.md"
+  ],
+  "bin": {
+    "create-ludicord-app": "bin/create-ludicord-app.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepack": "pnpm build"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  }
+}
