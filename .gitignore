@@ -12,6 +12,7 @@
 !/packages/*/*.md
 !/packages/*/package.json
 !/.release/
+!/.release/current.json
 !/.release/*/
 !/.release/*/*.json
 !/.release/*/*.md
