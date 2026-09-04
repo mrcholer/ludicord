@@ -1,6 +1,7 @@
 # Releases
 
 - [Published version list and dates](../CHANGELOG.md).
+- [GitHub release records](https://github.com/mrcholer/ludicord/releases). Their tags identify documentation snapshots; npm publication dates are stated in each record.
 - [Current published packages](published.md).
 - [2.2.4 preview](2.2.4.md): upcoming, not published.
 - [Migration guide](../docs/migration.md).

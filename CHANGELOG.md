@@ -2,6 +2,8 @@
 
 Verified against npm on September 4, 2026. Times are UTC. The packages have separate publication histories.
 
+[GitHub release records](https://github.com/mrcholer/ludicord/releases) mirror this published-version list. GitHub records were created for this documentation repository; their creation dates are not the original npm publication dates, and their archives contain only documentation.
+
 ## Upcoming: 2.2.4
 
 Both packages are planned to align at 2.2.4. Neither 2.2.4 package was published at the verification time.
