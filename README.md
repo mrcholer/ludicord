@@ -10,7 +10,7 @@ Build persistent Activity screens, authenticated HTTP APIs and real-time WebSock
 
 This repository contains public documentation, usage snippets, release information and support resources. It does **not** contain the private framework implementation, private applications, credentials, build artifacts or their Git history.
 
-Install Ludicord from npm. Downloading this repository does not install the framework. Documentation snippets show how to use the package; they are not its implementation. See [repository scope](PUBLIC-REPOSITORY.md).
+Install Ludicord from npm. Downloading this repository does not install the framework. Documentation snippets show how to use the package; they are not its implementation.
 
 ## Get started
 
