@@ -84,8 +84,8 @@ jobs:
       - name: Commit generated public release records
         shell: bash
         run: |
-          git config user.name "ludicord-release[bot]"
-          git config user.email "ludicord-release[bot]@users.noreply.github.com"
+          git config user.name "Choler Ghost"
+          git config user.email "cholergost@gmail.com"
           git add CHANGELOG.md docs releases packages
           if ! git diff --cached --quiet; then
             git commit -m "Publish Ludicord v$RELEASE_VERSION records"
