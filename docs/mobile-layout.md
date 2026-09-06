@@ -1,6 +1,6 @@
 # Mobile and Layout
 
-> Documentation for Ludicord 2.2.5. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.0.0. See [release status](../releases/README.md).
 
 
 Ludicord installs four CSS custom properties:

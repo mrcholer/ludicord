@@ -1,6 +1,6 @@
 # Login and sessions
 
-> Documentation for Ludicord 2.2.5. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.0.0. See [release status](../releases/README.md).
 
 
 Ludicord authentication follows the Embedded App SDK authorization-code flow:

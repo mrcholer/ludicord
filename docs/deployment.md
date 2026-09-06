@@ -1,6 +1,6 @@
 # Deployment
 
-> Documentation for Ludicord 2.2.5. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.0.0. See [release status](../releases/README.md).
 
 
 Deploy Ludicord to a Node.js 20.19+ environment that supports long-lived HTTP upgrades for WebSockets.

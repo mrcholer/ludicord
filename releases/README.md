@@ -1,6 +1,6 @@
 # Releases
 
-- [Current 2.2.5 release notes](./2.2.5.md).
+- [Current 3.0.0 release notes](./3.0.0.md).
 - [Published version list and dates](../CHANGELOG.md).
 - [GitHub release records](https://github.com/mrcholer/ludicord/releases).
 - [Current published packages](published.md).
