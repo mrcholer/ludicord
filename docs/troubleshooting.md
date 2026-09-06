@@ -1,6 +1,6 @@
 # Troubleshooting
 
-> Documentation for Ludicord 3.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
 
 
 Run these first:

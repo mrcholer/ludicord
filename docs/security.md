@@ -1,6 +1,6 @@
 # Security
 
-> Documentation for Ludicord 3.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
 
 
 Ludicord encrypts and authenticates session cookies with AES-256-GCM, validates OAuth state, keeps server secrets out of React stores, requires sessions for API and WebSocket routes by default, and scans production client output for actual secret values.

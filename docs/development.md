@@ -1,6 +1,6 @@
 # Development runtime
 
-> Documentation for Ludicord 3.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
 
 
 `ludicord dev` owns the HTTP server, API routes, WebSockets, React hot updates, and diagnostics. Terminal output is Ludicord-branded:

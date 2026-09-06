@@ -1,6 +1,6 @@
 # Discord SDK
 
-> Documentation for Ludicord 3.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
 
 
 Ludicord uses the official `@discord/embedded-app-sdk` package and initializes one SDK instance per Activity. `LudicordActivity` waits for SDK readiness before authentication and reuses shared subscriptions rather than registering one listener per component.
