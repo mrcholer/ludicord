@@ -1,6 +1,6 @@
 {
   "name": "ludicord",
-  "version": "2.2.5",
+  "version": "3.0.0",
   "description": "Full-stack React framework for Discord Activities.",
   "homepage": "https://github.com/mrcholer/ludicord#readme",
   "repository": {
@@ -45,6 +45,16 @@
       "types": "./dist/navigation/index.d.ts",
       "import": "./dist/navigation/index.js",
       "default": "./dist/navigation/index.js"
+    },
+    "./metadata": {
+      "types": "./dist/metadata/index.d.ts",
+      "import": "./dist/metadata/index.js",
+      "default": "./dist/metadata/index.js"
+    },
+    "./activity": {
+      "types": "./dist/activity/index.d.ts",
+      "import": "./dist/activity/index.js",
+      "default": "./dist/activity/index.js"
     },
     "./discord": {
       "types": "./dist/discord/index.d.ts",
@@ -115,8 +125,11 @@
   "dependencies": {
     "@discord/embedded-app-sdk": "^2.4.0",
     "@jridgewell/trace-mapping": "^0.3.31",
+    "@typescript-eslint/parser": "^8.69.0",
     "@vitejs/plugin-react": "^5.1.2",
     "esbuild": "^0.28.2",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "express": "^5.2.1",
     "magic-string": "^0.30.17",
     "typescript": "^5.9.3",

@@ -16,16 +16,20 @@ The full-stack React framework and CLI for Discord Activities.
 
 ```bash
 ludicord dev
+ludicord lint
 ludicord build
+ludicord analyze
 ludicord start
 ```
 
-Public entry points include `ludicord`, `ludicord/config`, `ludicord/navigation`, `ludicord/discord`, `ludicord/auth`, `ludicord/server`, `ludicord/security`, `ludicord/ws/client`, `ludicord/ws/server`, `ludicord/runtime` (client status), `ludicord/runtime/server` (server tooling), and `ludicord/testing`.
+Public entry points include `ludicord`, `ludicord/config`, `ludicord/metadata`, `ludicord/navigation`, `ludicord/activity`, `ludicord/discord`, `ludicord/auth`, `ludicord/server`, `ludicord/security`, `ludicord/ws`, `ludicord/ws/client`, `ludicord/ws/server`, `ludicord/runtime` (client status), `ludicord/runtime/server` (server tooling), and `ludicord/testing`.
 
 See the public [documentation](https://github.com/mrcholer/ludicord/blob/main/docs/README.md), [release history](https://github.com/mrcholer/ludicord/blob/main/CHANGELOG.md), and [issue tracker](https://github.com/mrcholer/ludicord/issues). The public repository contains documentation and release information, not the framework implementation.
 
-Automatic files: `app/layout.tsx`, `loading.tsx`, `error.tsx`, `minimize.tsx`, and `app/auth/{loading,error,denied}.tsx`. Default-export the component and the framework connects it. Embeds use `export default function embed()`.
+Automatic files: `app/metadata.ts`, `proxy.ts`, `instrumentation.ts`, `layout.tsx`, `loading.tsx`, `error.tsx`, `global-error.tsx`, `not-found.tsx`, `minimize.tsx`, and `app/auth/{loading,error,denied}.tsx`. Embed folders may also inherit nested `layout.tsx` and nearest `loading.tsx`/`error.tsx`. Route groups such as `(games)` organize embed/API/WS source without changing URLs. Default-export the component or convention object and the framework connects it. Embeds use `export default function embed()`.
 
-Development includes API/WS hot updates, TypeScript diagnostics, a Ludicord browser error panel with mapped source locations, and branded compile timing. Production uses safe errors without source disclosure.
+Development includes API/WS/proxy hot updates, TypeScript diagnostics, React Hooks linting, React Strict Mode, a Ludicord browser error panel with mapped source locations, and branded compile timing. Production uses atomic output, client bundle analysis, and safe errors without source disclosure.
 
-Discord helpers include detailed channel/guild hooks, Activity participants, voice/layout events, typed SDK commands, and permission-gated paginated guild members. Full member lists require a server-only bot token and the GUILD_MEMBERS intent.
+Discord helpers include complete raw user/channel/guild/member/role/participant/event payloads beside convenient normalized fields, Activity participants, voice/layout events, typed SDK commands, verified permission bitfields, channel/role/member resources, and paginated guild members. Full member lists require a server-only bot token and the GUILD_MEMBERS intent.
+
+Activity hooks add scoped persistence, cached queries, lifecycle readiness, raw Discord-event callbacks, presence summaries, animation frames, and revision-safe shared instance state. Use normal React state for local UI and these helpers where Discord Activity behavior needs a framework-owned lifecycle.

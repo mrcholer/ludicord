@@ -1,6 +1,6 @@
 {
   "name": "create-ludicord-app",
-  "version": "2.2.5",
+  "version": "3.0.0",
   "description": "Create a new Ludicord Discord Activity project.",
   "homepage": "https://github.com/mrcholer/ludicord#readme",
   "repository": {
