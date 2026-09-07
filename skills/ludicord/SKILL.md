@@ -1,6 +1,6 @@
 ---
 name: ludicord
-description: Ludicord Discord Activity work — use when building, modifying, debugging, or reviewing an Activity. Triggers: embeds, navigation, or the Activity root (pages, EmbedOutlet); API routes, WebSockets, or Activity rooms; Discord SDK data, participants, voice, or layout; login, sessions, auth, or security; ludicord config, CLI, dev hot-reload, deployment, or validation; troubleshooting doctor, routes, or build errors.
+description: "Ludicord Discord Activity work — use when building, modifying, debugging, or reviewing an Activity. Triggers: embeds, navigation, or the Activity root (pages, EmbedOutlet); API routes, WebSockets, or Activity rooms; Discord SDK data, participants, voice, or layout; login, sessions, auth, or security; ludicord config, CLI, dev hot-reload, deployment, or validation; troubleshooting doctor, routes, or build errors."
 metadata:
   author: ludicord
   version: "3.0.1"
