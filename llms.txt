@@ -6,7 +6,11 @@
 
 - [Agent instructions](./AGENTS.md)
 - [Reusable Ludicord skill](./skills/ludicord/SKILL.md)
-- [Framework rules](./skills/ludicord/references/framework-rules.md)
+- [Embeds and navigation](./skills/ludicord/references/embeds-navigation.md)
+- [API routes, WebSockets, and rooms](./skills/ludicord/references/server-routes.md)
+- [Discord data](./skills/ludicord/references/discord-data.md)
+- [Login, sessions, and security](./skills/ludicord/references/auth-security.md)
+- [Configuration, CLI, and deployment](./skills/ludicord/references/config-deploy.md)
 - [Validation workflow](./skills/ludicord/references/validation.md)
 
 ## Documentation
