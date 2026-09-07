@@ -34,6 +34,7 @@
 !/.github/ISSUE_TEMPLATE/
 !/.github/ISSUE_TEMPLATE/*.md
 !/.github/ISSUE_TEMPLATE/config.yml
+!/.agents/*
 # Sensitive and generated content remains excluded everywhere.
 .env
 .env.*
