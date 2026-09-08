@@ -1,6 +1,6 @@
 ---
 name: ludicord
-description: "Ludicord Discord Activity work — use when building, modifying, debugging, or reviewing an Activity. Triggers: embeds, navigation, or the Activity root (pages, EmbedOutlet); API routes, WebSockets, or Activity rooms; Discord SDK data, participants, voice, or layout; login, sessions, auth, or security; ludicord config, CLI, dev hot-reload, deployment, or validation; troubleshooting doctor, routes, or build errors."
+description: "Build, modify, debug, review, or document Ludicord Discord Activities. Use for Activity roots, embeds, typed navigation, React state and effects, API or WebSocket routes, shared Activity state, Discord SDK data, participants, voice, authentication, security, configuration, development diagnostics, deployment, migration, and release compatibility."
 metadata:
   author: ludicord
   version: "3.0.1"
@@ -27,6 +27,8 @@ Before changing code, establish what the project already chose:
 2. Read `ludicord.generated.d.ts` for the registered embed, API, and
    WebSocket routes and their parameter maps — never guess a route string.
 3. Run `ludicord routes` when adding or renaming routes to confirm discovery.
+4. Treat `ludicord/internal` as compiler-owned. Never import it from Activity
+   application code even when an older installed package exports it.
 
 ## Principles
 
@@ -39,8 +41,9 @@ Before changing code, establish what the project already chose:
 3. **Let Ludicord discover files.** Create convention files at their
    documented paths with default exports; never wire automatic files by hand.
 4. **Verify your work.** After every change, run the project's
-   [validation](references/validation.md): doctor, routes, typecheck, build.
-   A change without verification is incomplete.
+   [validation](references/validation.md). Generated projects expose `dev`,
+   `build`, and `start`; use documented advanced CLI commands directly when
+   a task needs route inspection, linting, analysis, or environment details.
 5. **Recover from errors, don't loop.** If an approach fails after 2–3
    attempts, reread the linked public guide for that subsystem and inspect
    the first diagnostic at its mapped source location.
@@ -65,8 +68,18 @@ correct/incorrect pairs and the public guide behind it.
 - **Screens live at `app/embeds/<route>/embed.tsx`** and default-export
   `function embed()`.
 - **Navigate with `useEmbedRouter()`** from `ludicord/navigation` using
-  generated route types. Embed moves are internal Activity state — the
-  browser URL stays stable.
+  generated route types. Ludicord synchronizes embeds with hash history so
+  back/forward and deep links work while the Activity pathname stays stable.
+
+### React State & Effects → [react-state.md](references/react-state.md)
+
+- **Use React state for local UI.** Use an effect only to synchronize with an
+  external system, and always clean up subscriptions, timers, and sockets.
+- **Use the narrowest Ludicord primitive.** Choose Activity storage for
+  scoped persistence, Activity query for managed async reads, and shared
+  Activity state only for small values shared by the current instance.
+- **Do not mirror hook results into state without a reason.** Derive values
+  during render or with `useMemo`; duplicated state becomes stale.
 
 ### HTTP & WebSocket Routes → [server-routes.md](references/server-routes.md)
 
@@ -122,12 +135,12 @@ export default function embed() {
 ```
 
 ```tsx
-// Navigation: in-memory embed router, not browser pathname routing.
+// Navigation: typed hash history while the Activity pathname stays stable.
 import { useEmbedRouter } from "ludicord/navigation";
 
 const router = useEmbedRouter();
 router.push("profile/user-one"); // correct
-// window.location.pushState(...) // wrong: breaks the persistent root
+// window.location.href = "/profile/user-one" // wrong: bypasses the embed router
 ```
 
 ```ts
@@ -183,10 +196,12 @@ useEffect(() => ws.on("pong", handlePong), [ws]);
    dependency, or OAuth-scope changes.
    Done when: the dev overlay/terminal compilation is clean with no restart
    beyond the restart-only causes.
-5. **Validate like production** — run the full
-   [validation](references/validation.md): doctor, routes, typecheck, build.
-   Done when: all four pass and every failure was fixed at its reported
-   source location, not worked around.
+5. **Validate like production** — run the applicable sequence in
+   [validation](references/validation.md): route inspection for convention
+   changes, React Hooks lint for hook changes, project typecheck when present,
+   and a production build.
+   Done when: every applicable check passes and each failure was fixed at its
+   reported source location, not worked around.
 6. **Test where the feature lives** — browser fallback plus the Discord
    Activity frame whenever the change touches SDK, guild, participant,
    voice, mobile, or picture-in-picture behaviour.
@@ -197,11 +212,18 @@ useEffect(() => ws.on("pong", handlePong), [ws]);
 
 ```bash
 npx ludicord dev --port 3000 --host 127.0.0.1  # dev server, hot updates
-npx ludicord routes   # list discovered embeds, APIs, sockets
-npx ludicord doctor   # config, env, security, port, secret-leak checks
-npx ludicord info     # environment/project information
 npx ludicord build    # validate, typecheck, production build
 npx ludicord start --port 3000  # serve an existing build (no compile)
+```
+
+Advanced commands are available through the installed CLI; confirm flags
+with `npx ludicord --help`:
+
+```bash
+npx ludicord routes   # list discovered embeds, APIs, sockets
+npx ludicord lint     # validate React Hooks usage
+npx ludicord analyze  # inspect a production bundle report
+npx ludicord info     # environment/project information
 npx ludicord clean    # remove generated .ludicord output
 ```
 
@@ -211,8 +233,8 @@ npx create-ludicord-app@latest my-activity --tailwind # scripted styling choice
 npx create-ludicord-app@latest my-activity --no-tailwind
 ```
 
-Or use the generated scripts (`pnpm dev`, `pnpm routes`, `pnpm doctor`,
-`pnpm build`, `pnpm start`) with the project's package manager.
+Generated 3.0.1 projects intentionally include only `dev`, `build`, and
+`start` scripts. Run advanced commands with the project's package runner.
 
 ## Detailed References
 
@@ -220,11 +242,14 @@ Or use the generated scripts (`pnpm dev`, `pnpm routes`, `pnpm doctor`,
   automatic files, embeds, generated route types, safe-area and mobile layout
 - [server-routes.md](references/server-routes.md) — API routes, WebSockets,
   Activity rooms, dev hot-replacement semantics
+- [react-state.md](references/react-state.md) — React state/effects and
+  Ludicord lifecycle, storage, query, presence, game-loop, and shared-state
+  primitives
 - [discord-data.md](references/discord-data.md) — Discord SDK, participants,
   voice events, commands, entitlements, server REST
 - [auth-security.md](references/auth-security.md) — login flow, sessions,
   environment variables, proxy/instance verification
 - [config-deploy.md](references/config-deploy.md) — configuration, CLI,
   deployment, troubleshooting codes
-- [validation.md](references/validation.md) — doctor/routes/typecheck/build
+- [validation.md](references/validation.md) — routes/lint/typecheck/build
   loop and failure interpretation

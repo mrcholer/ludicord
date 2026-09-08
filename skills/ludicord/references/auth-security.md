@@ -64,8 +64,8 @@ LUDICORD_DISCORD_PUBLIC_KEY=
 - Keep secrets in `.env.local` (out of source control). Commit only
   `.env.example` with empty values.
 - `ludicord build` scans production client output for actual server secret
-  values and fails when one leaked. Rotate a secret immediately when
-  `ludicord doctor` or the scanner reports exposure.
+  values and fails when one leaked. Rotate a secret immediately when the
+  build scanner or another trusted diagnostic reports exposure.
 
 ## Security model
 

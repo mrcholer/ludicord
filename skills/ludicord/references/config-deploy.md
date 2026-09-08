@@ -60,7 +60,6 @@ Run commands through generated package scripts or the installed executable:
 | `ludicord build` | Validate, typecheck, production build |
 | `ludicord start` | Serve an existing production build |
 | `ludicord routes` | List discovered routes |
-| `ludicord doctor` | Diagnose configuration and build issues |
 | `ludicord info` | Environment/project information |
 | `ludicord clean` | Remove generated `.ludicord` output |
 
@@ -106,12 +105,12 @@ Deploy to Node.js 20.19+ with long-lived HTTP upgrades for WebSockets:
 
 ## Troubleshooting
 
-Run these first, in order:
+Run the checks relevant to the failure:
 
 ```bash
-npx ludicord doctor
 npx ludicord routes
 npx ludicord info
+npx ludicord build
 ```
 
 | Symptom | Cause and fix |

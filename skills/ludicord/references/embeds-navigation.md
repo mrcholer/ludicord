@@ -23,7 +23,7 @@ export default function Pages() {
 ```
 
 - `LudicordActivity` initializes the Discord SDK, shared event stores,
-  authentication, safe-area variables, and the in-memory embed router once.
+  authentication, safe-area variables, and the embed router once.
 - `defaultEmbed` must match a generated embed route.
 - Optional `loading` and `errorFallback` props customize lazy-loading and
   recoverable render errors.
@@ -100,9 +100,10 @@ app/embeds/docs/[[...slug]]/embed.tsx    docs/*slug?
 
 ## Navigation
 
-Use the in-memory embed router; browser pathname navigation is intentionally
-unused. The current embed mirrors into the hash (`#/profile/user-one`) for
-deep links, validated against the registry:
+Use the framework embed router; browser pathname routing is intentionally
+unused. The current embed is synchronized through the hash
+(`#/profile/user-one`) for deep links and browser back/forward, and every
+hash is validated against the generated registry:
 
 ```tsx
 // Correct
@@ -114,8 +115,8 @@ router.replace("home");          // update current entry
 router.back();                   // stay inside the Activity
 ```
 
-`canGoBack` reports whether internal history exists. Embed changes are
-internal Activity state and do not rewrite the browser URL.
+`canGoBack` reports whether valid embed history exists. Embed changes update
+the hash while keeping the Activity pathname and persistent root stable.
 
 ```tsx
 // Wrong: reaching for the browser router.
