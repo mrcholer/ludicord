@@ -1,6 +1,6 @@
 # Discord Developer Portal Setup
 
-> Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
 
 
 1. Create a Discord application and enable Activities.

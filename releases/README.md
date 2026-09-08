@@ -1,7 +1,7 @@
 # Releases
 
 - [Latest release overview](latest.md).
-- [Ludicord 3.0.1 release notes](v3/3.0.1.md).
+- [Ludicord 3.1.0 release notes](v3/3.1.0.md).
 - [Ludicord v3 release archive](v3/README.md).
 - [Ludicord v2 release archive](v2/README.md).
 - [Published version list and dates](../CHANGELOG.md).

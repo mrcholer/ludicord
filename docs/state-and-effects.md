@@ -1,6 +1,6 @@
 # React state and effects
 
-> Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
 
 Ludicord is React, so ordinary React state is the first choice for ordinary interface state. Framework hooks add Activity-aware lifecycles; they do not replace `useState`, `useReducer`, or correct effect cleanup.
 

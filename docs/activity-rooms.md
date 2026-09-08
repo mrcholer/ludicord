@@ -1,6 +1,6 @@
 # Activity Rooms
 
-> Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
 
 
 Every authenticated WebSocket client can join the Activity Instance room:
