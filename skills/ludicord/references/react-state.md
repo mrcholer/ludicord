@@ -15,7 +15,7 @@ Choose state by lifetime instead of putting every value in a framework store.
 | Value derived from props or hooks | Calculate during render; `useMemo` only when expensive or identity-sensitive |
 | Subscribe to an external system | `useEffect` with cleanup |
 | Survive embed navigation | State/context above `EmbedOutlet` |
-| Persist by Activity, user, guild, or channel | `useActivityStorage()` from `ludicord/activity` |
+| Persist by application, Activity instance, user, guild, or channel | `useActivityStorage()` from `ludicord/activity` |
 | Managed async server read | `useActivityQuery()` from `ludicord/activity` |
 | Discord participants and voice summary | `useActivityPresence()` from `ludicord/activity` |
 | Animation frames with hidden-tab handling | `useGameLoop()` from `ludicord/activity` |
@@ -53,17 +53,19 @@ export default function embed() {
 
 ## Framework-owned Activity state
 
-`useActivityStorage()` is browser persistence with explicit Activity/user/
-guild/channel scope. It is not a server database and must not store secrets.
+`useActivityStorage()` is browser persistence with `activity` (legacy
+default), `application`, `instance`, `user`, `guild`, or `channel` scope. It
+is not a server database and must not store secrets.
 
 `useActivityQuery()` manages bounded client-side async reads, including
 deduplication, stale times, retries, cancellation, refetch, and race safety.
 Authentication and authorization still belong in the API route.
 
 `useSharedActivityState()` is for compact, revision-checked values shared by
-the current verified Activity instance. It is bounded and may be process
-local. Use application-owned durable storage and the documented WebSocket
-adapter path for authoritative state, large payloads, history, or replicas.
+the current verified Activity instance. Its memory store is process-local.
+For replicas, pair an atomic `LudicordSharedStateStore` with a
+`LudicordWebSocketAdapter`. Use application-owned durable storage for
+authoritative state, large payloads, history, or restart recovery.
 
 Always verify exact hook options and return types against the declarations in
 the installed package; do not infer signatures from this conceptual guide.

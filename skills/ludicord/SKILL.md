@@ -3,7 +3,7 @@ name: ludicord
 description: "Build, modify, debug, review, or document Ludicord Discord Activities. Use for Activity roots, embeds, typed navigation, React state and effects, API or WebSocket routes, shared Activity state, Discord SDK data, participants, voice, authentication, security, configuration, development diagnostics, deployment, migration, and release compatibility."
 metadata:
   author: ludicord
-  version: "3.0.1"
+  version: "3.1.0"
 ---
 
 # Ludicord
@@ -89,7 +89,8 @@ correct/incorrect pairs and the public guide behind it.
   server helper and consumed with `ludicord/ws/client`. Emit only when open;
   register listeners in an effect and clean them up.
 - **Design for disposable server memory.** Module-level state resets on
-  hot-replacement and never spans replicas — use durable storage.
+  hot-replacement. Use the documented shared adapters for replicas and a
+  database for durable state.
 
 ### Discord Data → [discord-data.md](references/discord-data.md)
 
@@ -107,6 +108,11 @@ correct/incorrect pairs and the public guide behind it.
   session secrets, and bot tokens stay in server-only environment variables.
 - **Validate bodies and authorization on the server.** Never leak stack
   traces or filesystem paths in production responses.
+- **Keep launch isolation framework-owned.** Same-origin fetches and Ludicord
+  sockets carry the current launch automatically; never invent or accept a
+  launch, application, instance, guild, channel, or user ID from the client.
+- **Set production host/origin boundaries deliberately.** HTTP and WebSocket
+  routes share `server.allowedHosts` and `server.allowedOrigins`.
 - **Keep `ludicord.config.mjs` as the configuration source.** No Vite
   config — Vite is an internal compiler detail.
 
@@ -192,8 +198,9 @@ useEffect(() => ws.on("pong", handlePong), [ws]);
    Done when: every new or renamed embed, API, and socket appears in
    `ludicord routes` and no boundary in this file is crossed.
 4. **Recover in place for normal edits** — fix the first diagnostic at its
-   source and let hot-replacement recover; restart dev only for config, env,
-   dependency, or OAuth-scope changes.
+   source and let hot-replacement recover. Config and supported env changes
+   perform a controlled restart; start a fresh command only after dependency
+   or framework installation changes, and re-authorize after OAuth-scope changes.
    Done when: the dev overlay/terminal compilation is clean with no restart
    beyond the restart-only causes.
 5. **Validate like production** — run the applicable sequence in
@@ -233,7 +240,7 @@ npx create-ludicord-app@latest my-activity --tailwind # scripted styling choice
 npx create-ludicord-app@latest my-activity --no-tailwind
 ```
 
-Generated 3.0.1 projects intentionally include only `dev`, `build`, and
+Generated 3.1.0 projects intentionally include only `dev`, `build`, and
 `start` scripts. Run advanced commands with the project's package runner.
 
 ## Detailed References

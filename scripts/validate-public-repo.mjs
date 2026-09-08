@@ -28,12 +28,33 @@ function expectedEntrypoints(pkg) {
     }));
 }
 
+function validateStagedRelease(version) {
+  const directory = path.join(root, ".release", `v${version}`);
+  const manifestFile = path.join(directory, "manifest.json");
+  assert.ok(existsSync(manifestFile), `Missing staged manifest for ${version}`);
+  const manifest = JSON.parse(readFileSync(manifestFile, "utf8"));
+  assert.equal(manifest.schema, 1);
+  assert.equal(manifest.version, version);
+  assert.equal(manifest.notes, "CHANGELOG.md");
+  assert.deepEqual(manifest.packages.map(({ name }) => name), ["ludicord", "create-ludicord-app"]);
+  assert.ok(existsSync(path.join(directory, manifest.notes)), `Missing staged notes for ${version}`);
+  for (const item of manifest.packages) {
+    assert.equal(item.version, version);
+    assert.equal(item.filename, `${item.name}-${version}.tgz`);
+    assert.ok(existsSync(path.join(directory, item.filename)), `Missing staged tarball: ${item.filename}`);
+    assert.equal(json("packages", item.name, "package.json").version, version, `${item.name} record is stale`);
+  }
+}
+
 function validateCurrentRelease() {
   const version = json(".release", "current.json").version;
   assert.match(version, stableVersion);
   const major = version.split(".", 1)[0];
   const note = path.join(root, "releases", `v${major}`, `${version}.md`);
-  assert.ok(existsSync(note), `Missing release notes for ${version}`);
+  if (!existsSync(note)) {
+    validateStagedRelease(version);
+    return;
+  }
   for (const name of ["ludicord", "create-ludicord-app"]) {
     assert.equal(json("packages", name, "package.json").version, version, `${name} record is stale`);
   }

@@ -93,13 +93,16 @@ if (ws.status === "open") ws.emit("ping", payload); // emit only when open
 - Connections require a valid Ludicord session.
 - `useWS(route, options)` returns `status` (`connecting`, `open`,
   `reconnecting`, `closed`, `error`), `emit`, `on`, `off`, `close`, and
-  `reconnect`, with bounded exponential reconnection.
+  `reconnect`, and `emitWithAck`, with bounded exponential reconnection.
+- Use `emitWithAck()` when UI flow needs confirmation that the matched server
+  handler completed. It can reject on handler error, close, or timeout; it is
+  not a substitute for an application transaction or idempotency key.
 - Register listeners in an effect and return the cleanup. Messages are not
   buffered while disconnected.
 - The wire protocol uses versioned JSON event envelopes. Ludicord rejects
-  malformed messages and reserved internal event names, limits payload size
-  and backpressure, sends heartbeat pings, and cleans up clients and rooms
-  on disconnect.
+  malformed messages and reserved internal event names, limits payload size,
+  inbound message/byte rates, and outbound backpressure, sends heartbeat
+  pings, and cleans up clients and rooms on disconnect.
 - All WebSocket upgrades share the Activity HTTP server; no second port.
 
 ## Activity rooms
@@ -121,6 +124,12 @@ connect(client) {
   isolated from each other.
 - A broadcast never trusts a client-provided application or instance
   identifier; those values come from the encrypted server session.
+- `client.activity.broadcast()` is instance-safe; named `client.room`
+  membership adds a narrower scope. Use explicit `client.route.broadcast()`
+  only when every authenticated client on that route should receive data.
+- Handler `server.*.clientCount()` values are local. The asynchronous
+  `totalClientCount()` methods can use a `LudicordWebSocketAdapter` to count
+  across replicas.
 - Leave/broadcast behaviour is also available in `disconnect`. Ludicord
   removes all room membership when a socket closes, fails heartbeat checks,
   or violates payload/backpressure limits.
@@ -141,5 +150,6 @@ server module graph in place. The HTTP process and port keep running:
   multi-instance state.
 - Browser embed edits use React Refresh and normally preserve component
   state when hook signatures stay compatible.
-- Restart dev only for configuration, environment, dependency, or OAuth
-  scope changes — never for normal route or embed edits.
+- Config and supported environment edits perform a controlled restart. Start
+  a fresh command after dependency/framework installation changes, and
+  re-authorize after OAuth scope changes.

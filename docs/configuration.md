@@ -25,7 +25,8 @@ Client ID may come from `LUDICORD_DISCORD_CLIENT_ID`. Keep secrets in server env
 | `discord.auth.required` | `true` | Require login for the Activity |
 | `discord.auth.session` | `"encrypted-cookie"` | Supported session mechanism |
 | `discord.auth.proxyVerification` | `false` | Enable optional signed-request verification |
-| `discord.auth.activityInstanceVerification` | `false` | Enable optional REST instance verification |
+| `discord.auth.activityInstanceVerification` | `"auto"` | Verify through REST when a bot token is available; `true` requires it |
+| `discord.auth.activityInstanceCacheTtlMs` | `30000` | Bounded successful verification cache |
 | `activity.defaultEmbed` | `"home"` | Initial registered embed |
 | `activity.outsideDiscord` | `"error"` | `error`, `allow` or `mock` outside Discord |
 
@@ -38,7 +39,10 @@ Allow mode does not fabricate Discord identity. Mock mode is for development/tes
 | `server.port` | `3000` | Listening port |
 | `server.host` | `"0.0.0.0"` | Listening interface |
 | `server.allowedHosts` | `true` | All hosts, or an explicit hostname list |
+| `server.allowedOrigins` | `"same-origin"` | Browser origins accepted by HTTP and WebSocket routes |
 | `server.limits.body` | `"2mb"` | HTTP request body limit |
+| `server.requestTimeout` | `30000` | Maximum API handler duration |
+| `server.shutdownTimeout` | `10000` | Graceful shutdown limit |
 
 Use an explicit host list when appropriate. CLI host/port flags override environment values; `HOST` and `PORT` override configured defaults.
 
@@ -50,11 +54,16 @@ All durations below are milliseconds.
 | --- | --- | --- |
 | `websocket.enabled` | `true` | Enable WebSockets |
 | `websocket.heartbeatInterval` | `30000` | Heartbeat interval |
-| `websocket.maxPayload` | `1048576` | Maximum message size, bytes |
+| `websocket.maxPayload` | `262144` | Maximum message size, bytes |
 | `websocket.compression` | `false` | Enable compression |
+| `websocket.maxMessagesPerSecond` | `120` | Per-client inbound message rate |
+| `websocket.maxBytesPerSecond` | `524288` | Per-client inbound byte rate |
+| `websocket.backpressureLimit` | `524288` | Buffered bytes before slow-client handling |
+| `websocket.backpressureStrategy` | `"queue-latest"` | Coalesce latest values or use `"close"` |
+| `websocket.maxQueuedMessages` | `64` | Maximum coalesced outbound values |
 | `websocket.reconnect.enabled` | `true` | Client reconnection |
 | `websocket.reconnect.attempts` | `10` | Maximum attempts per reconnect cycle |
 | `websocket.reconnect.initialDelay` | `500` | Initial exponential-backoff delay |
 | `websocket.reconnect.maxDelay` | `10000` | Maximum backoff delay |
 
-Invalid supported configuration values produce diagnostics. Restart development after configuration changes. Renew authorization when changing OAuth scopes.
+Invalid supported configuration values produce diagnostics. Config and supported environment-file edits perform a controlled development restart. Start a fresh command after dependency/framework installation changes, and renew authorization when changing OAuth scopes.

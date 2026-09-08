@@ -9,6 +9,15 @@ LUDICORD_DISCORD_CLIENT_SECRET=
 LUDICORD_SESSION_SECRET=
 LUDICORD_DISCORD_PUBLIC_KEY=
 # LUDICORD_DISCORD_BOT_TOKEN=
+
+# Optional local identities used only by ludicord dev:
+# LUDICORD_DEV_USER_ID=local-development-user
+# LUDICORD_DEV_USERNAME=local_player
+# LUDICORD_DEV_DISPLAY_NAME=Local Player
+# LUDICORD_DEV_INSTANCE_ID=local-development-instance
+# LUDICORD_DEV_GUILD_ID=
+# LUDICORD_DEV_CHANNEL_ID=
+# LUDICORD_DEV_SCOPES=identify
 ```
 
 - `LUDICORD_DISCORD_CLIENT_ID` is the public Discord application/client ID and may reach the client bundle.
@@ -16,5 +25,6 @@ LUDICORD_DISCORD_PUBLIC_KEY=
 - `LUDICORD_SESSION_SECRET` encrypts and authenticates session state. Use at least 32 random characters and keep it server-only.
 - `LUDICORD_DISCORD_PUBLIC_KEY` enables optional Ed25519 proxy-request verification.
 - `LUDICORD_DISCORD_BOT_TOKEN` is optional and is used for REST Activity Instance verification and permission-gated guild/channel/member lookups. It never starts a Gateway or bot runtime.
+- `LUDICORD_DEV_*` values customize the fake identity created by `ludicord dev`. Production never accepts a development session.
 
 Use `.env.local` for local secrets and keep it out of source control. Commit only `.env.example` with empty values. `ludicord build` scans client output for actual server secret values and fails if one leaked.

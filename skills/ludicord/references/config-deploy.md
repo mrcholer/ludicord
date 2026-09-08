@@ -36,12 +36,17 @@ Key settings:
 | `discord.auth.required` | `true` | Require login for the Activity |
 | `discord.auth.session` | `"encrypted-cookie"` | Supported session mechanism |
 | `discord.auth.proxyVerification` | `false` | Signed-request verification |
-| `discord.auth.activityInstanceVerification` | `false` | REST instance verification |
+| `discord.auth.activityInstanceVerification` | `"auto"` | REST verification when a bot token is available; `true` requires it |
 | `activity.defaultEmbed` | `"home"` | Initial registered embed |
 | `activity.outsideDiscord` | `"error"` | `error`, `allow`, or `mock` outside Discord |
 | `server.port` / `server.host` | `3000` / `"0.0.0.0"` | Listening port/interface |
 | `server.allowedHosts` | `true` | All hosts or an explicit list |
+| `server.allowedOrigins` | `"same-origin"` | Browser origins allowed for HTTP and WebSockets |
 | `server.limits.body` | `"2mb"` | HTTP request body limit |
+| `websocket.maxPayload` | `262144` | Per-message byte limit |
+| `websocket.maxMessagesPerSecond` | `120` | Per-client inbound event limit |
+| `websocket.maxBytesPerSecond` | `524288` | Per-client inbound byte limit |
+| `websocket.backpressureStrategy` | `"queue-latest"` | Coalesce latest values or close slow clients |
 
 Allow mode does not fabricate Discord identity. Mock mode is for
 development/testing, never a substitute for production authentication.
@@ -102,6 +107,11 @@ Deploy to Node.js 20.19+ with long-lived HTTP upgrades for WebSockets:
   iframe origin, not just a direct server URL.
 - Never hand-edit `.ludicord/` or build output; regenerate with the
   framework.
+- Multiple replicas need shared `LudicordSessionDataStore`,
+  `LudicordEphemeralTokenStore`, and `LudicordWebSocketAdapter`
+  implementations. Shared Activity state additionally needs an atomic
+  `LudicordSharedStateStore`; durable application data still belongs in a
+  database.
 
 ## Troubleshooting
 

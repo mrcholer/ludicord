@@ -19,9 +19,10 @@ SDK ready → authorize → /_ludicord/auth/exchange
   `useLudicordSession()` from `ludicord/auth` for safe identity and Activity
   context (user, guild, channel, instance, scopes, expiry) — never duplicate
   SDK login in page components.
-- `authenticateLudicord` and `logoutLudicord` cover explicit login/logout
-  actions; `useAuthStatus` and `useAuthError` cover state. Failed logins are
-  retryable; logout clears all auth cookies.
+- `authenticateLudicord`, `renewLudicordSession`, and `logoutLudicord` cover
+  explicit auth actions; `useAuthStatus` and `useAuthError` cover state.
+  Automatic renewal preserves a still-valid session during a temporary
+  failure and schedules a bounded retry.
 - Raw OAuth tokens, the Client Secret, and the Session Secret never reach
   public stores.
 
@@ -32,8 +33,12 @@ Session mechanics that constrain deployments:
   expiry.
 - The exchange issues only a two-minute pending cookie: APIs and WebSockets
   reject it. A one-time confirmation creates the usable session.
-- OAuth state and pending confirmations are bounded, process-local stores —
-  multi-replica deployments need sticky routing for the login handshake.
+- Auth cookies are scoped to an opaque per-launch ID. Same-origin fetches and
+  Ludicord sockets attach it automatically, so simultaneous Activity launches
+  in one browser do not overwrite each other.
+- OAuth state and pending confirmations use bounded process-local storage by
+  default. Multi-replica deployments should pass a shared
+  `LudicordEphemeralTokenStore` with atomic one-time `consume()` semantics.
 - Development fake sessions are explicitly marked and always rejected by
   production, even with the same encryption secret.
 - Authentication never begins before the SDK is ready; a failed SDK
@@ -51,6 +56,8 @@ LUDICORD_DISCORD_CLIENT_SECRET=
 LUDICORD_SESSION_SECRET=
 LUDICORD_DISCORD_PUBLIC_KEY=
 # LUDICORD_DISCORD_BOT_TOKEN=
+# LUDICORD_DEV_USER_ID=local-development-user
+# LUDICORD_DEV_INSTANCE_ID=local-development-instance
 ```
 
 | Variable | Visibility | Purpose |
@@ -76,6 +83,8 @@ LUDICORD_DISCORD_PUBLIC_KEY=
   request bodies — use the encrypted `request.ludicord` context.
 - Validate request bodies and authorization on the server. Production
   responses never leak stack traces or filesystem paths.
+- `server.allowedOrigins` defaults to same-origin (including port), and the
+  host/origin policy protects both HTTP and WebSocket entry points.
 
 Optional verifications (both fail closed):
 
@@ -83,9 +92,10 @@ Optional verifications (both fail closed):
   `LUDICORD_DISCORD_PUBLIC_KEY`): missing, malformed, stale, or invalid
   Ed25519 signatures fail. `request.verification.discordProxy` becomes
   `verified` only after successful cryptographic verification.
-- **Activity Instance verification**
-  (`discord.auth.activityInstanceVerification` with
-  `LUDICORD_DISCORD_BOT_TOKEN`): checked against Discord's REST Activity
+- **Activity Instance verification** (`discord.auth.activityInstanceVerification`
+  with `LUDICORD_DISCORD_BOT_TOKEN`) defaults to `"auto"`; a configured bot
+  token activates it. Setting it to `true` requires it and fails auth closed.
+  Verification uses Discord's REST Activity
   Instance endpoint, cached briefly and bounded without bypassing rate
   limits. Sessions receive `activityInstanceVerified: true` only after
   success.

@@ -29,9 +29,9 @@ looks environmental.
 - In development, correct source errors and let the overlay and terminal
   compilation recover; do not restart for normal TSX, API, or WebSocket
   edits. A failed hot-replacement keeps the previous working route.
-- Restart after changing `ludicord.config.mjs`, `.env.local`, dependencies,
-  the installed Ludicord version, or Discord OAuth scopes (and re-authorize
-  for scope changes).
+- Let the controlled dev restart handle `ludicord.config.mjs` and supported
+  environment-file edits. Start a fresh command after dependency or installed
+  framework changes, and re-authorize for Discord OAuth scope changes.
 - Use `ludicord routes` to confirm every new or renamed embed, API, and
   socket; a stale generated type means dev was stopped mid-change.
 - Use the production build's client-secret scan and review environment output

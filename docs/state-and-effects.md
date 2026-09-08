@@ -13,7 +13,7 @@ Ludicord is React, so ordinary React state is the first choice for ordinary inte
 | Derived display value | Calculate during render; use `useMemo` only when useful |
 | External subscription, timer, browser API, socket listener | `useEffect` with cleanup |
 | State that survives embed navigation | State or context above `EmbedOutlet` |
-| Browser persistence scoped to an Activity, user, guild, or channel | `useActivityStorage` |
+| Browser persistence scoped to an application, instance, user, guild, or channel | `useActivityStorage` |
 | Managed async read with cache, retry, timeout, and cancellation | `useActivityQuery` |
 | Participants and voice summary | `useActivityPresence` |
 | Visibility/focus/online/Discord/socket readiness | `useActivityLifecycle` |
@@ -77,7 +77,7 @@ export default function embed() {
 }
 ```
 
-Available scopes are `activity`, `user`, `guild`, and `channel`. The hook exposes `value`, `key`, `available`, `setValue`, and `remove`. This is browser storage, not a secure database: never store credentials or authoritative game state in it.
+Available scopes are `activity` (the backward-compatible default), `application`, `instance`, `user`, `guild`, and `channel`. Identity scopes become available only after Discord provides the required identity. The hook exposes `value`, `key`, `available`, `setValue`, and `remove`. This is browser storage, not a secure database: never store credentials or authoritative game state in it.
 
 ## Managed async reads
 
@@ -112,7 +112,7 @@ export default function embed() {
 }
 ```
 
-Shared Activity state is bounded, revision-checked, and isolated by the verified application and Activity instance. Use it for small collaborative values. Use durable application storage for large payloads, history, leader election, payments, or any state that must survive restarts and multiple replicas.
+Shared Activity state is bounded, revision-checked, and isolated by the verified application and Activity instance. Its default store is process-local. Multi-process deployments pair an atomic `LudicordSharedStateStore` with a `LudicordWebSocketAdapter` for cross-process notifications. Use durable application storage for large payloads, history, leader election, payments, or any state that must survive restarts.
 
 ## Verify exact types
 

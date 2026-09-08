@@ -20,6 +20,16 @@ export default defineWS({
 });
 ```
 
-Connect from React with `useWS("/ws/presence")` from `ludicord/ws/client`. Connections require a valid Ludicord session. The client exposes `status`, `emit`, `on`, `off`, `close`, and `reconnect` with bounded exponential reconnection.
+Connect from React with `useWS("/ws/presence")` from `ludicord/ws/client`. Connections require a valid Ludicord session. The client exposes `status`, `emit`, `emitWithAck`, `on`, `off`, `close`, and `reconnect` with bounded exponential reconnection. It reconnects when the Activity becomes visible or returns online after the normal retry budget was exhausted.
 
-The wire protocol uses versioned JSON event envelopes. Ludicord rejects malformed messages and reserved internal event names, limits payload size and backpressure, sends heartbeat pings, and cleans up clients and rooms on disconnect. All WebSocket upgrades share the Activity HTTP server; no second port is created.
+Use `emitWithAck()` when the UI must know that the server handler completed:
+
+```tsx
+await socket.emitWithAck("save", draft, { timeout: 5_000 });
+```
+
+The promise resolves after the handler succeeds. It rejects when the handler rejects, the connection closes, or the acknowledgement times out. This confirms handler completion; it does not replace database transactions or application idempotency keys.
+
+Defaults limit each message to 256 KiB, each client to 120 messages and 512 KiB of inbound data per second, and buffered outbound data to 512 KiB. Slow outbound clients use bounded `queue-latest` coalescing by default; set `websocket.backpressureStrategy` to `"close"` when dropping them is safer. Heartbeats remove dead or expired sessions, and disconnect cleanup removes every room membership.
+
+All WebSocket upgrades share the Activity HTTP server and its host/origin policy. For multiple Node processes, pass a `LudicordWebSocketAdapter` to `createLudicordProductionServer()` for pub/sub and total room counts. A `LudicordSharedStateStore` separately provides atomic revisions to `defineSharedActivityState()` routes.

@@ -13,3 +13,18 @@ Deploy Ludicord to a Node.js 20.19+ environment that supports long-lived HTTP up
 6. Serve the public origin over HTTPS and configure that hostname in Discord Activity URL Mapping.
 
 Do not place a CDN cache in front of `/_ludicord/auth`, authenticated `/api/*`, or `/ws/*`. If a reverse proxy terminates TLS, preserve the host/protocol headers and WebSocket upgrade headers. Sessions use secure partitioned cookies in production, so test the final iframe origin rather than only a direct server URL.
+
+The built-in session, OAuth-token, WebSocket, and shared-state implementations are process-local. Multiple replicas should use a custom launcher:
+
+```ts
+import { createLudicordProductionServer } from "ludicord/runtime/server";
+
+const server = await createLudicordProductionServer({
+  projectRoot: process.cwd(),
+  sessionDataStore,
+  ephemeralTokenStore,
+  websocketAdapter,
+});
+```
+
+Use `LudicordSessionDataStore` for complete Discord `.raw` data, `LudicordEphemeralTokenStore` for atomic OAuth state/completion consumption, and `LudicordWebSocketAdapter` for cross-process delivery and total counts. Pass a `LudicordSharedStateStore` directly to `defineSharedActivityState()` for atomic state revisions. Route shutdown signals through `server.close()` so requests, sockets, and instrumentation drain cleanly.

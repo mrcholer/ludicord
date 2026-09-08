@@ -27,7 +27,7 @@ npx ludicord start --port 3000
 
 Use `npx ludicord` inside an application where the package is already installed. Review diagnostics before sharing them publicly.
 
-Generated 3.0.1 projects intentionally keep only `dev`, `build`, and `start` in `package.json`. Run advanced commands through the project's package runner, for example `pnpm exec ludicord routes` or `npx ludicord lint`. Use `ludicord --help` as the authority for flags supported by the installed version.
+Generated 3.1.0 projects intentionally keep only `dev`, `build`, and `start` in `package.json`. Run advanced commands through the project's package runner, for example `pnpm exec ludicord routes` or `npx ludicord lint`. Use `ludicord --help` as the authority for flags supported by the installed version.
 
 ## Project generator
 

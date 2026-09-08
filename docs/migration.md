@@ -1,15 +1,15 @@
-# Upgrading to Ludicord 3.0.1
+# Upgrading to Ludicord 3.1.0
 
 > Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
 
-Both packages are published at 3.0.1. Check your current versions:
+Both packages are published at 3.1.0. Check your current versions:
 
 ```bash
 npm view ludicord version
 npm view create-ludicord-app version
 ```
 
-Update an existing application's framework dependency with `npm install ludicord@3.0.1` (or your package-manager equivalent), update its lockfile, and create a fresh production build. The generator is for new projects; do not run it over an existing non-empty application.
+Update an existing application's framework dependency with `npm install ludicord@3.1.0` (or your package-manager equivalent), update its lockfile, and create a fresh production build. The generator is for new projects; do not run it over an existing non-empty application.
 
 ## Review your application
 
@@ -24,6 +24,9 @@ Update an existing application's framework dependency with `npm install ludicord
 9. Replace direct browser routing with `useEmbedRouter()` and generated route types. Ludicord 3 synchronizes valid embed hashes with browser history while keeping the Activity pathname stable.
 10. Remove `ludicord doctor` from scripts and automation. Generated projects expose only `dev`, `build`, and `start`; use `routes`, `lint`, `analyze`, `info`, and `clean` as documented advanced CLI commands.
 11. Never import `ludicord/internal`. Use a documented public entry point and verify exact signatures against the installed declarations.
+12. Cross-origin callers must be explicit in `server.allowedOrigins`; the new default is `"same-origin"`, including the port. Configure production/tunnel hostnames with `server.allowedHosts` when possible.
+13. Review WebSocket traffic against the 256 KiB message and 512 KiB-per-second defaults. Prefer Activity-scoped broadcasts and use `client.route.broadcast()` only for deliberate route-wide delivery.
+14. Multi-process deployments should provide shared session, one-time OAuth token, WebSocket, and shared-state adapters. The built-in memory implementations remain single-process.
 
 ## Verify before deployment
 
@@ -34,4 +37,4 @@ Update an existing application's framework dependency with `npm install ludicord
 - Multiple users and separate Activity instances remain isolated.
 - Reverse proxy and HTTPS support secure iframe cookies and WebSocket upgrades.
 
-Back up your current lockfile and keep the last deployable build for rollback. Review the [3.0.0 framework changes](../releases/v3/3.0.0.md), [3.0.1 patch notes](../releases/v3/3.0.1.md), [security](security.md), and [deployment](deployment.md).
+Back up your current lockfile and keep the last deployable build for rollback. Review the [3.0.0 framework changes](../releases/v3/3.0.0.md), [3.0.1 patch notes](../releases/v3/3.0.1.md), [3.1.0 release notes](../releases/v3/3.1.0.md), [security](security.md), and [deployment](deployment.md).
