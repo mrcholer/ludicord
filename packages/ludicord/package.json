@@ -1,6 +1,6 @@
 {
   "name": "ludicord",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Full-stack React framework for Discord Activities.",
   "homepage": "https://github.com/mrcholer/ludicord#readme",
   "repository": {
@@ -100,11 +100,6 @@
       "types": "./dist/runtime/server/index.d.ts",
       "import": "./dist/runtime/server/index.js",
       "default": "./dist/runtime/server/index.js"
-    },
-    "./internal": {
-      "types": "./dist/runtime/client/root.d.ts",
-      "import": "./dist/runtime/client/root.js",
-      "default": "./dist/runtime/client/root.js"
     },
     "./testing": {
       "types": "./dist/testing/index.d.ts",
