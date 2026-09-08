@@ -90,10 +90,13 @@ export function sanitizeReleaseNotes(source) {
 }
 
 function command(executable, args, cwd = root) {
-  const result = spawnSync(executable, args, {
+  const npmCli = path.join(path.dirname(process.execPath), "node_modules", "npm", "bin", "npm-cli.js");
+  const commandName = process.platform === "win32" && executable === "npm" ? process.execPath : executable;
+  const commandArgs = process.platform === "win32" && executable === "npm" ? [npmCli, ...args] : args;
+  const result = spawnSync(commandName, commandArgs, {
     cwd,
     encoding: "utf8",
-    shell: process.platform === "win32",
+    shell: false,
     env: process.env,
     timeout: 300000,
     maxBuffer: 16 * 1024 * 1024,
@@ -242,14 +245,152 @@ function longDate() {
 
 function changelogEntry(version, notes) {
   const body = notes.replace(/^# .*\r?\n+/, "").trim();
-  return `## ${version} — ${longDate()}\n\n${body}\n\n[GitHub release](${PUBLIC_REPOSITORY}/releases/tag/v${version}) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/${version}) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/${version})`;
+  const major = releaseVersion(version).split(".", 1)[0];
+  return `## ${version} — ${longDate()}\n\n${body}\n\n[GitHub release](${PUBLIC_REPOSITORY}/releases/tag/v${version}) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/${version}) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/${version})\n\n[Full release notes](releases/v${major}/${version}.md)`;
+}
+
+export function releaseNotesPath(version) {
+  const stable = releaseVersion(version);
+  const major = stable.split(".", 1)[0];
+  return path.join("releases", `v${major}`, `${stable}.md`);
+}
+
+function writeMajorReleaseIndex(version) {
+  const stable = releaseVersion(version);
+  const major = stable.split(".", 1)[0];
+  const directory = path.join(root, "releases", `v${major}`);
+  const versions = readdirSync(directory)
+    .filter((file) => /^\d+\.\d+\.\d+\.md$/.test(file))
+    .map((file) => file.slice(0, -3))
+    .sort((left, right) => compareVersions(right, left));
+  const entries = versions.map((item) => `- [Ludicord ${item}](${item}.md)`).join("\n");
+  writeFileSync(
+    path.join(directory, "README.md"),
+    `# Ludicord v${major} releases\n\n${entries}\n\n[All releases](../README.md) · [Published packages](../published.md)\n`,
+  );
+}
+
+function releaseSummary(notes) {
+  return notes
+    .replace(/^# .*\r?\n+/, "")
+    .split(/\r?\n## /, 1)[0]
+    .trim();
+}
+
+function writeReleaseOverview(version, notes) {
+  const major = releaseVersion(version).split(".", 1)[0];
+  const summary = releaseSummary(notes);
+  writeFileSync(
+    path.join(root, "releases", "latest.md"),
+    `# Latest Ludicord release
+
+The latest synchronized public release is **Ludicord ${version}**, published for both \`ludicord\` and \`create-ludicord-app\`.
+
+## Install
+
+Create a new Activity:
+
+\`\`\`bash
+npx create-ludicord-app@latest my-activity
+\`\`\`
+
+Update an existing Activity:
+
+\`\`\`bash
+npm install ludicord@${version}
+\`\`\`
+
+Use the equivalent command for the project's existing package manager and commit the updated lockfile.
+
+## Release summary
+
+${summary}
+
+## Release records
+
+- [Ludicord ${version} notes](v${major}/${version}.md)
+- [Ludicord v${major} archive](v${major}/README.md)
+- [Published package links](published.md)
+- [Migration guide](../docs/migration.md)
+- [Machine-readable compatibility data](../types/README.md)
+
+The npm registry is authoritative for installable versions. Features planned for a later release are not part of ${version} until matching packages are published.
+`,
+  );
+}
+
+function writeReleaseRootIndex(version) {
+  const stable = releaseVersion(version);
+  const currentMajor = stable.split(".", 1)[0];
+  const majorLinks = readdirSync(path.join(root, "releases"), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && /^v\d+$/.test(entry.name))
+    .map((entry) => entry.name.slice(1))
+    .sort((left, right) => Number(right) - Number(left))
+    .map((major) => `- [Ludicord v${major} release archive](v${major}/README.md).`)
+    .join("\n");
+  writeFileSync(
+    path.join(root, "releases", "README.md"),
+    `# Releases
+
+- [Latest release overview](latest.md).
+- [Ludicord ${stable} release notes](v${currentMajor}/${stable}.md).
+${majorLinks}
+- [Published version list and dates](../CHANGELOG.md).
+- [GitHub release records](${PUBLIC_REPOSITORY}/releases).
+- [Current published packages](published.md).
+- [Migration guide](../docs/migration.md).
+
+The npm registry is authoritative for installable versions. Public release payloads contain the same compiled package files distributed through npm; original TypeScript, source maps, credentials and private application code are excluded.
+`,
+  );
+}
+
+function packageTypeRecord(pkg) {
+  const unsupported = new Set(["./internal", "./package.json"]);
+  const typeEntrypoints = Object.entries(pkg.exports ?? {})
+    .filter(([specifier, target]) => !unsupported.has(specifier) && typeof target?.types === "string")
+    .map(([specifier, target]) => ({
+      specifier: specifier === "." ? pkg.name : `${pkg.name}/${specifier.slice(2)}`,
+      declaration: target.types,
+    }));
+  return {
+    name: pkg.name,
+    version: pkg.version,
+    node: pkg.engines?.node,
+    peerDependencies: pkg.peerDependencies ?? {},
+    typeEntrypoints,
+  };
+}
+
+function writeTypeRecords(release) {
+  const major = release.version.split(".", 1)[0];
+  const packages = release.manifest.packages.map((item) => {
+    const tarball = path.join(release.directory, item.filename);
+    return packageTypeRecord(JSON.parse(tarText(tarball, "package/package.json")));
+  });
+  const record = {
+    schema: 1,
+    status: "published",
+    version: release.version,
+    releaseNotes: `${PUBLIC_REPOSITORY}/blob/main/releases/v${major}/${release.version}.md`,
+    packages,
+    generatedProjectDeclarations: ["ludicord-env.d.ts", "ludicord.generated.d.ts"],
+    unsupportedApplicationImports: ["ludicord/internal"],
+  };
+  const directory = path.join(root, "types", `v${major}`);
+  mkdirSync(directory, { recursive: true });
+  const serialized = `${JSON.stringify(record, null, 2)}\n`;
+  writeFileSync(path.join(directory, `${release.version}.json`), serialized);
+  writeFileSync(path.join(root, "types", "latest.json"), serialized);
 }
 
 function finalize() {
   if (process.env.GITHUB_ACTIONS === "true") assertIdentity(process.env);
   const release = loadRelease();
-  mkdirSync(path.join(root, "releases"), { recursive: true });
-  writeFileSync(path.join(root, "releases", `${release.version}.md`), release.notes);
+  const notesPath = releaseNotesPath(release.version);
+  mkdirSync(path.dirname(path.join(root, notesPath)), { recursive: true });
+  writeFileSync(path.join(root, notesPath), release.notes);
+  writeMajorReleaseIndex(release.version);
 
   for (const item of release.manifest.packages) {
     const packageDirectory = path.join(root, "packages", item.name);
@@ -277,8 +418,11 @@ function finalize() {
   }
   writeFileSync(
     path.join(root, "releases", "published.md"),
-    `# Published packages\n\nCurrent synchronized release: **${release.version}**.\n\n- [ludicord ${release.version}](https://www.npmjs.com/package/ludicord/v/${release.version})\n- [create-ludicord-app ${release.version}](https://www.npmjs.com/package/create-ludicord-app/v/${release.version})\n- [Release notes](./${release.version}.md)\n\nPackage metadata and tarball integrity are verified before this file is updated.\n`,
+    `# Published packages\n\nCurrent synchronized release: **${release.version}**.\n\n- [ludicord ${release.version}](https://www.npmjs.com/package/ludicord/v/${release.version})\n- [create-ludicord-app ${release.version}](https://www.npmjs.com/package/create-ludicord-app/v/${release.version})\n- [Release notes](v${release.version.split(".", 1)[0]}/${release.version}.md)\n\nPackage metadata and tarball integrity are verified before this file is updated.\n`,
   );
+  writeReleaseOverview(release.version, release.notes);
+  writeReleaseRootIndex(release.version);
+  writeTypeRecords(release);
   for (const file of readdirSync(path.join(root, "docs"))) {
     if (!file.endsWith(".md")) continue;
     const documentationFile = path.join(root, "docs", file);
@@ -289,10 +433,6 @@ function finalize() {
     );
     if (updated !== current) writeFileSync(documentationFile, updated);
   }
-  writeFileSync(
-    path.join(root, "releases", "README.md"),
-    `# Releases\n\n- [Current ${release.version} release notes](./${release.version}.md).\n- [Published version list and dates](../CHANGELOG.md).\n- [GitHub release records](${PUBLIC_REPOSITORY}/releases).\n- [Current published packages](published.md).\n- [Migration guide](../docs/migration.md).\n\nThe npm registry is authoritative for installable versions. Public release payloads contain the same compiled package files distributed through npm; original TypeScript, source maps, credentials and private application code are excluded.\n`,
-  );
   console.log(`Updated public release records for ${release.version}`);
 }
 

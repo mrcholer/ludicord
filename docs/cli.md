@@ -12,7 +12,8 @@ Run commands through your generated package scripts or the locally installed `lu
 | `ludicord build` | Validate, typecheck and produce a production build |
 | `ludicord start` | Serve an existing production build |
 | `ludicord routes` | List discovered routes |
-| `ludicord doctor` | Diagnose configuration and build issues |
+| `ludicord lint` | Validate React Hooks usage in Activity source |
+| `ludicord analyze` | Inspect the latest production bundle report |
 | `ludicord info` | Show environment/project information |
 | `ludicord clean` | Remove generated `.ludicord` build/cache output |
 
@@ -25,6 +26,8 @@ npx ludicord start --port 3000
 ```
 
 Use `npx ludicord` inside an application where the package is already installed. Review diagnostics before sharing them publicly.
+
+Generated 3.0.1 projects intentionally keep only `dev`, `build`, and `start` in `package.json`. Run advanced commands through the project's package runner, for example `pnpm exec ludicord routes` or `npx ludicord lint`. Use `ludicord --help` as the authority for flags supported by the installed version.
 
 ## Project generator
 

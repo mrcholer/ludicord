@@ -9,4 +9,4 @@ Optional Discord proxy verification uses Ed25519 with `LUDICORD_DISCORD_PUBLIC_K
 
 Optional Activity Instance verification uses `LUDICORD_DISCORD_BOT_TOKEN` against Discord's REST Activity Instance endpoint. Successful checks are cached briefly and bounded; rate limits are not bypassed. The same server-only token can enable permission-gated guild/channel/member REST lookups. It never starts a Gateway connection or bot runtime. Sessions receive `activityInstanceVerified: true` only after success.
 
-Never trust user, guild, channel, application, or instance IDs from request bodies. Use the encrypted `request.ludicord` context. Rotate a secret immediately if `ludicord doctor` or the build secret scanner reports exposure.
+Never trust user, guild, channel, application, or instance IDs from request bodies. Use the encrypted `request.ludicord` context. Rotate a secret immediately if the production build scanner or another trusted diagnostic reports exposure.

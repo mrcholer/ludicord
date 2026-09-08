@@ -3,13 +3,16 @@
 > Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
 
 
-Run these first:
+Run the checks relevant to the failure:
 
 ```bash
-ludicord doctor
 ludicord routes
 ludicord info
+ludicord lint
+ludicord build
 ```
+
+Start with the first mapped compile diagnostic rather than restarting repeatedly. Normal embed, API, and WebSocket edits should recover after a successful recompile; the last working server graph remains active when a replacement compile fails.
 
 - `LUDICORD1001`: create `app/pages.tsx`.
 - `LUDICORD1002`: mount both `LudicordActivity` and `EmbedOutlet` in the Activity root.

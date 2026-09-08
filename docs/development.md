@@ -16,8 +16,8 @@ Server module-level memory resets when that graph is replaced. Use a database or
 
 Ludicord's development panel handles syntax, TypeScript, render, event-handler, promise, API, and WS errors. It shows file, line, column, source excerpt and optional stack, with dismiss/copy/retry controls. Saving corrected code clears recovered diagnostics. No development panel or client source maps are included in production builds; production fallbacks receive sanitized errors.
 
-`--open` opens the local preview; `--debug` adds server stack details; `--no-hmr` disables browser hot updates. Changes to framework installation, `ludicord.config.mjs`, or OAuth/environment configuration require restarting dev. API/WS and embed source edits do not.
+`--open` opens the local preview; `--debug` adds server stack details; `--no-hmr` disables browser hot updates. Ludicord 3 watches `ludicord.config.mjs` and supported development environment files and performs a controlled restart after they change. Restart manually after changing installed dependencies. Re-authorize Discord after changing OAuth scopes. API/WS and embed source edits recover without restarting the HTTP process.
 
 The compiler cache is isolated under each project's `.ludicord/cache`. Vite is still an internal compiler, not a separate developer-facing server. `vite.config.ts` is unnecessary and ignored. Tailwind is detected when `@tailwindcss/vite` is installed in the app.
 
-Run `ludicord doctor` to check configuration, environment, security warnings, port availability, build compatibility and secret leakage. Run `ludicord routes` to inspect discovered routes.
+Run `ludicord routes` to inspect discovered routes, `ludicord info` for environment and project details, `ludicord lint` for React Hooks rules, and `ludicord build` for the complete production validation and client-secret scan.

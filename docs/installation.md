@@ -27,4 +27,4 @@ pnpm add ludicord react react-dom
 pnpm add -D typescript @types/node @types/react @types/react-dom
 ```
 
-Add scripts for `ludicord dev`, `ludicord build`, and `ludicord start`, then create `app/pages.tsx` and at least one `app/embeds/<name>/embed.tsx`. `ludicord doctor` reports missing files, credentials, weak session secrets, stale builds, and unsafe client output.
+Add scripts for `ludicord dev`, `ludicord build`, and `ludicord start`, then create `app/pages.tsx` and at least one `app/embeds/<name>/embed.tsx`. Use `ludicord routes` to inspect discovery, `ludicord info` for project details, and `ludicord build` for the production validation and client-secret scan.

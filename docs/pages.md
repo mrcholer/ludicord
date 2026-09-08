@@ -17,7 +17,7 @@ export default function Pages() {
 }
 ```
 
-`LudicordActivity` initializes the official Discord Embedded App SDK, shared Discord event stores, authentication, safe-area variables, and the in-memory embed router once. Navigating between embeds replaces only the outlet; state placed above it remains mounted.
+`LudicordActivity` initializes the official Discord Embedded App SDK, shared Discord event stores, authentication, safe-area variables, and the embed router once. Navigating between embeds replaces only the outlet and synchronizes typed hash history; state placed above it remains mounted.
 
 The default embed must match a generated embed route. Optional `loading` and `errorFallback` props customize lazy-loading and recoverable render errors.
 

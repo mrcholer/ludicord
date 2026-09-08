@@ -14,8 +14,9 @@ maintaining multiple copies of the same framework knowledge.
 | OpenAI Codex and AGENTS.md-aware agents | `AGENTS.md` | Repository-wide instructions. |
 | Claude Code | `CLAUDE.md` | Routes Claude to `AGENTS.md` and the canonical Ludicord skill. |
 | Gemini CLI | `GEMINI.md` and `.agents/skills/ludicord/SKILL.md` | Gemini CLI supports the shared `.agents/skills/` workspace alias. |
-| Cursor | `.agents/skills/ludicord/SKILL.md` | Cursor discovers Agent Skills from `.agents/skills/`. |
+| Cursor | `.cursor/rules/ludicord.mdc` and `.agents/skills/ludicord/SKILL.md` | Always-on routing rule plus the shared Agent Skill. |
 | GitHub Copilot | `.github/copilot-instructions.md` and `AGENTS.md` | Repository instructions plus the canonical Ludicord skill. |
+| Google Antigravity | `.agents/rules/ludicord.md` and `.agents/skills/ludicord/SKILL.md` | Workspace rule plus the shared Agent Skill. |
 | Windsurf / Cascade | `AGENTS.md` | Windsurf supports repository `AGENTS.md` instructions. |
 | OpenCode | `.agents/skills/ludicord/SKILL.md` | OpenCode supports the shared Agent Skills layout. |
 | Other Agent Skills-compatible tools | `.agents/skills/ludicord/SKILL.md` | Use the open `SKILL.md` format where supported. |
@@ -29,6 +30,11 @@ agent-specific file.
 
 When Ludicord conventions change, update the canonical skill once. Adapters
 should remain small and stable.
+
+All adapters enforce the same authority order: installed package version,
+installed declarations, generated route declarations, matching public docs,
+then general model knowledge. This prevents an agent from mixing unpublished
+or older framework behavior into an Activity.
 
 ## Why `.agents/skills/`
 

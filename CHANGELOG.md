@@ -18,6 +18,8 @@ This patch release improves clean-clone compatibility checks and keeps generated
 
 [GitHub release](https://github.com/mrcholer/ludicord/releases/tag/v3.0.1) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/3.0.1) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/3.0.1)
 
+[Full release notes](releases/v3/3.0.1.md)
+
 
 ## 3.0.0 — September 6, 2026
 
@@ -144,6 +146,8 @@ Ludicord 3.0 is the first major framework release. It focuses on complete Discor
 
 [GitHub release](https://github.com/mrcholer/ludicord/releases/tag/v3.0.0) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/3.0.0) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/3.0.0)
 
+[Full release notes](releases/v3/3.0.0.md)
+
 
 ## 2.2.5 — September 4, 2026
 
@@ -169,6 +173,8 @@ Ludicord 3.0 is the first major framework release. It focuses on complete Discor
 
 [GitHub release](https://github.com/mrcholer/ludicord/releases/tag/v2.2.5) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/2.2.5) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/2.2.5)
 
+[Full release notes](releases/v2/2.2.5.md)
+
 
 Verified against npm on September 4, 2026. Times are UTC. The packages have separate publication histories.
 
@@ -178,13 +184,14 @@ Verified against npm on September 4, 2026. Times are UTC. The packages have sepa
 
 Both packages are published at 2.2.4 through GitHub Actions trusted publishing.
 
-Read the [changes and limitations](releases/2.2.4.md) and [upgrade guide](docs/migration.md).
+Read the [changes and limitations](releases/v2/2.2.4.md) and [upgrade guide](docs/migration.md).
 
 ## ludicord
 
 | Version | npm publication (UTC) | Status |
 | --- | --- | --- |
-| [2.2.4](https://www.npmjs.com/package/ludicord/v/2.2.4) | 2026-09-04 17:57:43 | Current latest |
+| [2.2.5](https://www.npmjs.com/package/ludicord/v/2.2.5) | 2026-09-04 23:09:33 | Final v2 release |
+| [2.2.4](https://www.npmjs.com/package/ludicord/v/2.2.4) | 2026-09-04 17:57:43 | Historical |
 | [2.2.1](https://www.npmjs.com/package/ludicord/v/2.2.1) | 2026-09-04 12:03:18 | Historical |
 | [2.2.0](https://www.npmjs.com/package/ludicord/v/2.2.0) | 2026-09-03 12:49:49 | Historical |
 | [2.1.0](https://www.npmjs.com/package/ludicord/v/2.1.0) | 2026-09-02 11:39:29 | Historical |
@@ -193,7 +200,8 @@ Read the [changes and limitations](releases/2.2.4.md) and [upgrade guide](docs/m
 
 | Version | npm publication (UTC) | Status |
 | --- | --- | --- |
-| [2.2.4](https://www.npmjs.com/package/create-ludicord-app/v/2.2.4) | 2026-09-04 17:57:47 | Current latest |
+| [2.2.5](https://www.npmjs.com/package/create-ludicord-app/v/2.2.5) | 2026-09-04 23:09:38 | Final v2 release |
+| [2.2.4](https://www.npmjs.com/package/create-ludicord-app/v/2.2.4) | 2026-09-04 17:57:47 | Historical |
 | [2.2.3](https://www.npmjs.com/package/create-ludicord-app/v/2.2.3) | 2026-09-04 12:04:52 | Historical |
 | [2.2.2](https://www.npmjs.com/package/create-ludicord-app/v/2.2.2) | 2026-09-03 13:50:52 | Historical |
 | [2.2.1](https://www.npmjs.com/package/create-ludicord-app/v/2.2.1) | 2026-09-03 13:09:52 | Historical |

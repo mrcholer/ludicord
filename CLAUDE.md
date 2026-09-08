@@ -1,6 +1,9 @@
 # Ludicord — Claude Code instructions
 
-Read and follow `AGENTS.md` for repository-wide guidance.
+@AGENTS.md
+@skills/ludicord/SKILL.md
+
+Read and follow the imported repository guidance and canonical Ludicord skill.
 
 For any task involving the Ludicord Discord Activity framework, its public API,
 examples, guides, releases, migration notes, or support documentation, read and

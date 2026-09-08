@@ -8,10 +8,12 @@
 - [Reusable Ludicord skill](./skills/ludicord/SKILL.md)
 - [Embeds and navigation](./skills/ludicord/references/embeds-navigation.md)
 - [API routes, WebSockets, and rooms](./skills/ludicord/references/server-routes.md)
+- [React state, effects, and Activity state](./skills/ludicord/references/react-state.md)
 - [Discord data](./skills/ludicord/references/discord-data.md)
 - [Login, sessions, and security](./skills/ludicord/references/auth-security.md)
 - [Configuration, CLI, and deployment](./skills/ludicord/references/config-deploy.md)
 - [Validation workflow](./skills/ludicord/references/validation.md)
+- [Agent/runtime support map](./AGENT_SUPPORT.md)
 
 ## Documentation
 
@@ -21,6 +23,7 @@
 - [Pages and automatic files](./docs/pages.md)
 - [Embeds](./docs/embeds.md)
 - [Navigation](./docs/navigation.md)
+- [React state and effects](./docs/state-and-effects.md)
 - [Discord SDK](./docs/discord-sdk.md)
 - [API routes](./docs/api-routes.md)
 - [WebSockets](./docs/websockets.md)
@@ -29,4 +32,6 @@
 - [Security](./docs/security.md)
 - [Deployment](./docs/deployment.md)
 - [API reference](./docs/api-reference.md)
+- [Latest release](./releases/latest.md)
+- [Type compatibility records](./types/README.md)
 - [Changelog](./CHANGELOG.md)

@@ -15,9 +15,11 @@ Before doing Ludicord work:
 
 1. Read `../../../skills/ludicord/SKILL.md` completely and follow it.
 2. Read `../../../AGENTS.md` for repository-wide instructions.
-3. Treat the canonical skill as the source of truth if this adapter ever
+3. Inspect the Activity's installed `ludicord` version, exported declarations,
+   and `ludicord.generated.d.ts` before writing framework API calls.
+4. Treat the canonical skill as the source of truth if this adapter ever
    disagrees with it.
-4. Keep reusable Ludicord knowledge in the canonical skill instead of
+5. Keep reusable Ludicord knowledge in the canonical skill instead of
    duplicating it in agent-specific files.
 
 This adapter exists so Agent Skills-compatible runtimes can discover the

@@ -22,7 +22,7 @@ ludicord start
 
 Public entry points include `ludicord`, `ludicord/config`, `ludicord/metadata`, `ludicord/navigation`, `ludicord/activity`, `ludicord/discord`, `ludicord/auth`, `ludicord/server`, `ludicord/security`, `ludicord/ws`, `ludicord/ws/client`, `ludicord/ws/server`, `ludicord/runtime` (client status), `ludicord/runtime/server` (server tooling), and `ludicord/testing`.
 
-See the public [documentation](https://github.com/mrcholer/ludicord/blob/main/docs/README.md), [release history](https://github.com/mrcholer/ludicord/blob/main/CHANGELOG.md), and [issue tracker](https://github.com/mrcholer/ludicord/issues). The public repository contains documentation and release information, not the framework implementation.
+See the public [documentation](https://github.com/mrcholer/ludicord/blob/main/docs/README.md), [latest release](https://github.com/mrcholer/ludicord/blob/main/releases/latest.md), [machine-readable type compatibility records](https://github.com/mrcholer/ludicord/blob/main/types/README.md), and [issue tracker](https://github.com/mrcholer/ludicord/issues). The public repository contains documentation and approved release information, not the private framework implementation.
 
 Automatic files: `app/metadata.ts`, `proxy.ts`, `instrumentation.ts`, `layout.tsx`, `loading.tsx`, `error.tsx`, `global-error.tsx`, `not-found.tsx`, `minimize.tsx`, and `app/auth/{loading,error,denied}.tsx`. Embed folders may also inherit nested `layout.tsx` and nearest `loading.tsx`/`error.tsx`. Route groups such as `(games)` organize embed/API/WS source without changing URLs. Default-export the component or convention object and the framework connects it. Embeds use `export default function embed()`.
 
@@ -31,3 +31,5 @@ Development includes API/WS/proxy hot updates, TypeScript diagnostics, React Str
 Discord helpers include complete raw user/channel/guild/member/role/participant/event payloads beside convenient normalized fields, Activity participants, voice/layout events, typed SDK commands, verified permission bitfields, channel/role/member resources, and paginated guild members. Full member lists require a server-only bot token and the GUILD_MEMBERS intent.
 
 Activity hooks add scoped persistence, cached queries, lifecycle readiness, raw Discord-event callbacks, presence summaries, animation frames, and revision-safe shared instance state. Use normal React state for local UI and these helpers where Discord Activity behavior needs a framework-owned lifecycle.
+
+Coding agents should begin with [`AGENTS.md`](AGENTS.md) and the canonical [`skills/ludicord/SKILL.md`](skills/ludicord/SKILL.md). Thin adapters support Claude Code, Gemini CLI, GitHub Copilot, Cursor, Google Antigravity, Codex, and Agent Skills-compatible tools without copying framework knowledge into conflicting files.

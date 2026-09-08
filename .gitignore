@@ -7,6 +7,8 @@
 !/docs/*.md
 !/releases/
 !/releases/*.md
+!/releases/*/
+!/releases/*/*.md
 !/packages/
 !/packages/*/
 !/packages/*/*.md
@@ -19,6 +21,11 @@
 !/.release/*/*.tgz
 !/scripts/
 !/scripts/*.mjs
+!/types/
+!/types/*.md
+!/types/*.json
+!/types/*/
+!/types/*/*.json
 !/skills/
 !/skills/ludicord/
 !/skills/ludicord/SKILL.md
@@ -27,6 +34,7 @@
 !/skills/ludicord/references/
 !/skills/ludicord/references/*.md
 !/.github/
+!/.github/copilot-instructions.md
 !/.github/assets/
 !/.github/assets/ludicord-banner.png
 !/.github/workflows/
@@ -35,6 +43,15 @@
 !/.github/ISSUE_TEMPLATE/*.md
 !/.github/ISSUE_TEMPLATE/config.yml
 !/.agents/*
+!/.agents/
+!/.agents/skills/
+!/.agents/skills/ludicord/
+!/.agents/skills/ludicord/SKILL.md
+!/.agents/rules/
+!/.agents/rules/*.md
+!/.cursor/
+!/.cursor/rules/
+!/.cursor/rules/*.mdc
 # Sensitive and generated content remains excluded everywhere.
 .env
 .env.*

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mrcholer/ludicord/blob/main/types/schema.json",
+  "title": "Ludicord public type compatibility record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "version",
+    "releaseNotes",
+    "packages",
+    "generatedProjectDeclarations",
+    "unsupportedApplicationImports"
+  ],
+  "properties": {
+    "schema": { "const": 1 },
+    "status": { "const": "published" },
+    "version": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$" },
+    "releaseNotes": { "type": "string", "format": "uri" },
+    "packages": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "version", "node", "peerDependencies", "typeEntrypoints"],
+        "properties": {
+          "name": { "enum": ["ludicord", "create-ludicord-app"] },
+          "version": { "type": "string" },
+          "node": { "type": "string" },
+          "peerDependencies": { "type": "object", "additionalProperties": { "type": "string" } },
+          "typeEntrypoints": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["specifier", "declaration"],
+              "properties": {
+                "specifier": { "type": "string" },
+                "declaration": { "type": "string", "pattern": "^\\./dist/.+\\.d\\.ts$" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "generatedProjectDeclarations": { "type": "array", "items": { "type": "string" } },
+    "unsupportedApplicationImports": { "type": "array", "items": { "type": "string" } }
+  }
+}

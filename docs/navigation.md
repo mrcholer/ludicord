@@ -3,7 +3,7 @@
 > Documentation for Ludicord 3.0.1. See [release status](../releases/README.md).
 
 
-Use the in-memory embed router; browser pathname navigation is intentionally not used. The current embed is mirrored into the hash (`#/profile/user-one`) for deep links, and hashes are validated against the registry:
+Use the Ludicord embed router; browser pathname routing is intentionally not used. The current embed is synchronized through the hash (`#/profile/user-one`) for deep links and browser back/forward, and hashes are validated against the generated registry:
 
 ```tsx
 import { useEmbedRouter } from "ludicord/navigation";
@@ -14,7 +14,7 @@ router.replace("home");
 router.back();
 ```
 
-`push` adds history, `replace` updates the current entry, and `back` stays inside the Activity. `canGoBack` indicates whether internal history exists.
+`push` adds a valid embed history entry, `replace` updates the current entry, and `back` stays inside the Activity. `canGoBack` indicates whether valid embed history exists. The hash changes, but the Activity pathname and persistent React root stay stable.
 
 `ludicord dev` and `ludicord build` write `ludicord.generated.d.ts`. Its module augmentation narrows embed, API, and WebSocket route strings and creates exact dynamic parameter maps. `ludicord-env.d.ts` references it automatically, so application code never imports `.ludicord`.
 

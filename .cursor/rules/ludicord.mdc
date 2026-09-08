@@ -1,0 +1,10 @@
+---
+description: Apply Ludicord framework conventions and version-aware API validation
+globs:
+  - "app/**/*.{ts,tsx,js,jsx}"
+  - "ludicord.config.*"
+  - "package.json"
+alwaysApply: true
+---
+
+Read `AGENTS.md` and `skills/ludicord/SKILL.md` before Ludicord work. Use the Activity's installed declarations and `ludicord.generated.d.ts` as the API authority. Preserve Ludicord file conventions, typed embed navigation, normal React lifecycle rules, and client/server security boundaries. Never import `ludicord/internal` or edit generated output. Run applicable validation and a production build before reporting success.

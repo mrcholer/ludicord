@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "status": "published",
+  "version": "3.0.0",
+  "releaseNotes": "https://github.com/mrcholer/ludicord/blob/main/releases/v3/3.0.0.md",
+  "packages": [
+    {
+      "name": "ludicord",
+      "version": "3.0.0",
+      "node": ">=20.19.0",
+      "peerDependencies": {
+        "react": ">=18.3.0 <20",
+        "react-dom": ">=18.3.0 <20"
+      },
+      "typeEntrypoints": [
+        {
+          "specifier": "ludicord",
+          "declaration": "./dist/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/config",
+          "declaration": "./dist/config/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/navigation",
+          "declaration": "./dist/navigation/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/metadata",
+          "declaration": "./dist/metadata/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/activity",
+          "declaration": "./dist/activity/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/discord",
+          "declaration": "./dist/discord/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/auth",
+          "declaration": "./dist/auth/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/server",
+          "declaration": "./dist/server/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/security",
+          "declaration": "./dist/security/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/ws",
+          "declaration": "./dist/ws/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/ws/client",
+          "declaration": "./dist/ws/client.d.ts"
+        },
+        {
+          "specifier": "ludicord/ws/server",
+          "declaration": "./dist/ws/server.d.ts"
+        },
+        {
+          "specifier": "ludicord/runtime",
+          "declaration": "./dist/runtime/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/runtime/server",
+          "declaration": "./dist/runtime/server/index.d.ts"
+        },
+        {
+          "specifier": "ludicord/testing",
+          "declaration": "./dist/testing/index.d.ts"
+        }
+      ]
+    },
+    {
+      "name": "create-ludicord-app",
+      "version": "3.0.0",
+      "node": ">=20.19.0",
+      "peerDependencies": {},
+      "typeEntrypoints": [
+        {
+          "specifier": "create-ludicord-app",
+          "declaration": "./dist/index.d.ts"
+        }
+      ]
+    }
+  ],
+  "generatedProjectDeclarations": [
+    "ludicord-env.d.ts",
+    "ludicord.generated.d.ts"
+  ],
+  "unsupportedApplicationImports": [
+    "ludicord/internal"
+  ]
+}
