@@ -1,6 +1,6 @@
 # Embeds
 
-> Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
 
 
 An embed is an internal Activity screen. Create `app/embeds/home/embed.tsx`:

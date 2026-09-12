@@ -1,6 +1,6 @@
 # Upgrading to Ludicord 3.1.0
 
-> Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
 
 Both packages are published at 3.1.0. Check your current versions:
 

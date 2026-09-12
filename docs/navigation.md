@@ -1,6 +1,6 @@
 # Navigation and generated route types
 
-> Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
 
 
 Use the Ludicord embed router; browser pathname routing is intentionally not used. The current embed is synchronized through the hash (`#/profile/user-one`) for deep links and browser back/forward, and hashes are validated against the generated registry:

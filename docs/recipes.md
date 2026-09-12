@@ -1,6 +1,6 @@
 # Usage recipes
 
-> Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
 
 These small application examples illustrate the public API. They are not framework implementation or complete production applications.
 

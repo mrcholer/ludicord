@@ -1,6 +1,6 @@
 # Package distribution and automated releases
 
-> Documentation for Ludicord 3.1.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
 
 Ludicord uses a two-stage release pipeline so its public package links and npm provenance are correct without publishing the original TypeScript implementation.
 
