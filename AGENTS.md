@@ -1,9 +1,12 @@
 # Ludicord agent instructions
 
-Before changing a Ludicord Activity, read [`skills/ludicord/SKILL.md`](skills/ludicord/SKILL.md) completely and then read only the subsystem references it routes you to. The exact installed package declarations and generated route declarations are the API authority for an application.
+Before changing a Ludicord Activity, read [`skills/ludicord/SKILL.md`](skills/ludicord/SKILL.md) completely. For non-trivial product work, route through the skill's product/intent classifier first, then read only the product, capability, and framework references it selects. The exact installed package declarations and generated route declarations are the API authority for an application.
 
 ## Required behavior
 
+- Classify the requested experience before selecting optional architecture: game, dashboard, collaborative app, social app, media app, utility, or general Activity. Realtime, multiple participants, shared state, and `useGameLoop()` do not by themselves make a product a game.
+- Preserve the existing product shape unless the user explicitly requests a redesign. Do not force game patterns onto normal apps or generic SaaS/dashboard patterns onto games and focused experiences.
+- Select capabilities independently from product type. Add realtime, persistence, Discord context, server authority, or privileged data access only when the requested behavior requires them.
 - Preserve Ludicord's file conventions. Do not recreate Next.js conventions or expose Vite configuration.
 - Do not manually import automatic layout, loading, error, minimize or auth UI files into `app/pages.tsx`.
 - Keep one `LudicordActivity` and one `EmbedOutlet` in the Activity root.

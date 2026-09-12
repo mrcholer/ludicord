@@ -29,10 +29,14 @@
 !/skills/
 !/skills/ludicord/
 !/skills/ludicord/SKILL.md
+!/skills/ludicord/manifest.yaml
+!/skills/ludicord/knowledge-map.md
 !/skills/ludicord/agents/
 !/skills/ludicord/agents/openai.yaml
 !/skills/ludicord/references/
 !/skills/ludicord/references/*.md
+!/skills/ludicord/references/**/
+!/skills/ludicord/references/**/*.md
 !/.github/
 !/.github/copilot-instructions.md
 !/.github/assets/

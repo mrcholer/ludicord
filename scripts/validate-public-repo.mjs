@@ -114,6 +114,72 @@ function validateAgentEntryPoints() {
   }
 }
 
+function validateSkillSystem() {
+  const required = [
+    "skills/ludicord/manifest.yaml",
+    "skills/ludicord/knowledge-map.md",
+    "skills/ludicord/references/intelligence/README.md",
+    "skills/ludicord/references/intelligence/skill-router.md",
+    "skills/ludicord/references/intelligence/project-analysis.md",
+    "skills/ludicord/references/intelligence/capability-routing.md",
+    "skills/ludicord/references/intelligence/source-authority.md",
+    "skills/ludicord/references/intelligence/conflict-resolution.md",
+    "skills/ludicord/references/intelligence/scope-control.md",
+    "skills/ludicord/references/intelligence/implementation-contract.md",
+    "skills/ludicord/references/intelligence/validation-gates.md",
+    "skills/ludicord/references/products/general-activity.md",
+    "skills/ludicord/references/products/dashboard.md",
+    "skills/ludicord/references/products/collaborative-app.md",
+    "skills/ludicord/references/products/social-app.md",
+    "skills/ludicord/references/products/media-app.md",
+    "skills/ludicord/references/products/utility.md",
+    "skills/ludicord/references/products/game.md",
+    "skills/ludicord/references/capabilities/realtime.md",
+    "skills/ludicord/references/capabilities/persistence.md",
+    "skills/ludicord/references/capabilities/discord-context.md",
+    "skills/ludicord/references/game/architecture.md",
+    "skills/ludicord/references/game/multiplayer.md",
+    "skills/ludicord/references/game/game-first-ui.md",
+    "skills/ludicord/references/game/testing.md",
+  ];
+  for (const file of required) {
+    assert.ok(existsSync(path.join(root, file)), `Missing Ludicord skill-system file: ${file}`);
+  }
+
+  const canonical = read("skills", "ludicord", "SKILL.md");
+  assert.ok(canonical.includes("references/intelligence/skill-router.md"), "Canonical skill must route through the product/intent classifier");
+  assert.ok(canonical.includes("manifest.yaml"), "Canonical skill must link the skill manifest");
+
+  const router = read("skills", "ludicord", "references", "intelligence", "skill-router.md");
+  for (const rule of [
+    "Realtime does not imply game",
+    "Multiplayer does not imply game",
+    "Do not activate the game profile",
+  ]) {
+    assert.ok(router.includes(rule), `Skill router is missing invariant: ${rule}`);
+  }
+
+  const manifest = read("skills", "ludicord", "manifest.yaml");
+  for (const invariant of [
+    "game_requires_explicit_gameplay: true",
+    "realtime_does_not_imply_game: true",
+    "multiplayer_does_not_imply_game: true",
+    "framework_does_not_define_product_design: true",
+  ]) {
+    assert.ok(manifest.includes(invariant), `Skill manifest is missing invariant: ${invariant}`);
+  }
+
+  for (const match of manifest.matchAll(/^\s*path:\s+([^\s#]+)\s*$/gm)) {
+    const target = match[1].replace(/^[']|[']$/g, "").replace(/^[\"]|[\"]$/g, "");
+    assert.ok(existsSync(path.join(root, target)), `Skill manifest references missing file: ${target}`);
+  }
+
+  const nestedSkills = filesBelow(path.join(root, "skills", "ludicord", "references"))
+    .filter((file) => path.basename(file) === "SKILL.md")
+    .map((file) => path.relative(root, file));
+  assert.deepEqual(nestedSkills, [], `Routed references must not create competing SKILL.md files: ${nestedSkills.join(", ")}`);
+}
+
 function validateMarkdownLinks() {
   for (const file of filesBelow(root).filter((item) => item.endsWith(".md"))) {
     const content = readFileSync(file, "utf8");
@@ -144,7 +210,8 @@ function validateRepositoryText() {
 validateCurrentRelease();
 validateReleaseLayout();
 validateAgentEntryPoints();
+validateSkillSystem();
 validateMarkdownLinks();
 validateRepositoryText();
 json("types", "schema.json");
-console.log("Validated public release records, type indexes, links, and agent entry points.");
+console.log("Validated public release records, type indexes, links, agent entry points, and the routed Ludicord skill system.");

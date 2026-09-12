@@ -22,14 +22,40 @@ maintaining multiple copies of the same framework knowledge.
 | Other Agent Skills-compatible tools | `.agents/skills/ludicord/SKILL.md` | Use the open `SKILL.md` format where supported. |
 | Other coding agents | `AGENTS.md` + `skills/ludicord/SKILL.md` | Configure the agent to read these two files if it does not auto-discover them. |
 
+## Layered skill architecture
+
+The single canonical skill now uses progressive disclosure. Its routing and
+product intelligence lives under `skills/ludicord/references/` and is loaded
+only when relevant. These reference files are subordinate to
+`skills/ludicord/SKILL.md`; they are not competing canonical skills.
+
+The routing order is:
+
+```text
+user intent
+→ existing project analysis
+→ primary product profile
+→ independent capability selection
+→ Ludicord subsystem references
+→ implementation
+→ product + framework validation
+```
+
+This prevents optional domain guidance from hijacking unrelated work. In
+particular, realtime, multiple participants, shared state, or the game-loop
+primitive do not automatically activate game design guidance. The machine-readable
+index is `skills/ludicord/manifest.yaml`, and the human-readable map is
+`skills/ludicord/knowledge-map.md`.
+
 ## Maintenance rule
 
 Do not copy the full contents of `skills/ludicord/SKILL.md` into `CLAUDE.md`,
 `GEMINI.md`, Copilot instructions, Cursor rules, Windsurf rules, or another
 agent-specific file.
 
-When Ludicord conventions change, update the canonical skill once. Adapters
-should remain small and stable.
+When Ludicord conventions change, update the canonical skill or the routed
+reference that owns that knowledge. Agent-specific adapters should remain
+small and stable. Do not duplicate the routed reference tree into adapter files.
 
 All adapters enforce the same authority order: installed package version,
 installed declarations, generated route declarations, matching public docs,
