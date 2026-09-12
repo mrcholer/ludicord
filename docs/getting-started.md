@@ -17,6 +17,8 @@ Add `LUDICORD_DISCORD_CLIENT_ID`, `LUDICORD_DISCORD_CLIENT_SECRET`, and a random
 
 The generated `app/pages.tsx` mounts one `LudicordActivity` and one `EmbedOutlet`. Files named `app/embeds/**/embed.tsx` become internal Activity screens. Typed navigation updates hash history for deep links and browser back/forward while keeping the Activity pathname and persistent root stable. Files under `app/api` and `app/ws` become real server endpoints.
 
+V4 projects may add `app/prefix/<segment>/pages.tsx` plus a local `embeds/` directory to create another pathname-owned Activity scope. Prefixes can nest recursively. Generated TypeScript also maps `@/*` to the project root, so use imports such as `@/components/navbar` from any depth. Read [V4 Prefix Router](prefix-router.md) before adding the first prefix.
+
 Useful commands:
 
 ```bash

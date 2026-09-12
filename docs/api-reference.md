@@ -8,12 +8,14 @@ This page describes supported import paths and their purpose. The package includ
 
 | Import path | APIs |
 | --- | --- |
-| `ludicord` | `LudicordActivity`, `EmbedOutlet`, `LudicordErrorBoundary`, `LudicordLoadingBoundary`, `Minimize`, `useLudicordMinimize`, `LudicordMinimizeProvider`, `LUDICORD_VERSION` |
-| `ludicord/navigation` | `useEmbedRouter`, `useEmbedPath`, `useEmbedParams` and generated route/parameter types |
+| `ludicord` | `LudicordActivity`, `EmbedOutlet`, `PrefixLink`, `prefixHref`, `useActivityPrefix`, error/loading/minimize APIs, generated prefix types, `LUDICORD_VERSION` |
+| `ludicord/navigation` | `Link`, `PrefixLink`, `prefixHref`, `useEmbedRouter`, `useEmbedPath`, `useEmbedParams`, `useActivityPrefix`, and generated prefix/route/parameter types |
 | `ludicord/runtime` | `useLudicordRuntime` for environment, version, Activity/Discord/WebSocket readiness and auth status |
 | `ludicord/config` | `defineConfig` and configuration types |
 
 The compiler supplies the minimize provider for automatic files; do not manually wrap it just to use `app/minimize.tsx`. See [automatic files](pages.md) and [navigation](navigation.md).
+
+`PrefixLink` and `prefixHref()` navigate between pathname-owned Activity scopes. `Link` and `useEmbedRouter()` navigate among local embeds without remounting the active scope. Read [V4 Prefix Router](prefix-router.md) before constructing cross-prefix URLs.
 
 ## Authentication
 

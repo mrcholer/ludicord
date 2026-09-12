@@ -3,6 +3,7 @@
 This directory gives tools and coding agents a small machine-readable index of the public TypeScript surface shipped by each retained release payload.
 
 - [`latest.json`](latest.json) mirrors the latest synchronized public release.
+- [`v4/`](v4/) contains Ludicord 4 records.
 - [`v3/`](v3/) contains Ludicord 3 records.
 - [`v2/`](v2/) contains retained Ludicord 2 records.
 - [`schema.json`](schema.json) defines the record format.

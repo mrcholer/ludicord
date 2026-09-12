@@ -4,9 +4,12 @@ Read [pages](https://github.com/mrcholer/ludicord/blob/main/docs/pages.md), [emb
 [navigation](https://github.com/mrcholer/ludicord/blob/main/docs/navigation.md), and
 [mobile layout](https://github.com/mrcholer/ludicord/blob/main/docs/mobile-layout.md) for the full guides.
 
+For pathname-owned V4 scopes, also read [prefix-router.md](prefix-router.md).
+
 ## Activity root
 
-`app/pages.tsx` is the persistent React root. It mounts exactly one
+`app/pages.tsx` is the persistent React root for `/`. Every V4 prefix
+`app/prefix/<segment>/pages.tsx` follows the same boundary. It mounts exactly one
 `LudicordActivity` and one `EmbedOutlet`:
 
 ```tsx
@@ -100,8 +103,7 @@ app/embeds/docs/[[...slug]]/embed.tsx    docs/*slug?
 
 ## Navigation
 
-Use the framework embed router; browser pathname routing is intentionally
-unused. The current embed is synchronized through the hash
+Use the framework embed router inside the current pathname scope. The current embed is synchronized through the hash
 (`#/profile/user-one`) for deep links and browser back/forward, and every
 hash is validated against the generated registry:
 
@@ -117,6 +119,9 @@ router.back();                   // stay inside the Activity
 
 `canGoBack` reports whether valid embed history exists. Embed changes update
 the hash while keeping the Activity pathname and persistent root stable.
+
+Use `PrefixLink` or `prefixHref()` when the pathname scope must change. That
+transition mounts the destination prefix root deliberately.
 
 ```tsx
 // Wrong: reaching for the browser router.

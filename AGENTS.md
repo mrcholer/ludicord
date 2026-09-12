@@ -9,7 +9,9 @@ Before changing a Ludicord Activity, read [`skills/ludicord/SKILL.md`](skills/lu
 - Select capabilities independently from product type. Add realtime, persistence, Discord context, server authority, or privileged data access only when the requested behavior requires them.
 - Preserve Ludicord's file conventions. Do not recreate Next.js conventions or expose Vite configuration.
 - Do not manually import automatic layout, loading, error, minimize or auth UI files into `app/pages.tsx`.
-- Keep one `LudicordActivity` and one `EmbedOutlet` in the Activity root.
+- Keep one `LudicordActivity` and one `EmbedOutlet` in the root and in every V4 prefix `pages.tsx`.
+- Treat `app/prefix/<segment>/` as a pathname scope with local embeds. Use generated prefix ownership types, `PrefixLink` between scopes, and the embed router inside one scope.
+- Read `imports.aliases` before adding deep imports and keep the matching TypeScript `paths` configuration synchronized.
 - Name every embed file `embed.tsx` and default-export `function embed()`.
 - Keep secrets and bot tokens in server-only environment variables. Never place them in client code or committed files.
 - Do not edit generated `.ludicord/` output or `ludicord.generated.d.ts`; run the framework to regenerate them.

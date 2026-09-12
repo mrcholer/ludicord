@@ -3,7 +3,7 @@ name: ludicord
 description: "Build, modify, debug, review, or document Ludicord Discord Activities. Use for Activity roots, embeds, typed navigation, React state and effects, API or WebSocket routes, shared Activity state, Discord SDK data, participants, voice, authentication, security, configuration, development diagnostics, deployment, migration, and release compatibility."
 metadata:
   author: ludicord
-  version: "3.1.1"
+  version: "4.0.0"
 ---
 
 # Ludicord
@@ -24,8 +24,8 @@ Before changing code, establish what the project already chose:
 1. Read `package.json` (installed `ludicord` version, package manager,
    Tailwind vs plain CSS), `ludicord.config.mjs`, and the existing `app/`
    structure.
-2. Read `ludicord.generated.d.ts` for the registered embed, API, and
-   WebSocket routes and their parameter maps — never guess a route string.
+2. Read `ludicord.generated.d.ts` for the registered prefixes, per-prefix
+   embeds, API and WebSocket routes, and parameter maps — never guess a route.
 3. Run `ludicord routes` when adding or renaming routes to confirm discovery.
 4. Treat `ludicord/internal` as compiler-owned. Never import it from Activity
    application code even when an older installed package exports it.
@@ -96,6 +96,17 @@ correct/incorrect pairs and the public guide behind it.
 - **Navigate with `useEmbedRouter()`** from `ludicord/navigation` using
   generated route types. Ludicord synchronizes embeds with hash history so
   back/forward and deep links work while the Activity pathname stays stable.
+
+### V4 Prefix Router → [prefix-router.md](references/prefix-router.md)
+
+- **A prefix lives at `app/prefix/<segment>/`** and directly contains one
+  `pages.tsx`; its local `embeds/` belong only to that pathname scope.
+- **Prefixes recurse only through another `prefix/` directory.** Use
+  `PrefixLink` or `prefixHref()` between scopes and the embed router inside
+  one scope.
+- **Use configured project aliases for deep imports.** Read
+  `imports.aliases` from `ludicord.config.mjs` and keep `tsconfig.json` paths
+  synchronized; never assume `@/` if the project changed the map.
 
 ### React State & Effects → [react-state.md](references/react-state.md)
 
@@ -248,6 +259,13 @@ npx ludicord build    # validate, typecheck, production build
 npx ludicord start --port 3000  # serve an existing build (no compile)
 ```
 
+```tsx
+// Cross-prefix navigation remounts the destination scope deliberately.
+import { PrefixLink } from "ludicord";
+
+<PrefixLink prefix="/docs/api" embed="auth">API auth</PrefixLink>;
+```
+
 Advanced commands are available through the installed CLI; confirm flags
 with `npx ludicord --help`:
 
@@ -265,7 +283,7 @@ npx create-ludicord-app@latest my-activity --tailwind # scripted styling choice
 npx create-ludicord-app@latest my-activity --no-tailwind
 ```
 
-Generated 3.1.1 projects intentionally include only `dev`, `build`, and
+Generated 4.0.0 projects intentionally include only `dev`, `build`, and
 `start` scripts. Run advanced commands with the project's package runner.
 
 ## Routed Intelligence References
@@ -285,6 +303,8 @@ Product profiles and optional game details are indexed in [manifest.yaml](manife
 
 - [embeds-navigation.md](references/embeds-navigation.md) — Activity root,
   automatic files, embeds, generated route types, safe-area and mobile layout
+- [prefix-router.md](references/prefix-router.md) — recursive pathname scopes,
+  cross-prefix navigation, generated ownership types, and import alias maps
 - [server-routes.md](references/server-routes.md) — API routes, WebSockets,
   Activity rooms, dev hot-replacement semantics
 - [react-state.md](references/react-state.md) — React state/effects and

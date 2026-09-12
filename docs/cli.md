@@ -11,7 +11,7 @@ Run commands through your generated package scripts or the locally installed `lu
 | `ludicord dev` | Development server, hot updates and diagnostics |
 | `ludicord build` | Validate, typecheck and produce a production build |
 | `ludicord start` | Serve an existing production build |
-| `ludicord routes` | List discovered routes |
+| `ludicord routes` | List recursive prefixes and their scoped embeds, APIs, and sockets |
 | `ludicord lint` | Validate React Hooks usage in Activity source |
 | `ludicord analyze` | Inspect the latest production bundle report |
 | `ludicord info` | Show environment/project information |
@@ -27,7 +27,7 @@ npx ludicord start --port 3000
 
 Use `npx ludicord` inside an application where the package is already installed. Review diagnostics before sharing them publicly.
 
-Generated 3.1.0 projects intentionally keep only `dev`, `build`, and `start` in `package.json`. Run advanced commands through the project's package runner, for example `pnpm exec ludicord routes` or `npx ludicord lint`. Use `ludicord --help` as the authority for flags supported by the installed version.
+Generated V4 projects intentionally keep only `dev`, `build`, and `start` in `package.json`. Run advanced commands through the project's package runner, for example `pnpm exec ludicord routes` or `npx ludicord lint`. In V4, `routes` prints the prefix ownership tree and `info` reports the prefix count and total scoped embeds. Use `ludicord --help` as the authority for flags supported by the installed version.
 
 ## Project generator
 

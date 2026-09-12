@@ -16,6 +16,9 @@ Start with the first mapped compile diagnostic rather than restarting repeatedly
 
 - `LUDICORD1001`: create `app/pages.tsx`.
 - `LUDICORD1002`: mount both `LudicordActivity` and `EmbedOutlet` in the Activity root.
+- `LUDICORD1501`: fix the invalid prefix directory or add the required prefix `pages.tsx`.
+- `LUDICORD1502`: move the scope away from the reserved `/_ludicord` namespace.
+- `LUDICORD2004`: the browser pathname does not match a generated Activity prefix; inspect `ludicord routes` and the startup Prefix table.
 - Unknown embed: verify the file path and generated route shown by `ludicord routes`.
 - Generated route type is stale: keep `ludicord dev` running or run `ludicord build` again.
 - Auth is unavailable: set Client ID, Client Secret, and a Session Secret of at least 32 characters.
@@ -25,3 +28,5 @@ Start with the first mapped compile diagnostic rather than restarting repeatedly
 - Activity works in a browser but not Discord: verify HTTPS tunnel reachability and the `/` URL Mapping target.
 - `LUDICORD3001`: run `ludicord build` before `ludicord start`.
 - Signature verification fails: preserve the exact raw request body and Discord signature/timestamp headers through any reverse proxy.
+
+For deep prefix files, replace brittle traversal imports such as `../../../../../components/sidebar` with `@/components/sidebar`. Ensure existing projects define the matching `@/*` path in `tsconfig.json`; V4 generated projects include it automatically.

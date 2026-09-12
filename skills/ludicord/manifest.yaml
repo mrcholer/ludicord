@@ -55,6 +55,11 @@ capability_profiles:
     path: skills/ludicord/references/capabilities/discord-context.md
     activation: only-when-discord-user-guild-channel-participant-voice-layout-or-sdk-data-is-needed
 
+framework_references:
+  - id: prefix-router
+    path: skills/ludicord/references/prefix-router.md
+    activation: when-app-prefix-scopes-cross-prefix-navigation-or-import-aliases-are-in-scope
+
 intelligence:
   - id: project-analysis
     path: skills/ludicord/references/intelligence/project-analysis.md

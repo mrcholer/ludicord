@@ -10,6 +10,13 @@ import { defineConfig } from "ludicord/config";
 export default defineConfig({
   discord: { scopes: ["identify", "guilds"] },
   activity: { defaultEmbed: "home", outsideDiscord: "error" },
+  imports: {
+    aliases: {
+      "@/components": "./components",
+      "@/lib": "./lib",
+      "@": ".",
+    },
+  },
   server: { port: 3000 },
 });
 ```
@@ -31,6 +38,28 @@ Client ID may come from `LUDICORD_DISCORD_CLIENT_ID`. Keep secrets in server env
 | `activity.outsideDiscord` | `"error"` | `error`, `allow` or `mock` outside Discord |
 
 Allow mode does not fabricate Discord identity. Mock mode is for development/testing, never a substitute for production authentication. Verification requires the relevant server credentials; see [security](security.md).
+
+## Import aliases
+
+`imports.aliases` maps an import prefix to a project-relative file or directory. The default mapping is `{ "@": "." }`, so `@/components/card` resolves from the application root. More specific entries are matched first:
+
+| Setting | Default | Meaning |
+| --- | --- | --- |
+| `imports.aliases` | `{ "@": "." }` | Browser and server import-prefix map |
+
+Targets must be `.` or remain inside the project through a `./` path. Absolute paths and `..` traversal are rejected. Do not alias framework or React package names. Mirror custom keys in `tsconfig.json` so TypeScript and the runtime resolve the same files:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"]
+    }
+  }
+}
+```
 
 ## HTTP server
 

@@ -1,15 +1,15 @@
-# Upgrading to Ludicord 3.1.0
+# Upgrading to Ludicord 4.0.0
 
 > Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
 
-Both packages are published at 3.1.0. Check your current versions:
+Check that both 4.0.0 packages are available before upgrading:
 
 ```bash
 npm view ludicord version
 npm view create-ludicord-app version
 ```
 
-Update an existing application's framework dependency with `npm install ludicord@3.1.0` (or your package-manager equivalent), update its lockfile, and create a fresh production build. The generator is for new projects; do not run it over an existing non-empty application.
+Update an existing application's framework dependency with `npm install ludicord@4.0.0` (or your package-manager equivalent), update its lockfile, and create a fresh production build. The generator is for new projects; do not run it over an existing non-empty application. Existing root-only V3 Activities remain valid because Prefix Router adoption is optional.
 
 ## Review your application
 
@@ -27,6 +27,9 @@ Update an existing application's framework dependency with `npm install ludicord
 12. Cross-origin callers must be explicit in `server.allowedOrigins`; the new default is `"same-origin"`, including the port. Configure production/tunnel hostnames with `server.allowedHosts` when possible.
 13. Review WebSocket traffic against the 256 KiB message and 512 KiB-per-second defaults. Prefer Activity-scoped broadcasts and use `client.route.broadcast()` only for deliberate route-wide delivery.
 14. Multi-process deployments should provide shared session, one-time OAuth token, WebSocket, and shared-state adapters. The built-in memory implementations remain single-process.
+15. Add `imports.aliases` to `ludicord.config.mjs` and matching `baseUrl`/`paths` entries to `tsconfig.json` before converting deep relative imports to project aliases.
+16. Introduce `app/prefix/<segment>/` only for a product surface that needs its own pathname and persistent root. Every prefix requires a direct `pages.tsx` boundary.
+17. Replace cross-prefix browser URL construction with typed `PrefixLink` or `prefixHref()`. Continue using `Link` and `useEmbedRouter()` for embeds inside the current prefix.
 
 ## Verify before deployment
 
@@ -36,5 +39,7 @@ Update an existing application's framework dependency with `npm install ludicord
 - Real Discord sign-in, session expiry, reconnects and mobile/PiP work in your application.
 - Multiple users and separate Activity instances remain isolated.
 - Reverse proxy and HTTPS support secure iframe cookies and WebSocket upgrades.
+- Every expected prefix pathname and default embed URL returns the correct shell.
+- Unknown production prefixes return 404 instead of falling through to an unrelated scope.
 
-Back up your current lockfile and keep the last deployable build for rollback. Review the [3.0.0 framework changes](../releases/v3/3.0.0.md), [3.0.1 patch notes](../releases/v3/3.0.1.md), [3.1.0 release notes](../releases/v3/3.1.0.md), [security](security.md), and [deployment](deployment.md).
+Back up your current lockfile and keep the last deployable build for rollback. Review the detailed [V4 migration guide](migration-v4.md), [Prefix Router](prefix-router.md), [4.0.0 release notes](../releases/v4/4.0.0.md), [security](security.md), and [deployment](deployment.md).
