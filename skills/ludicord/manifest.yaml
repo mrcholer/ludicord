@@ -1,0 +1,82 @@
+schema: 1
+canonical_skill: skills/ludicord/SKILL.md
+router: skills/ludicord/references/intelligence/skill-router.md
+knowledge_map: skills/ludicord/knowledge-map.md
+
+principles:
+  progressive_disclosure: true
+  preserve_existing_project: true
+  product_before_capability: true
+  capabilities_are_independent: true
+  game_requires_explicit_gameplay: true
+  realtime_does_not_imply_game: true
+  multiplayer_does_not_imply_game: true
+  framework_does_not_define_product_design: true
+  installed_package_is_api_authority: true
+
+product_profiles:
+  - id: general-activity
+    path: skills/ludicord/references/products/general-activity.md
+    activation: default
+    description: App, website-like Activity, information experience, forms, docs, or product that does not fit a narrower profile.
+  - id: dashboard
+    path: skills/ludicord/references/products/dashboard.md
+    activation: explicit-or-strongly-implied
+    description: Management, operations, analytics, moderation, admin, or data-heavy workflow.
+  - id: collaborative-app
+    path: skills/ludicord/references/products/collaborative-app.md
+    activation: explicit-or-strongly-implied
+    description: Multiple participants work on the same artifact or shared task.
+  - id: social-app
+    path: skills/ludicord/references/products/social-app.md
+    activation: explicit-or-strongly-implied
+    description: Participant interaction, profiles, social presence, feeds, or community interaction are the product core.
+  - id: media-app
+    path: skills/ludicord/references/products/media-app.md
+    activation: explicit-or-strongly-implied
+    description: Playback, browsing, watching, listening, presenting, or consuming media is the product core.
+  - id: utility
+    path: skills/ludicord/references/products/utility.md
+    activation: explicit-or-strongly-implied
+    description: Focused task completion such as calculators, generators, converters, forms, helpers, or workflow tools.
+  - id: game
+    path: skills/ludicord/references/products/game.md
+    activation: explicit-gameplay-only
+    description: Rules, player actions, rounds, goals, scoring, win/loss, simulation, or other true gameplay is central.
+
+capability_profiles:
+  - id: realtime
+    path: skills/ludicord/references/capabilities/realtime.md
+    activation: only-when-live-synchronization-is-required
+  - id: persistence
+    path: skills/ludicord/references/capabilities/persistence.md
+    activation: only-when-data-must-outlive-the-immediate-render
+  - id: discord-context
+    path: skills/ludicord/references/capabilities/discord-context.md
+    activation: only-when-discord-user-guild-channel-participant-voice-layout-or-sdk-data-is-needed
+
+intelligence:
+  - id: project-analysis
+    path: skills/ludicord/references/intelligence/project-analysis.md
+  - id: capability-routing
+    path: skills/ludicord/references/intelligence/capability-routing.md
+  - id: source-authority
+    path: skills/ludicord/references/intelligence/source-authority.md
+  - id: conflict-resolution
+    path: skills/ludicord/references/intelligence/conflict-resolution.md
+  - id: scope-control
+    path: skills/ludicord/references/intelligence/scope-control.md
+  - id: implementation-contract
+    path: skills/ludicord/references/intelligence/implementation-contract.md
+  - id: validation-gates
+    path: skills/ludicord/references/intelligence/validation-gates.md
+
+game_detail_profiles:
+  - id: game-architecture
+    path: skills/ludicord/references/game/architecture.md
+  - id: game-multiplayer
+    path: skills/ludicord/references/game/multiplayer.md
+  - id: game-first-ui
+    path: skills/ludicord/references/game/game-first-ui.md
+  - id: game-testing
+    path: skills/ludicord/references/game/testing.md

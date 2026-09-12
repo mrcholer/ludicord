@@ -3,7 +3,7 @@ name: ludicord
 description: "Build, modify, debug, review, or document Ludicord Discord Activities. Use for Activity roots, embeds, typed navigation, React state and effects, API or WebSocket routes, shared Activity state, Discord SDK data, participants, voice, authentication, security, configuration, development diagnostics, deployment, migration, and release compatibility."
 metadata:
   author: ludicord
-  version: "3.1.0"
+  version: "3.1.1"
 ---
 
 # Ludicord
@@ -29,6 +29,32 @@ Before changing code, establish what the project already chose:
 3. Run `ludicord routes` when adding or renaming routes to confirm discovery.
 4. Treat `ludicord/internal` as compiler-owned. Never import it from Activity
    application code even when an older installed package exports it.
+
+## Product and Skill Routing
+
+Ludicord is the implementation framework, not the product design. Before a
+non-trivial feature or architecture change, read
+[`references/intelligence/skill-router.md`](references/intelligence/skill-router.md)
+and classify the requested experience **before** selecting optional domain
+guidance.
+
+Hard routing rules:
+
+- Realtime does not imply game.
+- Multiple participants or shared state do not imply game.
+- Calling `useGameLoop()` does not imply game.
+- Do not load game-specific guidance unless gameplay is explicit or strongly
+  evidenced by rules, goals, rounds, player actions, scoring, win/loss,
+  simulation, or equivalent mechanics.
+- Do not force dashboard/SaaS composition onto games, media experiences,
+  focused utilities, or ordinary content apps.
+- Preserve an existing project's product shape and design language unless the
+  user asks to change them.
+- Select realtime, persistence, Discord context, authority, API/WS, and other
+  capabilities independently from product type.
+
+The machine-readable routing index is [`manifest.yaml`](manifest.yaml), and the
+layer map is [`knowledge-map.md`](knowledge-map.md).
 
 ## Principles
 
@@ -186,30 +212,29 @@ useEffect(() => ws.on("pong", handlePong), [ws]);
 
 ## Workflow
 
-1. **Scope the feature** — identify the requested change and inspect only the
-   related routes, components, and configuration.
-   Done when: every file you will touch is named and its current content read.
-2. **Load the subsystem reference** — open the Critical Rules link above for
-   the subsystem being changed, then the public guide it names.
-   Done when: you can state the file convention, the import path, and the
-   auth/data rule for this change.
-3. **Implement the smallest complete change** — create convention files at
+1. **Classify the experience** — for non-trivial work, use the skill router to identify the primary product profile and derive capabilities independently.
+   Done when: you can state what the product is, what it is not, and why each selected capability is required.
+2. **Scope and inspect the feature** — identify the requested change and inspect only the related routes, components, configuration, and existing product conventions.
+   Done when: every file you will touch is named, its current content is read, and unrelated architecture is explicitly out of scope.
+3. **Load only routed references** — open the selected product/capability references plus the Critical Rules reference for each Ludicord subsystem being changed.
+   Done when: you can state the product constraints, file convention, import path, and auth/data rule for this change.
+4. **Write an implementation contract for non-trivial work** — use [`implementation-contract.md`](references/intelligence/implementation-contract.md) to record state ownership, authority, files, validation, and non-goals before broad edits.
+   Done when: every planned subsystem has a concrete reason.
+5. **Implement the smallest complete change** — create convention files at
    their paths, keep project choices, keep secrets server-side.
    Done when: every new or renamed embed, API, and socket appears in
    `ludicord routes` and no boundary in this file is crossed.
-4. **Recover in place for normal edits** — fix the first diagnostic at its
+6. **Recover in place for normal edits** — fix the first diagnostic at its
    source and let hot-replacement recover. Config and supported env changes
    perform a controlled restart; start a fresh command only after dependency
    or framework installation changes, and re-authorize after OAuth-scope changes.
    Done when: the dev overlay/terminal compilation is clean with no restart
    beyond the restart-only causes.
-5. **Validate like production** — run the applicable sequence in
-   [validation](references/validation.md): route inspection for convention
-   changes, React Hooks lint for hook changes, project typecheck when present,
-   and a production build.
+7. **Validate product + production** — run the applicable sequence in
+   [validation](references/validation.md) plus [`validation-gates.md`](references/intelligence/validation-gates.md): first confirm the result still matches the requested product, then run route inspection for convention changes, React Hooks lint for hook changes, project typecheck when present, and a production build.
    Done when: every applicable check passes and each failure was fixed at its
    reported source location, not worked around.
-6. **Test where the feature lives** — browser fallback plus the Discord
+8. **Test where the feature lives** — browser fallback plus the Discord
    Activity frame whenever the change touches SDK, guild, participant,
    voice, mobile, or picture-in-picture behaviour.
    Done when: both applicable surfaces exercised, or the feature provably
@@ -240,8 +265,21 @@ npx create-ludicord-app@latest my-activity --tailwind # scripted styling choice
 npx create-ludicord-app@latest my-activity --no-tailwind
 ```
 
-Generated 3.1.0 projects intentionally include only `dev`, `build`, and
+Generated 3.1.1 projects intentionally include only `dev`, `build`, and
 `start` scripts. Run advanced commands with the project's package runner.
+
+## Routed Intelligence References
+
+- [skill-router.md](references/intelligence/skill-router.md) — product classification, activation/exclusion rules, examples
+- [project-analysis.md](references/intelligence/project-analysis.md) — inspect and preserve existing projects
+- [capability-routing.md](references/intelligence/capability-routing.md) — select realtime, persistence, Discord context, authority, and server features independently
+- [source-authority.md](references/intelligence/source-authority.md) — version/freshness/conflict hierarchy
+- [conflict-resolution.md](references/intelligence/conflict-resolution.md) — priority rules when guidance disagrees
+- [scope-control.md](references/intelligence/scope-control.md) — prevent overbuilding
+- [implementation-contract.md](references/intelligence/implementation-contract.md) — pre-edit architecture contract
+- [validation-gates.md](references/intelligence/validation-gates.md) — product fidelity + framework/security/build gates
+
+Product profiles and optional game details are indexed in [manifest.yaml](manifest.yaml). Load only the profile selected by the router.
 
 ## Detailed References
 
