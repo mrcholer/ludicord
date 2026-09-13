@@ -68,10 +68,12 @@ Targets must be `.` or remain inside the project through a `./` path. Absolute p
 | `server.port` | `3000` | Listening port |
 | `server.host` | `"0.0.0.0"` | Listening interface |
 | `server.allowedHosts` | `true` | All hosts, or an explicit hostname list |
-| `server.allowedOrigins` | `"same-origin"` | Browser origins accepted by HTTP and WebSocket routes |
+| `server.allowedOrigins` | `"discord-activity"` | Same-origin plus this application's exact Discord proxy origin; accepts arrays for additional trusted origins |
 | `server.limits.body` | `"2mb"` | HTTP request body limit |
 | `server.requestTimeout` | `30000` | Maximum API handler duration |
 | `server.shutdownTimeout` | `10000` | Graceful shutdown limit |
+
+The `"discord-activity"` policy derives `https://<clientId>.discordsays.com` from `discord.clientId` or `LUDICORD_DISCORD_CLIENT_ID`. It also permits normal same-origin requests and never trusts a wildcard for every Activity. Use `"same-origin"` for a host-only policy, or `["discord-activity", "https://admin.example.com"]` when another trusted browser origin must call the Activity server.
 
 Use an explicit host list when appropriate. CLI host/port flags override environment values; `HOST` and `PORT` override configured defaults.
 

@@ -83,8 +83,11 @@ LUDICORD_DISCORD_PUBLIC_KEY=
   request bodies — use the encrypted `request.ludicord` context.
 - Validate request bodies and authorization on the server. Production
   responses never leak stack traces or filesystem paths.
-- `server.allowedOrigins` defaults to same-origin (including port), and the
-  host/origin policy protects both HTTP and WebSocket entry points.
+- `server.allowedOrigins` defaults to `"discord-activity"`: same-origin plus
+  this application's exact `https://<clientId>.discordsays.com` proxy origin.
+  The Client ID comes from config or the supported environment variable; the
+  policy never trusts a wildcard for every Activity. HTTP and WebSocket entry
+  points use the same check.
 
 Optional verifications (both fail closed):
 

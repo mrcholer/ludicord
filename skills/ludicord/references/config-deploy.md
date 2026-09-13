@@ -41,7 +41,7 @@ Key settings:
 | `activity.outsideDiscord` | `"error"` | `error`, `allow`, or `mock` outside Discord |
 | `server.port` / `server.host` | `3000` / `"0.0.0.0"` | Listening port/interface |
 | `server.allowedHosts` | `true` | All hosts or an explicit list |
-| `server.allowedOrigins` | `"same-origin"` | Browser origins allowed for HTTP and WebSockets |
+| `server.allowedOrigins` | `"discord-activity"` | Same-origin plus this application's exact Discord proxy origin |
 | `server.limits.body` | `"2mb"` | HTTP request body limit |
 | `websocket.maxPayload` | `262144` | Per-message byte limit |
 | `websocket.maxMessagesPerSecond` | `120` | Per-client inbound event limit |
@@ -52,6 +52,11 @@ Allow mode does not fabricate Discord identity. Mock mode is for
 development/testing, never a substitute for production authentication.
 Invalid configuration values produce diagnostics. Restart development after
 configuration changes; renew authorization after OAuth scope changes.
+
+The default derives `https://<clientId>.discordsays.com` from the configured
+Discord Application ID and never allows a wildcard for other Activities. Use
+`"same-origin"` for a host-only policy, or include `"discord-activity"` in an
+array when adding another trusted browser origin.
 
 ## CLI
 
