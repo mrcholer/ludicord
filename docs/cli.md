@@ -27,7 +27,7 @@ npx ludicord start --port 3000
 
 Use `npx ludicord` inside an application where the package is already installed. Review diagnostics before sharing them publicly.
 
-Generated V4 projects intentionally keep only `dev`, `build`, and `start` in `package.json`. Run advanced commands through the project's package runner, for example `pnpm exec ludicord routes` or `npx ludicord lint`. In V4, `routes` prints the prefix ownership tree and `info` reports the prefix count and total scoped embeds. Use `ludicord --help` as the authority for flags supported by the installed version.
+Generated V4 projects intentionally keep only `dev`, `build`, and `start` in `package.json`. Run advanced commands through the project's package runner, for example `pnpm exec ludicord routes` or `npx ludicord lint`. In V4, `routes` prints the page and embed ownership tree, and `info` reports the page-scope count and total owned embeds. Use `ludicord --help` as the authority for flags supported by the installed version.
 
 ## Project generator
 

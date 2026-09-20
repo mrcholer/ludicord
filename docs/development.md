@@ -24,4 +24,4 @@ Ludicord's development panel handles syntax, TypeScript, render, event-handler, 
 
 Successful server graph rebuilds remove obsolete temporary bundles; failed rebuilds keep the last working graph. The current run directory is removed on shutdown. Vite remains an internal compiler, not a separate developer-facing server. `vite.config.ts` is unnecessary and ignored. Tailwind is detected when `@tailwindcss/vite` is installed in the app.
 
-Run `ludicord routes` to inspect recursive prefix ownership and all discovered routes, `ludicord info` for environment and project details, `ludicord lint` for React Hooks rules, and `ludicord build` for the complete production validation and client-secret scan.
+Run `ludicord routes` to inspect recursive page and embed ownership, `ludicord info` for environment and project details, `ludicord lint` for React Hooks rules, and `ludicord build` for the complete production validation and client-secret scan.

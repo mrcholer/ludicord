@@ -42,4 +42,4 @@ Update an existing application's framework dependency with `npm install ludicord
 - Every expected prefix pathname and default embed URL returns the correct shell.
 - Unknown production prefixes return 404 instead of falling through to an unrelated scope.
 
-Back up your current lockfile and keep the last deployable build for rollback. Review the detailed [V4 migration guide](migration-v4.md), [Prefix Router](prefix-router.md), [4.0.0 release notes](../releases/v4/4.0.0.md), [security](security.md), and [deployment](deployment.md).
+Back up your current lockfile and keep the last deployable build for rollback. Review the detailed [V4 migration guide](migration-v4.md), [page scopes and unified routing](prefix-router.md), [4.0.0 release notes](../releases/v4/4.0.0.md), [security](security.md), and [deployment](deployment.md).

@@ -10,6 +10,7 @@
   <img alt="Node.js 20.19 or newer" src="https://img.shields.io/badge/node-%3E%3D20.19-339933?style=flat-square&logo=nodedotjs&logoColor=white" />
   <img alt="React 18.3 and 19" src="https://img.shields.io/badge/react-18.3%20%7C%2019-61DAFB?style=flat-square&logo=react&logoColor=111" />
   <a href="https://github.com/mrcholer/ludicord/blob/main/SECURITY.md"><img alt="Security policy" src="https://img.shields.io/badge/security-policy-6D5DFC?style=flat-square" /></a>
+  <a href="https://skills.sh/mrcholer/ludicord/ludicord"><img alt="Ludicord skill on skills.sh" src="https://skills.sh/b/mrcholer/ludicord" /></a>
 </p>
 
 The full-stack React framework and CLI for Discord Activities.
@@ -34,7 +35,7 @@ Discord helpers include complete raw user/channel/guild/member/role/participant/
 
 Activity hooks add application-, instance-, user-, guild-, and channel-scoped persistence, cached queries, lifecycle readiness, raw Discord-event callbacks, presence summaries, animation frames, and revision-safe shared instance state. Use normal React state for local UI and these helpers where Discord Activity behavior needs a framework-owned lifecycle.
 
-V4 adds independently mounted pathname scopes, prefix-aware generated types, `PrefixLink`, `prefixHref()`, `useActivityPrefix()`, `usePageParams()`, project-root `@/` imports, listener-first compiler recovery, a PAGE/HTTP/SOCKET/EMBED route table, and a redesigned development diagnostics surface. Read the [V4 Prefix Router guide](https://github.com/mrcholer/ludicord/blob/main/docs/prefix-router.md), [migration guide](https://github.com/mrcholer/ludicord/blob/main/docs/migration-v4.md), and [4.0.0 release notes](https://github.com/mrcholer/ludicord/blob/main/releases/v4/4.0.0.md).
+V4 adds independently mounted pathname pages, page-aware generated types, `PrefixLink`, `prefixHref()`, `useActivityPrefix()`, `usePageParams()`, project-root `@/` imports, listener-first compiler recovery, a PAGE/HTTP/SOCKET/EMBED route table, and a redesigned development diagnostics surface. Read the [page scopes and unified routing guide](https://github.com/mrcholer/ludicord/blob/main/docs/prefix-router.md), [migration guide](https://github.com/mrcholer/ludicord/blob/main/docs/migration-v4.md), and [4.0.0 release notes](https://github.com/mrcholer/ludicord/blob/main/releases/v4/4.0.0.md).
 
 V4 includes the production authentication, Activity-launch isolation, realtime reliability, and multi-process adapters introduced in 3.1.
 
@@ -47,6 +48,7 @@ canonical skill at `node_modules/ludicord/dist/skills/ludicord/SKILL.md`, and
 `node_modules/ludicord/AGENTS.md`. The short agent entry point sits at the package root, like Next.js, and points to the detailed resources under `dist/`.
 Point your existing project agent instructions at `node_modules/ludicord/AGENTS.md` when needed.
 
-Use one root and ordinary embeds by default. Prefix routing is optional for
-large projects with independent surfaces or a concrete need for separate
-pathname entry points, shells, or provider lifetimes.
+Use one root and ordinary embeds by default. Additional pathname pages are
+optional for large projects with independent surfaces or a concrete need for
+separate entry points, shells, or provider lifetimes. Install the public skill
+with `npx skills add mrcholer/ludicord --skill ludicord`.

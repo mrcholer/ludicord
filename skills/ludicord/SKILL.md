@@ -98,11 +98,11 @@ correct/incorrect pairs and the public guide behind it.
   generated route types. Ludicord synchronizes embeds with hash history so
   back/forward and deep links work while the Activity pathname stays stable.
 
-### V4 Prefix Router → [prefix-router.md](references/prefix-router.md)
+### V4 Unified Page Router → [prefix-router.md](references/prefix-router.md)
 
-- **Prefixes are optional.** Start with one Activity root and ordinary embeds. Use the optional prefix router only when a large project needs independent product surfaces, or an important requirement needs distinct pathname entry points, persistent shells, or provider lifetimes. Explain the concrete need before creating a prefix. More screens, realtime, deep folders, or a v4 upgrade alone do not justify prefixes. Preserve existing prefixes when editing a project that already uses them.
+- **Additional pathname pages are optional.** Start with one Activity root and ordinary embeds. Add another page only when a large project needs independent product surfaces, or an important requirement needs distinct pathname entry points, persistent shells, or provider lifetimes. Explain the concrete need before creating it. More screens, realtime, deep folders, or a v4 upgrade alone do not justify another page. Preserve existing page scopes when editing a project that already uses them.
 - **A page scope lives at `app/<path>/page.tsx`.** Nested directories and `[id]` parameters form its pathname. Its nearest descendant embeds belong to that page. Do not add literal `prefix/` scaffolding in unified mode.
-- **At most one route file per directory:** `page.tsx`, `route.ts`, `socket.ts`, or `embed.tsx`. Use `PrefixLink`/`prefixHref()` across justified page paths and the embed router within one page.
+- **At most one route file per directory:** `page.tsx`, `route.ts`, `socket.ts`, or `embed.tsx`. Use the established `PrefixLink`/`prefixHref()` APIs across justified page paths and the embed router within one page.
 - **Use configured project aliases for deep imports.** Read
   `imports.aliases` from `ludicord.config.mjs` and keep `tsconfig.json` paths
   synchronized; never assume `@/` if the project changed the map.

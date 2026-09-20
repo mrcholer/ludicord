@@ -168,9 +168,9 @@ load_game_details:
   - testing
 ```
 
-## Optional v4 prefix router
+## Optional v4 pathname pages
 
-Start with one Activity root and ordinary embeds. Use the optional prefix router only when a large project needs independent product surfaces, or an important requirement needs distinct pathname entry points, persistent shells, or provider lifetimes. Explain the concrete need before creating a prefix. More screens, realtime, deep folders, or a v4 upgrade alone do not justify prefixes. Preserve existing prefixes when editing a project that already uses them.
+Start with one Activity root and ordinary embeds. Add another pathname page only when a large project needs independent product surfaces, or an important requirement needs distinct pathname entry points, persistent shells, or provider lifetimes. Explain the concrete need before creating it. More screens, realtime, deep folders, or a v4 upgrade alone do not justify another page. Preserve existing page scopes when editing a project that already uses them.
 
 When justified, load [prefix-router.md](../prefix-router.md). Import aliases
 work without prefixes and are not a reason to add them.
