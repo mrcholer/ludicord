@@ -103,7 +103,7 @@ export function sanitizeReleaseNotes(source) {
   return `${result}\n`;
 }
 
-function command(executable, args, cwd = root) {
+function command(executable, args, cwd = root, report = false) {
   const npmCli = path.join(path.dirname(process.execPath), "node_modules", "npm", "bin", "npm-cli.js");
   const commandName = process.platform === "win32" && executable === "npm" ? process.execPath : executable;
   const commandArgs = process.platform === "win32" && executable === "npm" ? [npmCli, ...args] : args;
@@ -119,6 +119,10 @@ function command(executable, args, cwd = root) {
     throw new Error(
       `${executable} failed: ${result.stderr || result.stdout || result.error?.message || result.status}`,
     );
+  }
+  if (report) {
+    if (result.stdout) process.stdout.write(result.stdout);
+    if (result.stderr) process.stderr.write(result.stderr);
   }
   return result.stdout.trim();
 }
@@ -171,9 +175,14 @@ function loadRelease() {
 }
 
 async function registry(name, version) {
+  const cacheBuster = new URLSearchParams({ release_check: `${Date.now()}-${Math.random()}` });
   const response = await fetch(
-    `https://registry.npmjs.org/${encodeURIComponent(name)}/${encodeURIComponent(version)}`,
-    { signal: AbortSignal.timeout(20000) },
+    `https://registry.npmjs.org/${encodeURIComponent(name)}/${encodeURIComponent(version)}?${cacheBuster}`,
+    {
+      cache: "no-store",
+      headers: { "cache-control": "no-cache" },
+      signal: AbortSignal.timeout(20000),
+    },
   );
   if (response.status === 404) return null;
   assert.ok(response.ok, `npm registry request failed (${response.status})`);
@@ -228,16 +237,17 @@ async function publish() {
         "--provenance",
       ],
       root,
+      true,
     );
     let verified = false;
-    for (let attempt = 0; attempt < 12; attempt += 1) {
+    for (let attempt = 0; attempt < 36; attempt += 1) {
       const found = await registry(item.name, item.version);
       if (found) {
         assertIntegrity(item.integrity, found.dist?.integrity);
         verified = true;
         break;
       }
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     }
     assert.ok(verified, `${item.name}@${item.version} was not verified in npm`);
     newlyPublished = true;
