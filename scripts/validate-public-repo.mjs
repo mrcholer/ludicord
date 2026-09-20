@@ -51,8 +51,8 @@ function validateCurrentRelease() {
   assert.match(version, stableVersion);
   const major = version.split(".", 1)[0];
   const note = path.join(root, "releases", `v${major}`, `${version}.md`);
-  const publishedTypeRecord = path.join(root, "types", `v${major}`, `${version}.json`);
-  if (!existsSync(note) || !existsSync(publishedTypeRecord)) {
+  const latestPublishedVersion = json("types", "latest.json").version;
+  if (!existsSync(note) || latestPublishedVersion !== version) {
     validateStagedRelease(version);
     return;
   }
