@@ -1,0 +1,23 @@
+name: Send issue updates to Discord
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    if: github.repository == 'mrcholer/ludicord'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    env:
+      DISCORD_ISSUES_WEBHOOK: ${{ secrets.DISCORD_ISSUES_WEBHOOK }}
+    steps:
+      - name: Check out the notification script
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Send the issue update
+        run: node scripts/notify-discord-issue.mjs
