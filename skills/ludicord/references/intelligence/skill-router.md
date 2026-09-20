@@ -167,3 +167,10 @@ load_game_details:
   - game-first-ui
   - testing
 ```
+
+## Optional v4 prefix router
+
+Start with one Activity root and ordinary embeds. Use the optional prefix router only when a large project needs independent product surfaces, or an important requirement needs distinct pathname entry points, persistent shells, or provider lifetimes. Explain the concrete need before creating a prefix. More screens, realtime, deep folders, or a v4 upgrade alone do not justify prefixes. Preserve existing prefixes when editing a project that already uses them.
+
+When justified, load [prefix-router.md](../prefix-router.md). Import aliases
+work without prefixes and are not a reason to add them.

@@ -1,6 +1,6 @@
 # Ludicord documentation
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
 ## Learn Ludicord
@@ -8,8 +8,9 @@
 - [Getting Started](getting-started.md)
 - [Installation](installation.md)
 - [Project Structure](project-structure.md)
-- [V4 Prefix Router](prefix-router.md)
-- [Activity root: pages.tsx](pages.md)
+- [AI coding agents and bundled docs](ai-agents.md)
+- [Page scopes and optional prefix navigation](prefix-router.md)
+- [Pages: page.tsx](pages.md)
 - [Embeds](embeds.md)
 - [Navigation and generated route types](navigation.md)
 - [React state and effects](state-and-effects.md)

@@ -59,10 +59,10 @@ compiler-owned.
 
 ## WebSockets
 
-Create `app/ws/<route>/route.ts` with the documented server helper:
+Create `app/<path>/socket.ts` with the documented server helper. `ws/` is optional; use the full discovered path in the client. Never combine it with a page, HTTP handler or embed in the same directory:
 
 ```ts
-// Correct: app/ws/presence/route.ts
+// Correct: app/ws/presence/socket.ts
 import { defineWS } from "ludicord/ws/server";
 
 export default defineWS({

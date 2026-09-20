@@ -4,13 +4,11 @@ Read [pages](https://github.com/mrcholer/ludicord/blob/main/docs/pages.md), [emb
 [navigation](https://github.com/mrcholer/ludicord/blob/main/docs/navigation.md), and
 [mobile layout](https://github.com/mrcholer/ludicord/blob/main/docs/mobile-layout.md) for the full guides.
 
-For pathname-owned V4 scopes, also read [prefix-router.md](prefix-router.md).
+Use ordinary embeds by default. Only when independent pathname scopes are justified, also read [prefix-router.md](prefix-router.md).
 
 ## Activity root
 
-`app/pages.tsx` is the persistent React root for `/`. Every V4 prefix
-`app/prefix/<segment>/pages.tsx` follows the same boundary. It mounts exactly one
-`LudicordActivity` and one `EmbedOutlet`:
+`app/page.tsx` renders `/`; nested `page.tsx` files render their directory path. A plain page needs no outlet. The framework supplies its Activity boundary unless the page explicitly renders one. For an embed-based page, this explicit pattern selects a local default:
 
 ```tsx
 // Correct
@@ -42,7 +40,7 @@ export default function Pages() {
 ## Automatic files
 
 Create each file with a default-exported component. No imports or wiring in
-`pages.tsx` — the compiler owns the registry:
+`page.tsx` — the compiler owns the registry:
 
 | File | Receives | Purpose |
 | --- | --- | --- |
@@ -63,7 +61,7 @@ export default function Minimized() {
 
 ```tsx
 // Wrong: wiring an automatic file into the root.
-// app/pages.tsx
+// app/page.tsx
 import Minimized from "./minimize"; // never do this
 ```
 
@@ -74,10 +72,10 @@ original source/stack.
 
 ## Embeds
 
-An embed is an internal Activity screen at `app/embeds/<route>/embed.tsx`:
+An embed is an internal Activity screen at `app/<route>/embed.tsx`:
 
 ```tsx
-// Correct: app/embeds/home/embed.tsx
+// Correct: app/home/embed.tsx
 export default function embed() {
   return <main><h1>Home</h1></main>;
 }
@@ -86,10 +84,10 @@ export default function embed() {
 Routes come from directories:
 
 ```text
-app/embeds/home/embed.tsx                home
-app/embeds/profile/[userId]/embed.tsx    profile/:userId
-app/embeds/docs/[...slug]/embed.tsx      docs/*slug
-app/embeds/docs/[[...slug]]/embed.tsx    docs/*slug?
+app/home/embed.tsx                home
+app/profile/[userId]/embed.tsx    profile/:userId
+app/docs/[...slug]/embed.tsx      docs/*slug
+app/docs/[[...slug]]/embed.tsx    docs/*slug?
 ```
 
 - Embed modules lazy-load into the persistent `EmbedOutlet`.

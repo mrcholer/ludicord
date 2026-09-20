@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/mrcholer/ludicord"><img src="https://raw.githubusercontent.com/mrcholer/ludicord/main/.github/assets/ludicord-banner.png" alt="Ludicord" width="900" /></a>
+  <a href="https://github.com/mrcholer/ludicord"><img src="https://raw.githubusercontent.com/mrcholer/ludicord/main/.github/assets/ludicord-logo.png" alt="Ludicord" width="220" /></a>
 </p>
 
 <h1 align="center">ludicord</h1>
@@ -13,6 +13,8 @@
 </p>
 
 The full-stack React framework and CLI for Discord Activities.
+
+Ludicord 4.0 introduces unified file-system routing: `page.tsx` for pages, `route.ts` for HTTP, `socket.ts` for WebSockets, and `embed.tsx` for hash screens owned by their nearest page. Use at most one route file per directory. Existing V3 applications retain a compatibility path.
 
 ```bash
 ludicord dev
@@ -32,4 +34,19 @@ Discord helpers include complete raw user/channel/guild/member/role/participant/
 
 Activity hooks add application-, instance-, user-, guild-, and channel-scoped persistence, cached queries, lifecycle readiness, raw Discord-event callbacks, presence summaries, animation frames, and revision-safe shared instance state. Use normal React state for local UI and these helpers where Discord Activity behavior needs a framework-owned lifecycle.
 
-Version 3.1 isolates authentication per Activity launch, renews expiring sessions without discarding a still-valid login, applies one host/origin policy to HTTP and WebSockets, adds acknowledged WebSocket events and bounded slow-client handling, and exposes adapters for multi-process sessions, one-time OAuth tokens, room delivery/counts, and shared-state revisions.
+V4 adds independently mounted pathname scopes, prefix-aware generated types, `PrefixLink`, `prefixHref()`, `useActivityPrefix()`, `usePageParams()`, project-root `@/` imports, listener-first compiler recovery, a PAGE/HTTP/SOCKET/EMBED route table, and a redesigned development diagnostics surface. Read the [V4 Prefix Router guide](https://github.com/mrcholer/ludicord/blob/main/docs/prefix-router.md), [migration guide](https://github.com/mrcholer/ludicord/blob/main/docs/migration-v4.md), and [4.0.0 release notes](https://github.com/mrcholer/ludicord/blob/main/releases/v4/4.0.0.md).
+
+V4 includes the production authentication, Activity-launch isolation, realtime reliability, and multi-process adapters introduced in 3.1.
+
+V4 also accepts the configured application's exact `https://<clientId>.discordsays.com` proxy origin by default for HTTP and WebSocket requests, alongside normal same-origin traffic. The framework derives the hostname from the Discord Application ID and does not trust wildcard Activity origins.
+
+## Version-matched AI guidance
+
+Ludicord 4 includes offline docs at `node_modules/ludicord/dist/docs/`, the
+canonical skill at `node_modules/ludicord/dist/skills/ludicord/SKILL.md`, and
+`node_modules/ludicord/AGENTS.md`. The short agent entry point sits at the package root, like Next.js, and points to the detailed resources under `dist/`.
+Point your existing project agent instructions at `node_modules/ludicord/AGENTS.md` when needed.
+
+Use one root and ordinary embeds by default. Prefix routing is optional for
+large projects with independent surfaces or a concrete need for separate
+pathname entry points, shells, or provider lifetimes.

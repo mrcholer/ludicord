@@ -1,6 +1,6 @@
 # Package distribution and automated releases
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 Ludicord uses a two-stage release pipeline so its public package links and npm provenance are correct without publishing the original TypeScript implementation.
 
@@ -17,10 +17,10 @@ Ludicord uses a two-stage release pipeline so its public package links and npm p
 1. A matching version change in the maintained packages starts the private build and test pipeline.
 2. The pipeline installs the locked dependency graph, builds packages/examples, typechecks and runs the framework, generator and release regression suites.
 3. An explicit file policy rejects source maps, original source, dependencies, hidden files, path traversal and credential-like content.
-4. Only the approved npm tarballs, package metadata, package READMEs and public release notes are staged in this repository.
+4. Only the approved npm tarballs (including version-matched docs, skills and agent instructions), package metadata, package READMEs and public release notes are staged in this repository.
 5. The public `publish.yml` workflow validates the tarballs again and publishes both packages using npm trusted publishing with provenance.
 6. Registry integrity is verified before the public changelog, package records, tag and GitHub release are created.
-7. After the public release is visible, a Discord Components V2 card announces the `ludicord` framework release and links to its changelog.
+7. When an announcement is requested, a Discord Components V2 card announces the `ludicord` framework release and links to its changelog.
 
 Every package change requires a new aligned stable version because npm versions are immutable. Re-running a release is safe only when the registry integrity exactly matches the staged tarballs; the workflow refuses different bytes or a backwards `latest` move.
 
@@ -31,3 +31,8 @@ The npm packages necessarily expose compiled JavaScript and TypeScript declarati
 The Discord webhook credential stays in a protected repository secret. Release messages allow only the configured release-role mention and do not include credits or private metadata.
 
 [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) · [Release history](../CHANGELOG.md) · [Security](security.md)
+
+## Installed agent resources
+
+The framework package includes root `AGENTS.md`, `dist/docs/`, and
+`dist/skills/ludicord/`. Projects can point their existing agent instructions at those paths. See [AI coding agents](ai-agents.md).

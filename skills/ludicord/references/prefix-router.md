@@ -1,53 +1,13 @@
-# V4 Prefix Router
+# V4 page scopes and prefix navigation
 
-Read the public [Prefix Router guide](https://github.com/mrcholer/ludicord/blob/main/docs/prefix-router.md) and [V4 migration guide](https://github.com/mrcholer/ludicord/blob/main/docs/migration-v4.md) when creating, moving, reviewing, or debugging a pathname scope.
+Start with one `app/page.tsx` and embeds such as `app/home/embed.tsx`. Only add independent pathname scopes for a large project's separate surfaces or a concrete requirement for a distinct URL, shell, or provider lifetime. State that requirement first. Realtime, more screens, deeper folders and a v4 upgrade alone are not reasons.
 
-## Scope convention
+In unified v4 routing, `app/docs/api/page.tsx` owns `/docs/api`. Its child `auth/embed.tsx` owns `/docs/api#/auth`. Do not introduce literal `prefix/` or `embeds/` scaffolding. These names become ordinary URL segments. Legacy root `pages.tsx` projects retain their existing compatibility convention until deliberately migrated.
 
-A scope is `app/prefix/<static-segment>/`. It directly owns:
+Use `page.tsx` for pathname UI, `route.ts` for HTTP, `socket.ts` for WebSockets and `embed.tsx` for a hash screen. At most one can exist in each directory. Every embed belongs to its nearest ancestor page; intervening pages start a new scope. `[id]` parameters work for every kind, and embeds inherit their page's parameters. Do not duplicate parameter names or claim `/_ludicord`.
 
-- required `pages.tsx` with one `LudicordActivity` and one `EmbedOutlet`;
-- optional local `embeds/` routes;
-- optional nested `prefix/<segment>/` scopes.
+Read the installed `dist/docs/project-structure.md`, `dist/docs/prefix-router.md`, and `dist/docs/migration-v4.md` for examples. Confirm actual ownership and types with `ludicord routes` and `ludicord.generated.d.ts`.
 
-Do not put a nested scope directly under another segment; recursion always passes through the literal `prefix/` directory. Do not use dynamic, grouped, dot-prefixed, empty, or `/_ludicord` segments.
+Use `Link`/`useEmbedRouter()` inside a page. Use `PrefixLink`/`prefixHref()` between justified page paths; those load a new document and reset client providers. `useActivityPrefix()` reads the concrete pathname, `usePageParams()` reads decoded page parameters, and `useEmbedParams()` includes inherited page parameters. Separate shells never replace server authorization.
 
-## Route ownership
-
-The pathname selects a scope. The hash selects a local embed:
-
-```text
-app/prefix/docs/prefix/api/embeds/auth/embed.tsx
-→ /docs/api/#/auth
-```
-
-Two scopes may own the same local embed name. Check `ludicord.generated.d.ts` and `ludicord routes`; never flatten or guess the generated ownership map.
-
-## Navigation choice
-
-- Use `Link` or `useEmbedRouter()` for an embed inside the active prefix.
-- Use `PrefixLink` for accessible user navigation to another prefix.
-- Use `prefixHref()` only when an API requires a URL string.
-- Use `useActivityPrefix()` to read the current scope.
-
-Cross-prefix navigation mounts another `pages.tsx`; do not promise provider or component state survives it. Local embed navigation keeps the current scope root mounted.
-
-## Import aliases
-
-Read the project's `imports.aliases` map. A generated V4 project begins with:
-
-```js
-imports: {
-  aliases: {
-    "@/components": "./components",
-    "@/lib": "./lib",
-    "@": ".",
-  },
-}
-```
-
-The matching TypeScript `paths` config must resolve the same imports. Alias values are project-relative and cannot escape through `..`. Do not add an alias for `ludicord`, React, or another dependency.
-
-## Verification
-
-Run `ludicord routes` and confirm every scope owns the expected embeds. Then run the production build and request each prefix pathname directly. Unknown production prefixes must return 404. Test both browser preview and Discord when the change affects SDK, auth, participants, voice, safe areas, or launch mappings.
+Keep `imports.aliases` and TypeScript paths synchronized. Test direct page URLs, scoped hashes, dynamic values, back/forward, route mutations, lint and production builds. Test Discord itself when SDK, authorization or launch mappings change.

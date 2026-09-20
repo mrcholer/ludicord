@@ -9,7 +9,7 @@ conflicting.
 1. Installed package version
 2. Installed package declarations
 3. ludicord.generated.d.ts for discovered routes and route params
-4. Public docs that match the installed version
+4. Bundled dist/docs for the installed version; matching public docs as fallback
 5. Machine-readable compatibility/release records
 6. Canonical Ludicord skill and its references
 7. Examples that match the same version

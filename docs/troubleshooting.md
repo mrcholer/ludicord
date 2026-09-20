@@ -1,6 +1,6 @@
 # Troubleshooting
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
 Run the checks relevant to the failure:
@@ -14,9 +14,10 @@ ludicord build
 
 Start with the first mapped compile diagnostic rather than restarting repeatedly. Normal embed, API, and WebSocket edits should recover after a successful recompile; the last working server graph remains active when a replacement compile fails.
 
-- `LUDICORD1001`: create `app/pages.tsx`.
-- `LUDICORD1002`: mount both `LudicordActivity` and `EmbedOutlet` in the Activity root.
-- `LUDICORD1501`: fix the invalid prefix directory or add the required prefix `pages.tsx`.
+- `LUDICORD1001`: create `app/page.tsx`.
+- `LUDICORD1002`: in a legacy `app/pages.tsx` tree, mount both `LudicordActivity` and `EmbedOutlet`. Unified `page.tsx` files receive an automatic Activity boundary when they omit one.
+- `LUDICORD1403`: keep at most one route file in each directory; fix duplicate route patterns or mixed legacy/unified conventions.
+- `LUDICORD1501`: legacy prefix structure is invalid; follow the v4 migration guide when changing conventions.
 - `LUDICORD1502`: move the scope away from the reserved `/_ludicord` namespace.
 - `LUDICORD2004`: the browser pathname does not match a generated Activity prefix; inspect `ludicord routes` and the startup Prefix table.
 - Unknown embed: verify the file path and generated route shown by `ludicord routes`.

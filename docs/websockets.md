@@ -1,9 +1,11 @@
 # WebSockets
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
-Create `app/ws/presence/route.ts`:
+Create `app/ws/presence/socket.ts` for `/ws/presence`, or `app/live/socket.ts` for `/live`. The `ws/` folder is optional. A directory may contain only one route file. Use the full discovered URL in `useWS()`; no `/ws` prefix is added automatically.
+
+Example:
 
 ```ts
 import { defineWS } from "ludicord/ws/server";

@@ -1,6 +1,6 @@
 # Getting Started
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
 Create an Activity and start the development server:
@@ -15,9 +15,9 @@ The interactive creator asks whether to install Tailwind CSS. To make the choice
 
 Add `LUDICORD_DISCORD_CLIENT_ID`, `LUDICORD_DISCORD_CLIENT_SECRET`, and a random `LUDICORD_SESSION_SECRET` of at least 32 characters to `.env.local`. Configure an HTTPS tunnel and Discord Activity URL Mapping before testing inside Discord.
 
-The generated `app/pages.tsx` mounts one `LudicordActivity` and one `EmbedOutlet`. Files named `app/embeds/**/embed.tsx` become internal Activity screens. Typed navigation updates hash history for deep links and browser back/forward while keeping the Activity pathname and persistent root stable. Files under `app/api` and `app/ws` become real server endpoints.
+The generated `app/page.tsx` mounts one `LudicordActivity` and one `EmbedOutlet`. Files named `app/**/embed.tsx` become internal Activity screens. Typed navigation updates hash history for deep links and browser back/forward while keeping the Activity pathname and persistent root stable. Files named `route.ts` and `socket.ts` anywhere under `app/` become HTTP and WebSocket endpoints.
 
-V4 projects may add `app/prefix/<segment>/pages.tsx` plus a local `embeds/` directory to create another pathname-owned Activity scope. Prefixes can nest recursively. Generated TypeScript also maps `@/*` to the project root, so use imports such as `@/components/navbar` from any depth. Read [V4 Prefix Router](prefix-router.md) before adding the first prefix.
+Start with one root page and embeds. Add nested `page.tsx` files only for a large project or a concrete need for separate pathname entry points. No `prefix/` folder is required. Generated TypeScript maps `@/*` to the project root. Read [page scopes](prefix-router.md) before adding independent shells.
 
 Useful commands:
 

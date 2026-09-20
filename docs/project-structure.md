@@ -1,35 +1,43 @@
-# Project Structure
+# Project structure
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
+The `app/` tree is the router. These four files define routes:
+
+| File | Route |
+| --- | --- |
+| `page.tsx` | React page at its directory's pathname |
+| `route.ts` | HTTP endpoint exporting named method handlers |
+| `socket.ts` | WebSocket endpoint exporting `defineWS(...)` |
+| `embed.tsx` | Hash screen owned by the nearest ancestor page |
+
+Each directory can contain **at most one** of these four files. A page and an endpoint must use different directories. Ordinary components, CSS and automatic UI files may coexist with the route file.
 
 ```text
 app/
-  pages.tsx                 persistent Activity root
+  page.tsx                    /
+  home/embed.tsx              /#/home
+  profile/[userId]/embed.tsx   /#/profile/alex
+  game/[id]/page.tsx          /game/abc
+  game/[id]/players/embed.tsx /game/abc#/players
+  game/[id]/info/route.ts     HTTP /game/abc/info
+  game/[id]/live/socket.ts    WebSocket /game/abc/live
   globals.css
-  layout.tsx                optional project layout
-  loading.tsx               optional loading UI
-  error.tsx                 optional error UI
-  minimize.tsx              optional compact Activity UI
-  auth/                     auth loading/error/denied UI
-  embeds/<route>/embed.tsx  internal embed screens
-  prefix/<segment>/         optional pathname-owned Activity scope
-    pages.tsx               required root for that prefix
-    embeds/<route>/embed.tsx
-    prefix/<segment>/       recursively nested prefix scope
-  api/<route>/route.ts      HTTP endpoints
-  ws/<route>/route.ts       WebSocket endpoints
-components/                 shared React components
-lib/                        shared application code
-public/                     copied static assets
-ludicord.config.mjs             framework configuration
-ludicord-env.d.ts               ambient and generated type reference
-ludicord.generated.d.ts         generated route/config registry
-.ludicord/                      disposable production output
+  layout.tsx                  optional layout for the root page
+  loading.tsx                 optional loading fallback
+  error.tsx                   optional error boundary
+  minimize.tsx                optional compact Activity UI
+  auth/                       optional auth loading/error/denied UI
+components/                   shared React components
+lib/                          shared application code
+public/                       static assets
+ludicord.config.mjs            framework configuration
+ludicord.generated.d.ts        generated route and parameter types
+.ludicord/                    generated build output
 ```
 
-Dynamic directory names use `[id]`, `[...slug]`, and `[[...slug]]` for embeds, API routes, and WebSocket routes. Prefix segments are intentionally static and URL-safe; dynamic, grouped, dot-prefixed, and reserved `/_ludicord` prefixes are rejected.
+There are no required `api/`, `ws/`, `embeds/` or `prefix/` folders in unified mode. If present, they are ordinary URL segments. Directories without route files do not create routes. `[id]` captures a dynamic parameter; existing route groups and catch-all patterns remain supported. The `/_ludicord` namespace is reserved.
 
-Each `prefix/<segment>` directory creates a pathname scope and must contain its own `pages.tsx`. Its embeds are local to that scope, and another nested `prefix/` directory continues the same convention recursively. Read [V4 Prefix Router](prefix-router.md) for the complete tree and URL mapping.
+Start with one root page and embeds. Add independent pathname pages only for a large project's separate surfaces or a concrete requirement such as a shareable resource URL. See [page scopes](prefix-router.md) and [migration](migration-v4.md) for legacy conventions.
 
-V4 also maps `@/` to the project root in browser and server compilation. Use `@/components/...` and `@/lib/...` instead of depth-sensitive relative imports from deeply nested scopes.
+Generated projects configure `@/` imports. Keep Ludicord's import aliases and TypeScript paths synchronized.

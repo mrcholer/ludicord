@@ -1,13 +1,13 @@
 # Build
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
 ```bash
 ludicord build
 ```
 
-The production compiler validates the root and every recursive prefix `pages.tsx`, scans scoped embeds and server routes, generates manifests and route types, typechecks the project, builds a hashed React client with lazy prefix/embed chunks, bundles API and WebSocket routes together for Node with shared chunks, copies `public`, writes safe build metadata, and scans client assets for actual server secrets.
+The production compiler validates every discovered `page.tsx` and the four-file exclusivity rule, scans scoped embeds and server routes, generates manifests and route types, typechecks the project, builds a hashed React client with lazy page/embed chunks, bundles API and WebSocket routes together for Node with shared chunks, copies `public`, writes safe build metadata, and scans client assets for actual server secrets.
 
 Output is written only to `.ludicord/`:
 
@@ -23,7 +23,7 @@ Output is written only to `.ludicord/`:
   types/
 ```
 
-The output directory is removed before a new build and removed again after a failed build. `ludicord clean` deletes only the project `.ludicord` directory. Build metadata includes public configuration and booleans, never the Client Secret, Session Secret, bot token, or OAuth access tokens.
+Production output is assembled in a temporary directory and replaces `.ludicord/` atomically only after the build succeeds. A failed build removes its temporary output and preserves the last usable production build. `ludicord clean` deletes only the project `.ludicord` directory. Build metadata includes public configuration and booleans, never the Client Secret, Session Secret, bot token, or OAuth access tokens.
 
 Ludicord loads `.env`, `.env.local`, and production-mode environment files before configuration. Explicit shell values take precedence. CSS is linked in the generated HTML, and the secret scanner includes large/binary public assets. Avoid placing any credentials in `public/`.
 

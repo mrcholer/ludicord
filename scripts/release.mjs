@@ -59,12 +59,12 @@ export function validatePublicPackage(pkg, name, version) {
   assert.equal(pkg.publishConfig?.provenance, true);
 }
 
-export function validateTarEntries(entries) {
+export function validateTarEntries(entries, packageName = "") {
   assert.ok(entries.length > 0);
   for (const entry of entries) {
     assert.match(
       entry,
-      /^package\/(?:package\.json|README\.md|LICENSE(?:\.md)?|bin\/[a-zA-Z0-9_-]+\.js|dist\/[a-zA-Z0-9_./-]+(?:\.js|\.d\.ts))$/,
+      /^package\/(?:package\.json|README\.md|AGENTS\.md|LICENSE(?:\.md)?|bin\/[a-zA-Z0-9_-]+\.js|dist\/docs\/[a-zA-Z0-9_/-]+\.md|dist\/skills\/ludicord\/[a-zA-Z0-9_/-]+\.(?:md|yaml)|dist\/[a-zA-Z0-9_./-]+(?:\.js|\.d\.ts))$/,
       `Unexpected tarball file: ${entry}`,
     );
     assert.ok(!entry.includes("/../") && !entry.endsWith(".map"));
@@ -76,6 +76,20 @@ export function validateTarEntries(entries) {
     "package/dist/index.d.ts",
   ]) {
     assert.ok(entries.includes(required), `Missing ${required}`);
+  }
+  if (packageName === "ludicord") {
+    for (const required of [
+      "package/AGENTS.md",
+      "package/dist/docs/README.md",
+      "package/dist/docs/ai-agents.md",
+      "package/dist/docs/prefix-router.md",
+      "package/dist/skills/ludicord/SKILL.md",
+      "package/dist/skills/ludicord/manifest.yaml",
+    ]) {
+      assert.ok(entries.includes(required), `Missing agent resource: ${required}`);
+    }
+  } else {
+    assert.ok(!entries.some((entry) => entry === "package/AGENTS.md" || entry.startsWith("package/dist/docs/") || entry.startsWith("package/dist/skills/")), "Only ludicord may contain bundled agent resources");
   }
 }
 
@@ -144,12 +158,12 @@ function loadRelease() {
       .split(/\r?\n/)
       .filter(Boolean)
       .map((entry) => entry.replace(/^\.\//, ""));
-    validateTarEntries(entries);
+    validateTarEntries(entries, item.name);
     const pkg = JSON.parse(tarText(tarball, "package/package.json"));
     validatePublicPackage(pkg, item.name, version);
     assert.match(
       tarText(tarball, "package/README.md"),
-      /raw\.githubusercontent\.com\/mrcholer\/ludicord\/main\/\.github\/assets\/ludicord-banner\.png/,
+      /raw\.githubusercontent\.com\/mrcholer\/ludicord\/main\/\.github\/assets\/ludicord-logo\.png/,
     );
   }
   const notes = sanitizeReleaseNotes(readFileSync(path.join(directory, manifest.notes), "utf8"));

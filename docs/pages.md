@@ -1,36 +1,33 @@
-# Activity root: pages.tsx
+# Pages: page.tsx
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
-
-`app/pages.tsx` is the persistent React root for the `/` prefix. It must mount `LudicordActivity` and expose `EmbedOutlet`:
+A default-exported React component in `app/page.tsx` renders at `/`. Nested `page.tsx` files render at their directory paths. A page can render plain UI without any embed:
 
 ```tsx
-import { LudicordActivity, EmbedOutlet } from "ludicord";
-
-export default function Pages() {
-  return (
-    <LudicordActivity defaultEmbed="home">
-      <EmbedOutlet />
-    </LudicordActivity>
-  );
+// app/game/[id]/page.tsx
+import { usePageParams } from "ludicord/navigation";
+export default function page() {
+  const { id } = usePageParams<"/game/:id">();
+  return <main>Game {id}</main>;
 }
 ```
 
-`LudicordActivity` initializes the official Discord Embedded App SDK, shared Discord event stores, authentication, safe-area variables, and the embed router once. Navigating between embeds replaces only the outlet and synchronizes typed hash history; state placed above it remains mounted.
+The runtime also passes the decoded parameters as the page's `params` prop. Run `ludicord routes` to regenerate types after adding paths.
 
-The default embed must match a generated embed route. Optional `loading` and `errorFallback` props customize lazy-loading and recoverable render errors.
+To show owned embeds, render one `EmbedOutlet`. When the page has no explicit `LudicordActivity`, the framework supplies that boundary and uses `activity.defaultEmbed` from configuration. An explicit boundary lets a page choose its own default:
 
-V4 applies the same explicit contract to every `app/prefix/<segment>/pages.tsx`. A prefix root owns the providers and shell that survive hash navigation inside that pathname scope. Keep `LudicordActivity` and `EmbedOutlet` visible in each `pages.tsx`; do not hide the compiler boundary inside a shared wrapper. See [V4 Prefix Router](prefix-router.md).
+```tsx
+import { LudicordActivity, EmbedOutlet } from "ludicord";
+export default function page() {
+  return <LudicordActivity defaultEmbed="home"><EmbedOutlet /></LudicordActivity>;
+}
+```
 
-## Automatic files
+Do not hide an explicit Activity boundary in another component: keep it visible in the page so discovery can avoid adding a second one. The Activity initializes Discord, authentication, event stores, safe-area variables and embed routing. State above the outlet survives hash navigation. Moving to another pathname page mounts a new scope; its shell does not inherit the parent page's component state.
 
-Create these files with a default-exported React component; no imports or wiring in `pages.tsx` are needed:
+## Automatic UI
 
-- `app/layout.tsx`: receives `children`; stays above the Activity.
-- `app/loading.tsx`: lazy embed/loading fallback.
-- `app/error.tsx`: receives `error` and `reset`.
-- `app/minimize.tsx`: compact UI for Discord PiP/grid and `useLudicordMinimize()`.
-- `app/auth/loading.tsx`, `app/auth/error.tsx`, `app/auth/denied.tsx`: sign-in screens. Auth error receives `error` and `reset`.
+Automatic files are discovered without imports in the page: `layout.tsx` receives children, `loading.tsx` supplies a fallback, `error.tsx` receives error/reset, `minimize.tsx` supplies compact UI, and `auth/{loading,error,denied}.tsx` supplies sign-in states. Place them beside the page they configure. Embed directories can have their own layout/loading/error files. Production error components receive sanitized errors.
 
-The compiler owns the file registry and minimize provider. Root automatic UI remains application-wide; prefix scopes own their local Activity root and embed tree. Minimize hides the full Activity without unmounting its state or sockets; Discord returning to focused layout restores it. The manual minimize hook is optional. Production error components receive safe messages, never the original source/stack.
+See [embeds](embeds.md), [project structure](project-structure.md), and [migration](migration-v4.md).

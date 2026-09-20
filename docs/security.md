@@ -1,11 +1,11 @@
 # Security
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
 Ludicord encrypts and authenticates session cookies with AES-256-GCM, validates OAuth state, keeps server secrets out of React stores, requires sessions for API and WebSocket routes by default, and scans production client output for actual secret values.
 
-HTTP requests and WebSocket upgrades share the same boundary checks. `server.allowedOrigins` defaults to `"discord-activity"`, which accepts same-origin requests and the configured application's exact `https://<clientId>.discordsays.com` proxy origin. Ludicord derives the hostname from `discord.clientId` or `LUDICORD_DISCORD_CLIENT_ID` and never trusts a wildcard for other applications. Use `"same-origin"` for a host-only policy or include `"discord-activity"` in an array with additional trusted HTTPS origins. `server.allowedHosts` can restrict the `Host` header to production and tunnel hostnames; `true` accepts every host and produces a production warning.
+HTTP requests and WebSocket upgrades share the same boundary checks. `server.allowedOrigins` defaults to `"discord-activity"`, which accepts same-origin requests and the configured application's exact `https://<clientId>.discordsays.com` proxy origin. Ludicord derives the hostname from `discord.clientId` or `LUDICORD_DISCORD_CLIENT_ID` and never trusts a wildcard for other applications. Use `"same-origin"` for a host-only policy. An origin array must include `"same-origin"` and `"discord-activity"` explicitly when both built-in policies should remain active alongside additional trusted HTTPS origins. `server.allowedHosts` can restrict the `Host` header to production and tunnel hostnames; `true` accepts every host and produces a production warning.
 
 Large Discord payloads are not copied into the browser cookie. Compact trusted claims plus an opaque data key remain in the encrypted cookie, while complete `.raw` objects use a bounded server-side `LudicordSessionDataStore`. Losing that enrichment never converts untrusted browser data into an authenticated claim.
 

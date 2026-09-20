@@ -12,8 +12,8 @@ Read the smallest set that establishes the current architecture:
 2. `ludicord.config.mjs` — framework configuration and declared boundaries.
 3. `ludicord.generated.d.ts` — discovered embed/API/WS routes and parameter
    maps. Never infer routes when this file exists.
-4. `app/pages.tsx` — persistent Activity root and long-lived providers/state.
-5. Relevant `app/embeds/**`, `app/api/**`, and `app/ws/**` files for the task.
+4. `app/page.tsx` — persistent Activity root and long-lived providers/state.
+5. Relevant `app/**/{page,embed}.tsx`, `app/**/route.ts` and `app/**/socket.ts` files for the task; check whether root `pages.tsx` instead selects legacy compatibility.
 6. Shared `components/`, `lib/`, styles, state modules, tests, and data helpers
    used by those routes.
 7. Existing automatic files only when the task touches them.

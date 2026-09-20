@@ -1,12 +1,12 @@
 # Usage recipes
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 These small application examples illustrate the public API. They are not framework implementation or complete production applications.
 
 ## Show available channel information
 
-In `app/embeds/home/embed.tsx`:
+In `app/home/embed.tsx`:
 
 ```tsx
 import { useDiscordChannel } from "ludicord/discord";
@@ -26,7 +26,7 @@ Handle missing context and denied permissions. See [Discord data](discord-sdk.md
 
 ## Automatic compact view
 
-Create `app/minimize.tsx`; do not import it into `pages.tsx`:
+Create `app/minimize.tsx`; do not import it into `page.tsx`:
 
 ```tsx
 export default function Minimized() {
@@ -52,7 +52,7 @@ Only opt out of authentication for intentionally public data. Never return serve
 
 ## Authenticated WebSocket echo
 
-In `app/ws/echo/route.ts`:
+In `app/ws/echo/socket.ts`:
 
 ```ts
 import { defineWS } from "ludicord/ws/server";

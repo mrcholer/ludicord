@@ -55,8 +55,9 @@ configuration changes; renew authorization after OAuth scope changes.
 
 The default derives `https://<clientId>.discordsays.com` from the configured
 Discord Application ID and never allows a wildcard for other Activities. Use
-`"same-origin"` for a host-only policy, or include `"discord-activity"` in an
-array when adding another trusted browser origin.
+`"same-origin"` for a host-only policy. In an array, include both
+`"same-origin"` and `"discord-activity"` explicitly when retaining both
+built-in policies alongside another trusted browser origin.
 
 ## CLI
 
@@ -130,7 +131,7 @@ npx ludicord build
 
 | Symptom | Cause and fix |
 | --- | --- |
-| `LUDICORD1001` | Create `app/pages.tsx` |
+| `LUDICORD1001` | Create `app/page.tsx` |
 | `LUDICORD1002` | Mount both `LudicordActivity` and `EmbedOutlet` in the root |
 | Unknown embed | Verify the file path and generated route via `ludicord routes` |
 | Stale generated route type | Keep `ludicord dev` running or rebuild |

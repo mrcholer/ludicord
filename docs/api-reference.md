@@ -1,6 +1,6 @@
 # Public API reference
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 This page describes supported import paths and their purpose. The package includes TypeScript declarations for exact signatures and data shapes; use editor completion against the version you actually installed.
 
@@ -9,7 +9,7 @@ This page describes supported import paths and their purpose. The package includ
 | Import path | APIs |
 | --- | --- |
 | `ludicord` | `LudicordActivity`, `EmbedOutlet`, `PrefixLink`, `prefixHref`, `useActivityPrefix`, error/loading/minimize APIs, generated prefix types, `LUDICORD_VERSION` |
-| `ludicord/navigation` | `Link`, `PrefixLink`, `prefixHref`, `useEmbedRouter`, `useEmbedPath`, `useEmbedParams`, `useActivityPrefix`, and generated prefix/route/parameter types |
+| `ludicord/navigation` | `Link`, `PrefixLink`, `prefixHref`, `useEmbedRouter`, `useEmbedPath`, `useEmbedParams`, `usePageParams`, `useActivityPrefix`, and generated prefix/route/parameter types |
 | `ludicord/runtime` | `useLudicordRuntime` for environment, version, Activity/Discord/WebSocket readiness and auth status |
 | `ludicord/config` | `defineConfig` and configuration types |
 

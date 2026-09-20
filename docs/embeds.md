@@ -1,9 +1,9 @@
 # Embeds
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
-An embed is an internal Activity screen owned by one prefix scope. Create `app/embeds/home/embed.tsx` for the root scope:
+An embed is an internal Activity screen owned by its nearest ancestor page. Create `app/home/embed.tsx` for the root page:
 
 ```tsx
 export default function embed() {
@@ -14,14 +14,14 @@ export default function embed() {
 Routes come from directories:
 
 ```text
-app/embeds/home/embed.tsx                home
-app/embeds/profile/[userId]/embed.tsx    profile/:userId
-app/embeds/docs/[...slug]/embed.tsx      docs/*slug
-app/embeds/docs/[[...slug]]/embed.tsx    docs/*slug?
+app/home/embed.tsx                home
+app/profile/[userId]/embed.tsx    profile/:userId
+app/docs/[...slug]/embed.tsx      docs/*slug
+app/docs/[[...slug]]/embed.tsx    docs/*slug?
 ```
 
 Embed modules are lazy-loaded into the persistent `EmbedOutlet`. Dynamic values are decoded and available through `useEmbedParams`. Catch-all parameters are returned as slash-joined strings. Optional loading and error boundaries prevent one embed from taking down the Activity root.
 
-In V4, `app/prefix/docs/embeds/start/embed.tsx` is the local `start` embed for `/docs`, producing `/docs/#/start`. Another scope may also own `start`; generated types preserve the ownership boundary. See [V4 Prefix Router](prefix-router.md).
+For example, `app/docs/page.tsx` owns `app/docs/start/embed.tsx`, producing `/docs#/start`. The nearest ancestor page owns an embed; a nested page starts a new scope. In `app/game/[id]/players/embed.tsx`, `useEmbedParams()` includes the parent page's `id`. Another page may reuse the same local embed name. See [page scopes](prefix-router.md).
 
-The file convention is `app/embeds/<route>/embed.tsx`. Use `export default function embed()`; Ludicord supplies the internal React Refresh component name while preserving source maps. Existing uppercase component names remain compatible.
+The file convention is `app/<route>/embed.tsx`. Use `export default function embed()`; Ludicord supplies the internal React Refresh component name while preserving source maps. Existing uppercase component names remain compatible.

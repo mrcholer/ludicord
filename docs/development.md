@@ -1,22 +1,22 @@
 # Development runtime
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
 `ludicord dev` owns the HTTP server, API routes, WebSockets, React hot updates, and diagnostics. It binds and announces the local URL before the initial compilation, then reports a clear `listening` → `compiling` → `ready` lifecycle. Requests wait for that first compilation instead of racing an incomplete server:
 
 ```text
-compiling app/embeds/home/embed.tsx
-compiled app/embeds/home/embed.tsx (24ms)
+compiling app/home/embed.tsx
+compiled app/home/embed.tsx (24ms)
 ```
 
-After the compiler is ready, V4 prints a table of every discovered prefix and its local URL. This is the authoritative development mapping for root and nested Activity scopes.
+After the compiler is ready, V4 prints a table labeling PAGE, HTTP, SOCKET and EMBED routes. This is the authoritative development mapping for root and nested Activity scopes.
 
 Saving an API/WS route or one of its local imports rebuilds the shared server module graph in place. The HTTP process and port remain running. Existing sockets close with code 1012 and reconnect using the configured backoff. The new handler is active after compilation succeeds; a failed compile keeps the last working graph and displays its error. Adding/removing routes refreshes manifests and types automatically.
 
 If the first compilation fails, the listener remains available and serves the mapped error panel. Fixing the source triggers compilation again without restarting the command. Expected compiler cancellation during a controlled restart or shutdown is suppressed instead of appearing as an application failure.
 
-Server module-level memory resets when that graph is replaced. Use a database or external store for state that must survive development edits, restarts, or multiple server replicas. Browser-only embed edits use React Refresh and normally preserve component state when hook signatures stay compatible.
+Server module-level memory resets when that graph is replaced. Use a database or external store for state that must survive development edits, restarts, or multiple server replicas. Page, embed, shared-component and CSS edits use React Fast Refresh and normally preserve component state when hook signatures stay compatible, along with the pathname and hash. Route additions, removals, renames and moves regenerate manifests and declarations; structural changes may reload the document at its current URL. A failed first module import uses an automatic document reload after a fix because browsers cache rejected imports. These reloads may reset client state, but do not restart the server.
 
 Ludicord's development panel handles syntax, TypeScript, render, event-handler, promise, API, and WS errors. It shows the exact file, line, column, highlighted source excerpt, server stack, and React component stack when available. Its header and footer remain fixed while content scrolls; source frames and call stacks can scroll horizontally without exposing native scrollbar chrome. The panel supports minimize, copy, truthful retry, keyboard paging, editor links protected by the current dev-run token, documentation deep links configured through `LUDICORD_DOCS_ORIGIN`, and automatic recovery. No development panel or client source maps are included in production builds; production fallbacks receive sanitized errors.
 

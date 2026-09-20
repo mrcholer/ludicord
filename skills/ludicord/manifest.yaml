@@ -1,4 +1,6 @@
 schema: 1
+framework_version: "4.0.0"
+path_base: package-dist-or-repository-root
 canonical_skill: skills/ludicord/SKILL.md
 router: skills/ludicord/references/intelligence/skill-router.md
 knowledge_map: skills/ludicord/knowledge-map.md
@@ -13,6 +15,9 @@ principles:
   multiplayer_does_not_imply_game: true
   framework_does_not_define_product_design: true
   installed_package_is_api_authority: true
+  bundled_docs_before_online_docs: true
+  prefix_router_is_optional: true
+  prefix_requires_scale_or_concrete_boundary: true
 
 product_profiles:
   - id: general-activity
@@ -58,7 +63,7 @@ capability_profiles:
 framework_references:
   - id: prefix-router
     path: skills/ludicord/references/prefix-router.md
-    activation: when-app-prefix-scopes-cross-prefix-navigation-or-import-aliases-are-in-scope
+    activation: existing-prefix-work-or-justified-large-project-or-required-independent-pathname-shell
 
 intelligence:
   - id: project-analysis

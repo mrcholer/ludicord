@@ -1,6 +1,6 @@
 # Configuration reference
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 Create `ludicord.config.mjs` in the application root:
 
@@ -73,7 +73,7 @@ Targets must be `.` or remain inside the project through a `./` path. Absolute p
 | `server.requestTimeout` | `30000` | Maximum API handler duration |
 | `server.shutdownTimeout` | `10000` | Graceful shutdown limit |
 
-The `"discord-activity"` policy derives `https://<clientId>.discordsays.com` from `discord.clientId` or `LUDICORD_DISCORD_CLIENT_ID`. It also permits normal same-origin requests and never trusts a wildcard for every Activity. Use `"same-origin"` for a host-only policy, or `["discord-activity", "https://admin.example.com"]` when another trusted browser origin must call the Activity server.
+The `"discord-activity"` policy derives `https://<clientId>.discordsays.com` from `discord.clientId` or `LUDICORD_DISCORD_CLIENT_ID`. It also permits normal same-origin requests and never trusts a wildcard for every Activity. Use `"same-origin"` for a host-only policy. When an array adds another trusted browser origin, include both built-in policies explicitly: `["same-origin", "discord-activity", "https://admin.example.com"]`.
 
 Use an explicit host list when appropriate. CLI host/port flags override environment values; `HOST` and `PORT` override configured defaults.
 

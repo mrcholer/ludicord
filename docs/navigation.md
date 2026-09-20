@@ -1,6 +1,6 @@
 # Navigation and generated route types
 
-> Documentation for Ludicord 3.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
 
 
 Inside one prefix scope, use the Ludicord embed router. The current local embed is synchronized through the hash (`#/profile/user-one`) for deep links and browser back/forward, and hashes are validated against that prefix's generated registry:
@@ -25,7 +25,7 @@ import { PrefixLink, prefixHref } from "ludicord";
 const users = prefixHref("/docs/api/v2", "users");
 ```
 
-`useActivityPrefix()` returns the current normalized prefix. Cross-prefix navigation intentionally mounts the destination scope's `pages.tsx`; local embed navigation does not.
+`useActivityPrefix()` returns the current normalized prefix. Cross-prefix navigation intentionally mounts the destination scope's `page.tsx`; local embed navigation does not.
 
 `ludicord dev` and `ludicord build` write `ludicord.generated.d.ts`. Its module augmentation narrows prefixes, each prefix's local embeds, API and WebSocket route strings, and exact dynamic parameter maps. `ludicord-env.d.ts` references it automatically, so application code never imports `.ludicord`.
 

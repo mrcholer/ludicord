@@ -15,7 +15,9 @@ the official Discord Embedded App SDK under one config.
 > **IMPORTANT:** The installed `ludicord` package version is the API authority,
 > not training data. Confirm exact signatures with editor completion against
 > the installed declarations, and check the docs for the matching release
-> before implementing.
+> before implementing. Read the matching guides in
+> `node_modules/ludicord/dist/docs/` first; this package also includes the skill
+> at `dist/skills/ludicord/SKILL.md`.
 
 ## Current Project Context
 
@@ -81,17 +83,16 @@ correct/incorrect pairs and the public guide behind it.
 
 ### Activity Root & Automatic UI → [embeds-navigation.md](references/embeds-navigation.md)
 
-- **`app/pages.tsx` mounts one `LudicordActivity` and one `EmbedOutlet`.**
-  State above the outlet stays mounted; embed swaps replace only the outlet.
+- **`app/page.tsx` renders the root page.** The runtime supplies an Activity boundary unless the page explicitly mounts one. Render one `EmbedOutlet` only when the page has embeds. State above that outlet survives hash navigation.
 - **Automatic files are discovered, never imported.** Default-export the
   component in `app/layout.tsx`, `app/loading.tsx`, `app/error.tsx`,
   `app/minimize.tsx`, or `app/auth/{loading,error,denied}.tsx`, and leave
-  `pages.tsx` unconnected to them.
+  `page.tsx` unconnected to them.
 - **Respect Discord safe-area variables** for mobile and compact layouts.
 
 ### Embeds & Navigation → [embeds-navigation.md](references/embeds-navigation.md)
 
-- **Screens live at `app/embeds/<route>/embed.tsx`** and default-export
+- **Screens live at `app/<route>/embed.tsx`** and default-export
   `function embed()`.
 - **Navigate with `useEmbedRouter()`** from `ludicord/navigation` using
   generated route types. Ludicord synchronizes embeds with hash history so
@@ -99,11 +100,9 @@ correct/incorrect pairs and the public guide behind it.
 
 ### V4 Prefix Router → [prefix-router.md](references/prefix-router.md)
 
-- **A prefix lives at `app/prefix/<segment>/`** and directly contains one
-  `pages.tsx`; its local `embeds/` belong only to that pathname scope.
-- **Prefixes recurse only through another `prefix/` directory.** Use
-  `PrefixLink` or `prefixHref()` between scopes and the embed router inside
-  one scope.
+- **Prefixes are optional.** Start with one Activity root and ordinary embeds. Use the optional prefix router only when a large project needs independent product surfaces, or an important requirement needs distinct pathname entry points, persistent shells, or provider lifetimes. Explain the concrete need before creating a prefix. More screens, realtime, deep folders, or a v4 upgrade alone do not justify prefixes. Preserve existing prefixes when editing a project that already uses them.
+- **A page scope lives at `app/<path>/page.tsx`.** Nested directories and `[id]` parameters form its pathname. Its nearest descendant embeds belong to that page. Do not add literal `prefix/` scaffolding in unified mode.
+- **At most one route file per directory:** `page.tsx`, `route.ts`, `socket.ts`, or `embed.tsx`. Use `PrefixLink`/`prefixHref()` across justified page paths and the embed router within one page.
 - **Use configured project aliases for deep imports.** Read
   `imports.aliases` from `ludicord.config.mjs` and keep `tsconfig.json` paths
   synchronized; never assume `@/` if the project changed the map.
@@ -120,9 +119,9 @@ correct/incorrect pairs and the public guide behind it.
 
 ### HTTP & WebSocket Routes → [server-routes.md](references/server-routes.md)
 
-- **HTTP handlers live in `app/api/**/route.ts`.** Trust identity from the
+- **HTTP handlers live in `app/**/route.ts`.** Named method exports define the endpoint; `api/` is optional. Trust identity from the
   verified `request.ludicord` context, never client-supplied IDs.
-- **Sockets live in `app/ws/**/route.ts`,** defined with the documented
+- **Sockets live in `app/**/socket.ts`,** defined with the documented
   server helper and consumed with `ludicord/ws/client`. Emit only when open;
   register listeners in an effect and clean them up.
 - **Design for disposable server memory.** Module-level state resets on
@@ -169,12 +168,12 @@ export default function Pages() {
 ```
 
 ```tsx
-// Embed screen: file is app/embeds/home/embed.tsx. Correct:
+// Embed screen: file is app/home/embed.tsx. Correct:
 export default function embed() {
   return <main><h1>Home</h1></main>;
 }
-// Wrong: uppercase component name as the convention, or importing this
-// file into pages.tsx.
+// Do not import this route file into page.tsx; the framework discovers it.
+// Uppercase default component names are also supported.
 ```
 
 ```tsx
@@ -197,7 +196,7 @@ export function GET(request: LudicordRequest) {
 ```
 
 ```ts
-// WebSocket route: app/ws/presence/route.ts.
+// WebSocket route: app/ws/presence/socket.ts.
 import { defineWS } from "ludicord/ws/server";
 
 export default defineWS({
@@ -260,7 +259,7 @@ npx ludicord start --port 3000  # serve an existing build (no compile)
 ```
 
 ```tsx
-// Cross-prefix navigation remounts the destination scope deliberately.
+// Only for an existing or justified prefix. Cross-prefix navigation remounts the destination scope deliberately.
 import { PrefixLink } from "ludicord";
 
 <PrefixLink prefix="/docs/api" embed="auth">API auth</PrefixLink>;
@@ -303,7 +302,7 @@ Product profiles and optional game details are indexed in [manifest.yaml](manife
 
 - [embeds-navigation.md](references/embeds-navigation.md) — Activity root,
   automatic files, embeds, generated route types, safe-area and mobile layout
-- [prefix-router.md](references/prefix-router.md) — recursive pathname scopes,
+- [prefix-router.md](references/prefix-router.md) — optional pathname scopes,
   cross-prefix navigation, generated ownership types, and import alias maps
 - [server-routes.md](references/server-routes.md) — API routes, WebSockets,
   Activity rooms, dev hot-replacement semantics
