@@ -1,6 +1,6 @@
 # Pages: page.tsx
 
-> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.1. See [release status](../releases/README.md).
 
 A default-exported React component in `app/page.tsx` renders at `/`. Nested `page.tsx` files render at their directory paths. A page can render plain UI without any embed:
 

@@ -54,7 +54,10 @@ Invalid configuration values produce diagnostics. Restart development after
 configuration changes; renew authorization after OAuth scope changes.
 
 The default derives `https://<clientId>.discordsays.com` from the configured
-Discord Application ID and never allows a wildcard for other Activities. Use
+Discord Application ID and never allows a wildcard for other Activities. A
+runtime `LUDICORD_DISCORD_CLIENT_ID` takes precedence over build metadata and
+is shared by the client, HTTP, auth, and WebSocket entry points. Safe iframe
+`GET`/`HEAD` navigation may omit `Origin`; cross-site mutations may not. Use
 `"same-origin"` for a host-only policy. In an array, include both
 `"same-origin"` and `"discord-activity"` explicitly when retaining both
 built-in policies alongside another trusted browser origin.
@@ -140,6 +143,7 @@ npx ludicord build
 | WebSocket closes immediately | Browser needs a valid session cookie and instance context |
 | Voice hooks empty | Request `rpc.voice.read`; inspect `useDiscordDiagnostics()` |
 | Works in browser, not Discord | Verify HTTPS tunnel reachability and the `/` URL Mapping target |
+| `LUDICORD_ORIGIN_NOT_ALLOWED` | Use Ludicord 4.0.1+, set the exact Discord Application ID, then restart the production server |
 | `LUDICORD3001` | Run `ludicord build` before `ludicord start` |
 | Signature verification fails | Preserve the raw body and signature/timestamp headers through proxies |
 

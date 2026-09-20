@@ -1,6 +1,6 @@
 # AI coding agents
 
-Ludicord 4.0.0 ships documentation and agent skills with the npm package. They
+Ludicord 4.0.1 ships documentation and agent skills with the npm package. They
 are available offline and change together with the installed framework:
 
 ```text

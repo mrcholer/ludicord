@@ -1,15 +1,15 @@
-# Upgrading to Ludicord 4.0.0
+# Upgrading to Ludicord 4.0.1
 
-> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.1. See [release status](../releases/README.md).
 
-Check that both 4.0.0 packages are available before upgrading:
+Check that both 4.0.1 packages are available before upgrading:
 
 ```bash
 npm view ludicord version
 npm view create-ludicord-app version
 ```
 
-Update an existing application's framework dependency with `npm install ludicord@4.0.0` (or your package-manager equivalent), update its lockfile, and create a fresh production build. The generator is for new projects; do not run it over an existing non-empty application. Existing V3 trees remain supported through legacy compatibility mode; follow [the routing migration](migration-v4.md) before switching file conventions.
+Update an existing application's framework dependency with `npm install ludicord@4.0.1` (or your package-manager equivalent), update its lockfile, and create a fresh production build. The generator is for new projects; do not run it over an existing non-empty application. Existing V3 trees remain supported through legacy compatibility mode; follow [the routing migration](migration-v4.md) before switching file conventions.
 
 ## Review your application
 
@@ -42,4 +42,4 @@ Update an existing application's framework dependency with `npm install ludicord
 - Every expected prefix pathname and default embed URL returns the correct shell.
 - Unknown production prefixes return 404 instead of falling through to an unrelated scope.
 
-Back up your current lockfile and keep the last deployable build for rollback. Review the detailed [V4 migration guide](migration-v4.md), [page scopes and unified routing](prefix-router.md), [4.0.0 release notes](../releases/v4/4.0.0.md), [security](security.md), and [deployment](deployment.md).
+Back up your current lockfile and keep the last deployable build for rollback. Review the detailed [V4 migration guide](migration-v4.md), [page scopes and unified routing](prefix-router.md), [4.0.1 release notes](../releases/v4/4.0.1.md), [security](security.md), and [deployment](deployment.md).

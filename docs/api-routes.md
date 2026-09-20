@@ -1,6 +1,6 @@
 # API Routes
 
-> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.1. See [release status](../releases/README.md).
 
 
 Create a `route.ts` anywhere under `app/`. For example, `app/api/hello/route.ts` serves `/api/hello`; `app/health/route.ts` serves `/health`. The `api/` directory is optional. Do not place another route file in the same directory.

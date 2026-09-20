@@ -1,6 +1,6 @@
 # Troubleshooting
 
-> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.1. See [release status](../releases/README.md).
 
 
 Run the checks relevant to the failure:
@@ -27,6 +27,7 @@ Start with the first mapped compile diagnostic rather than restarting repeatedly
 - WebSocket closes immediately: the browser needs a valid Ludicord session cookie and an instance context.
 - Voice hooks are empty: request `rpc.voice.read` and inspect `useDiscordDiagnostics()`.
 - Activity works in a browser but not Discord: verify HTTPS tunnel reachability and the `/` URL Mapping target.
+- `LUDICORD_ORIGIN_NOT_ALLOWED`: upgrade to Ludicord 4.0.1 or newer, verify that `LUDICORD_DISCORD_CLIENT_ID` exactly matches the Discord application, and restart the production server. Initial iframe `GET` navigation may omit `Origin`; API mutations and WebSocket upgrades must still match the configured application's `https://<clientId>.discordsays.com` origin.
 - `LUDICORD3001`: run `ludicord build` before `ludicord start`.
 - Signature verification fails: preserve the exact raw request body and Discord signature/timestamp headers through any reverse proxy.
 

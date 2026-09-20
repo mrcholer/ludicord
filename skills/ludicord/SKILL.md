@@ -3,7 +3,7 @@ name: ludicord
 description: "Build, modify, debug, review, or document Ludicord Discord Activities. Use for Activity roots, embeds, typed navigation, React state and effects, API or WebSocket routes, shared Activity state, Discord SDK data, participants, voice, authentication, security, configuration, development diagnostics, deployment, migration, and release compatibility."
 metadata:
   author: ludicord
-  version: "4.0.0"
+  version: "4.0.1"
 ---
 
 # Ludicord
@@ -282,7 +282,7 @@ npx create-ludicord-app@latest my-activity --tailwind # scripted styling choice
 npx create-ludicord-app@latest my-activity --no-tailwind
 ```
 
-Generated 4.0.0 projects intentionally include only `dev`, `build`, and
+Generated 4.0.1 projects intentionally include only `dev`, `build`, and
 `start` scripts. Run advanced commands with the project's package runner.
 
 ## Routed Intelligence References

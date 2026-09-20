@@ -85,9 +85,11 @@ LUDICORD_DISCORD_PUBLIC_KEY=
   responses never leak stack traces or filesystem paths.
 - `server.allowedOrigins` defaults to `"discord-activity"`: same-origin plus
   this application's exact `https://<clientId>.discordsays.com` proxy origin.
-  The Client ID comes from config or the supported environment variable; the
-  policy never trusts a wildcard for every Activity. HTTP and WebSocket entry
-  points use the same check.
+  The Client ID comes from config or the supported environment variable; a
+  runtime value takes precedence and is shared by the client, HTTP, auth, and
+  WebSocket entry points. The policy never trusts a wildcard for every
+  Activity. Browsers may omit `Origin` from the initial safe iframe `GET`, so
+  it is allowed; cross-site mutation requests without an allowed origin fail.
 
 Optional verifications (both fail closed):
 

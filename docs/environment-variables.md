@@ -1,6 +1,6 @@
 # Environment Variables
 
-> Documentation for Ludicord 4.0.0. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.0.1. See [release status](../releases/README.md).
 
 
 ```env
@@ -20,7 +20,7 @@ LUDICORD_DISCORD_PUBLIC_KEY=
 # LUDICORD_DEV_SCOPES=identify
 ```
 
-- `LUDICORD_DISCORD_CLIENT_ID` is the public Discord application/client ID and may reach the client bundle.
+- `LUDICORD_DISCORD_CLIENT_ID` is the public Discord application/client ID and may reach the client. Set it during the build or when `ludicord start` launches. A runtime value takes precedence over build metadata and is used consistently by the browser SDK, HTTP security, authentication, and WebSocket upgrades.
 - `LUDICORD_DISCORD_CLIENT_SECRET` is the OAuth2 Client Secret. It is server-only.
 - `LUDICORD_SESSION_SECRET` encrypts and authenticates session state. Use at least 32 random characters and keep it server-only.
 - `LUDICORD_DISCORD_PUBLIC_KEY` enables optional Ed25519 proxy-request verification.
@@ -28,3 +28,5 @@ LUDICORD_DISCORD_PUBLIC_KEY=
 - `LUDICORD_DEV_*` values customize the fake identity created by `ludicord dev`. Production never accepts a development session.
 
 Use `.env.local` for local secrets and keep it out of source control. Commit only `.env.example` with empty values. `ludicord build` scans client output for actual server secret values and fails if one leaked.
+
+When `server.allowedOrigins` uses the default `"discord-activity"` policy, the production server needs a Client ID from build metadata or its runtime environment. Ludicord warns when neither source provides one because it cannot derive the exact `https://<clientId>.discordsays.com` origin.
