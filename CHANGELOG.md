@@ -100,7 +100,7 @@ Ludicord 4.0 introduces unified file-system routing and automatic development re
 - Client and server custom-alias compilation tests, including project-boundary validation.
 - Package build, strict TypeScript, lint, production build, and tracked framework test suite.
 
-Read the full [page scopes and unified routing guide](https://ludicord.vercel.app/docs/prefix-router) and [V4 migration guide](https://ludicord.vercel.app/docs/migration-v4). The npm registry remains authoritative for package installability.
+Read the full [page scopes and unified routing guide](https://ludicord.extra.codes/docs/prefix-router) and [V4 migration guide](https://ludicord.extra.codes/docs/migration-v4). The npm registry remains authoritative for package installability.
 
 [GitHub release](https://github.com/mrcholer/ludicord/releases/tag/v4.0.0) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/4.0.0) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/4.0.0)
 
