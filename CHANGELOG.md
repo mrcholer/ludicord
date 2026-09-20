@@ -1,5 +1,39 @@
 # Release history
 
+## 4.0.1 — September 20, 2026
+
+Ludicord 4.0.1 fixes Discord Activity startup when the initial iframe navigation does not include an `Origin` header. It also makes the effective Discord application ID consistent across the browser SDK, HTTP routes, authentication, and WebSockets.
+
+## Discord Activity origin fix
+
+- Allows origin-less `GET` and `HEAD` navigation so Discord can load the Activity document in its iframe.
+- Continues to reject cross-site mutation requests without an allowed `Origin`.
+- Continues to accept only the configured application's exact `https://<clientId>.discordsays.com` origin; other Discord application IDs remain rejected.
+- Applies the same application identity to HTTP requests and WebSocket upgrades.
+
+## Runtime Client ID consistency
+
+- `LUDICORD_DISCORD_CLIENT_ID` can be supplied when `ludicord start` launches, including for a promoted build created without the ID.
+- A runtime Client ID takes precedence over build metadata.
+- The production server injects the effective ID into the served Activity document, including direct `/index.html` requests.
+- The client SDK, origin middleware, authentication router, and WebSocket upgrade policy all use that same effective ID.
+- Build and startup diagnostics warn when the default Discord Activity origin policy has no Client ID to derive an exact proxy origin.
+
+## Validation
+
+- Verified the initial cross-site iframe `GET` without `Origin` succeeds.
+- Verified a cross-site `POST` without `Origin` remains blocked.
+- Verified another application's `discordsays.com` origin remains blocked.
+- Verified a runtime-only Client ID works for document delivery, API, authentication, and WebSockets.
+- Passed the complete tracked framework suite: 128 passed, 0 failed, 2 skipped.
+
+Read the [security guide](https://ludicord.extra.codes/docs/security), [deployment guide](https://ludicord.extra.codes/docs/deployment), and [troubleshooting guide](https://ludicord.extra.codes/docs/troubleshooting) for configuration details.
+
+[GitHub release](https://github.com/mrcholer/ludicord/releases/tag/v4.0.1) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/4.0.1) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/4.0.1)
+
+[Full release notes](releases/v4/4.0.1.md)
+
+
 ## 4.0.0 — September 20, 2026
 
 Ludicord 4.0 introduces unified file-system routing and automatic development recovery while retaining the existing Discord, authentication, realtime and production architecture.
