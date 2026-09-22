@@ -22,7 +22,9 @@ ludicord build
 ludicord start
 ```
 
-Public entry points include `ludicord`, `ludicord/config`, `ludicord/metadata`, `ludicord/navigation`, `ludicord/activity`, `ludicord/discord`, `ludicord/auth`, `ludicord/server`, `ludicord/security`, `ludicord/ws`, `ludicord/ws/client`, `ludicord/ws/server`, `ludicord/runtime` (client status), `ludicord/runtime/server` (server tooling), and `ludicord/testing`.
+Public entry points include `ludicord`, `ludicord/config`, `ludicord/plugins`, `ludicord/plugins/wasm`, `ludicord/metadata`, `ludicord/navigation`, `ludicord/activity`, `ludicord/discord`, `ludicord/auth`, `ludicord/server`, `ludicord/security`, `ludicord/ws`, `ludicord/ws/client`, `ludicord/ws/server`, `ludicord/runtime` (client status), `ludicord/runtime/server` (server tooling), and `ludicord/testing`.
+
+Projects can register typed compiler extensions in `ludicord.config.mjs`. The official `wasm()` plugin adds portable `.wasm` imports to browser components and server routes while Ludicord keeps ownership of the underlying compiler configuration. See [Plugins and WebAssembly](https://github.com/mrcholer/ludicord/blob/main/docs/plugins.md).
 
 See the public [documentation](https://github.com/mrcholer/ludicord/blob/main/docs/README.md), [release history](https://github.com/mrcholer/ludicord/blob/main/CHANGELOG.md), and [issue tracker](https://github.com/mrcholer/ludicord/issues). The public repository contains documentation and release information, not the framework implementation.
 
@@ -39,6 +41,8 @@ V4 adds independently mounted pathname scopes, prefix-aware generated types, `Pr
 V4 includes the production authentication, Activity-launch isolation, realtime reliability, and multi-process adapters introduced in 3.1.
 
 V4 also accepts the configured application's exact `https://<clientId>.discordsays.com` proxy origin by default for HTTP and WebSocket requests, alongside normal same-origin traffic. The framework derives the hostname from the Discord Application ID and does not trust wildcard Activity origins.
+
+Ludicord 4.1 adds trusted compiler plugins through `ludicord.config.mjs`. `definePlugin()` provides portable client/server hooks, and the official `wasm()` plugin adds typed precompiled WebAssembly imports in both environments without exposing Ludicord's underlying compiler configuration.
 
 ## Version-matched AI guidance
 

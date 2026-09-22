@@ -1,8 +1,24 @@
 {
   "name": "ludicord",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Full-stack React framework for Discord Activities.",
   "homepage": "https://github.com/mrcholer/ludicord#readme",
+  "keywords": [
+    "discord",
+    "activities",
+    "react",
+    "framework",
+    "full-stack",
+    "typescript",
+    "vite",
+    "ws",
+    "express",
+    "discord-activities",
+    "discord-activity",
+    "discord-activity-sdk",
+    "discord-activity-sdk-react",
+    "framework-for-discord-activities"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mrcholer/ludicord.git",
@@ -44,6 +60,16 @@
       "types": "./dist/config/index.d.ts",
       "import": "./dist/config/index.js",
       "default": "./dist/config/index.js"
+    },
+    "./plugins": {
+      "types": "./dist/plugins/index.d.ts",
+      "import": "./dist/plugins/index.js",
+      "default": "./dist/plugins/index.js"
+    },
+    "./plugins/wasm": {
+      "types": "./dist/plugins/wasm.d.ts",
+      "import": "./dist/plugins/wasm.js",
+      "default": "./dist/plugins/wasm.js"
     },
     "./navigation": {
       "types": "./dist/navigation/index.d.ts",
