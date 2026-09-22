@@ -1,6 +1,6 @@
 # Project structure
 
-> Documentation for Ludicord 4.0.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.1.0. See [release status](../releases/README.md).
 
 The `app/` tree is the router. These four files define routes:
 

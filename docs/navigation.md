@@ -1,6 +1,6 @@
 # Navigation and generated route types
 
-> Documentation for Ludicord 4.0.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.1.0. See [release status](../releases/README.md).
 
 
 Inside one prefix scope, use the Ludicord embed router. The current local embed is synchronized through the hash (`#/profile/user-one`) for deep links and browser back/forward, and hashes are validated against that prefix's generated registry:
