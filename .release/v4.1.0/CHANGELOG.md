@@ -25,4 +25,4 @@ Ludicord 4.1.0 adds a supported compiler plugin system and makes WebAssembly the
 - Production builds retain generated route and plugin declarations under `.ludicord/types`.
 - Plugin errors identify the plugin and failing hook with a focused Ludicord diagnostic.
 
-Read [Plugins and WebAssembly](plugins.md) for configuration, authoring, trust boundaries, and complete examples.
+Read [Plugins and WebAssembly](https://ludicord.extra.codes/docs/plugins) for configuration, authoring, trust boundaries, and complete examples.
