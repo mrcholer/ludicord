@@ -6,8 +6,10 @@ Create `ludicord.config.mjs` in the application root:
 
 ```js
 import { defineConfig } from "ludicord/config";
+import { wasm } from "ludicord/plugins/wasm";
 
 export default defineConfig({
+  plugins: [wasm()],
   discord: { scopes: ["identify", "guilds"] },
   activity: { defaultEmbed: "home", outsideDiscord: "error" },
   imports: {
@@ -22,6 +24,12 @@ export default defineConfig({
 ```
 
 Client ID may come from `LUDICORD_DISCORD_CLIENT_ID`. Keep secrets in server environment variables, never config literals or client imports.
+
+## Plugins
+
+`plugins` accepts extensions created with `definePlugin()` as well as official plugins such as `wasm()`. False, null, and undefined entries are ignored so a plugin may be enabled conditionally. Plugin names must be unique. Plugins run in the browser and server compilers unless their hooks choose a target from the supplied context.
+
+See [Plugins and WebAssembly](plugins.md) for the hook API, generated declarations, security boundary, and WASM imports. Do not create a Vite config; Ludicord owns its compiler configuration.
 
 ## Discord and Activity
 

@@ -11,9 +11,13 @@ This page describes supported import paths and their purpose. The package includ
 | `ludicord` | `LudicordActivity`, `EmbedOutlet`, `PrefixLink`, `prefixHref`, `useActivityPrefix`, error/loading/minimize APIs, generated prefix types, `LUDICORD_VERSION` |
 | `ludicord/navigation` | `Link`, `PrefixLink`, `prefixHref`, `useEmbedRouter`, `useEmbedPath`, `useEmbedParams`, `usePageParams`, `useActivityPrefix`, and generated prefix/route/parameter types |
 | `ludicord/runtime` | `useLudicordRuntime` for environment, version, Activity/Discord/WebSocket readiness and auth status |
-| `ludicord/config` | `defineConfig` and configuration types |
+| `ludicord/config` | `defineConfig`, `definePlugin`, plugin hook/context types, and configuration types |
+| `ludicord/plugins` | Official plugin exports |
+| `ludicord/plugins/wasm` | `wasm()` and `LudicordWasmPluginOptions` |
 
 The compiler supplies the minimize provider for automatic files; do not manually wrap it just to use `app/minimize.tsx`. See [automatic files](pages.md) and [navigation](navigation.md).
+
+Configured plugins may add generated ambient declarations in `ludicord.plugins.generated.d.ts`. The official WASM plugin types `.wasm` imports and supplies `instantiate`, `compile`, and `byteLength`. See [Plugins and WebAssembly](plugins.md).
 
 `PrefixLink` and `prefixHref()` navigate between pathname-owned Activity pages. `Link` and `useEmbedRouter()` navigate among local embeds without remounting the active page. Read [Page scopes and unified routing](prefix-router.md) before constructing cross-page URLs.
 

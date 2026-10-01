@@ -30,4 +30,10 @@ Do not hide an explicit Activity boundary in another component: keep it visible 
 
 Automatic files are discovered without imports in the page: `layout.tsx` receives children, `loading.tsx` supplies a fallback, `error.tsx` receives error/reset, `minimize.tsx` supplies compact UI, and `auth/{loading,error,denied}.tsx` supplies sign-in states. Place them beside the page they configure. Embed directories can have their own layout/loading/error files. Production error components receive sanitized errors.
 
+The HTML initially contains an accessible “Loading Activity…” shell, visible before the client modules finish loading. The selected page module starts downloading alongside its layout, loading component, and metadata. Those three convention files are prepared before React mounts; keep them small. Your `loading.tsx` then replaces the built-in shell while the page suspends. Global CSS can set `--ludicord-startup-background` and `--ludicord-startup-color` to match the Activity theme.
+
+Error, not-found, minimized, and sign-in components load when rendered. Embed layouts, loading screens, and error screens also load on demand, so an unopened embed's UI modules do not block startup. Shared embed layouts retain their identity and state across hash navigation. Lazy convention screens use the page's loading component while downloading, or the built-in shell if none exists. A failed convention-screen import displays a safe reload screen. Keep essential startup work out of module-level side effects in deferred files.
+
+See [startup measurements](development.md#startup-measurements) to identify the remaining delays.
+
 See [embeds](embeds.md), [project structure](project-structure.md), and [migration](migration-v4.md).

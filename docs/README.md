@@ -8,6 +8,7 @@
 - [Getting Started](getting-started.md)
 - [Installation](installation.md)
 - [Project Structure](project-structure.md)
+- [Plugins and WebAssembly](plugins.md)
 - [AI coding agents and bundled docs](ai-agents.md)
 - [Page scopes and optional prefix navigation](prefix-router.md)
 - [Pages: page.tsx](pages.md)

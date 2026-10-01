@@ -24,3 +24,17 @@ Handlers use native `Request` and `Response` objects. Export `GET`, `POST`, `PUT
 Routes require a valid Ludicord session by default. Set `export const auth = false` for a public route. Authenticated handlers should trust identity from `request.ludicord`, never user IDs supplied in a request body.
 
 Ludicord returns 404 for no route, 405 with `Allow` for unsupported methods, supplies HEAD from GET, and supplies OPTIONS when no custom handler exists. API and Activity traffic run on the same Node server.
+
+The production server defaults dynamic responses to `Cache-Control: no-store`. For intentionally public, non-personalized data, a handler can explicitly opt into caching:
+
+```ts
+export const auth = false;
+
+export function GET() {
+  return Response.json({ status: "online" }, {
+    headers: { "Cache-Control": "public, max-age=60" },
+  });
+}
+```
+
+Keep user- and Activity-specific responses out of shared caches. See [production HTTP caching](deployment.md#production-http-caching) for the asset and HTML policies.

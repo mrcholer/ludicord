@@ -1,9 +1,9 @@
 ---
 name: ludicord
-description: "Build, modify, debug, review, or document Ludicord Discord Activities. Use for Activity roots, embeds, typed navigation, React state and effects, API or WebSocket routes, shared Activity state, Discord SDK data, participants, voice, authentication, security, configuration, development diagnostics, deployment, migration, and release compatibility."
+description: "Build, modify, debug, review, or document Ludicord Discord Activities. Use for Activity roots, embeds, typed navigation, React state and effects, API or WebSocket routes, shared Activity state, Discord SDK data, participants, voice, authentication, security, configuration, compiler plugins, WebAssembly, development diagnostics, deployment, migration, and release compatibility."
 metadata:
   author: ludicord
-  version: "4.0.1"
+  version: "4.1.1"
 ---
 
 # Ludicord
@@ -151,6 +151,11 @@ correct/incorrect pairs and the public guide behind it.
   routes share `server.allowedHosts` and `server.allowedOrigins`.
 - **Keep `ludicord.config.mjs` as the configuration source.** No Vite
   config — Vite is an internal compiler detail.
+- **Register compiler extensions through `plugins`.** Use `definePlugin()` for
+  a project or package plugin and `wasm()` from `ludicord/plugins/wasm` for
+  typed `.wasm` imports. Load only trusted plugins because config hooks execute
+  during development and builds. Read `dist/docs/plugins.md` before authoring
+  hooks; do not reach into Ludicord's Vite or esbuild configuration.
 
 ## Key Patterns
 
@@ -282,7 +287,7 @@ npx create-ludicord-app@latest my-activity --tailwind # scripted styling choice
 npx create-ludicord-app@latest my-activity --no-tailwind
 ```
 
-Generated 4.0.1 projects intentionally include only `dev`, `build`, and
+Generated 4.1.1 projects intentionally include only `dev`, `build`, and
 `start` scripts. Run advanced commands with the project's package runner.
 
 ## Routed Intelligence References

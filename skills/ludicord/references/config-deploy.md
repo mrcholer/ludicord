@@ -2,7 +2,8 @@
 
 Read [configuration](https://github.com/mrcholer/ludicord/blob/main/docs/configuration.md),
 [CLI reference](https://github.com/mrcholer/ludicord/blob/main/docs/cli.md), [deployment](https://github.com/mrcholer/ludicord/blob/main/docs/deployment.md),
-[build](https://github.com/mrcholer/ludicord/blob/main/docs/build.md), [start](https://github.com/mrcholer/ludicord/blob/main/docs/start.md), and
+[build](https://github.com/mrcholer/ludicord/blob/main/docs/build.md), [start](https://github.com/mrcholer/ludicord/blob/main/docs/start.md),
+[plugins](https://github.com/mrcholer/ludicord/blob/main/docs/plugins.md), and
 [troubleshooting](https://github.com/mrcholer/ludicord/blob/main/docs/troubleshooting.md) for the full guides.
 
 ## Configuration
@@ -26,11 +27,15 @@ export default defineConfig({
 - Never create `vite.config.*` — Vite is an internal compiler detail and
   the file is ignored. Tailwind is detected from `@tailwindcss/vite` in the
   app.
+- Register trusted compiler extensions in `plugins`. Use `definePlugin()` for
+  custom hooks and `wasm()` from `ludicord/plugins/wasm` for typed, portable
+  `.wasm` imports in client and server modules.
 
 Key settings:
 
 | Setting | Default | Meaning |
 | --- | --- | --- |
+| `plugins` | `[]` | Trusted compiler extensions for client and server modules |
 | `discord.clientId` | Environment value | Public Discord application ID |
 | `discord.scopes` | `["identify"]` | Requested OAuth scopes |
 | `discord.auth.required` | `true` | Require login for the Activity |

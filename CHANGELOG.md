@@ -20,7 +20,7 @@ Ludicord 4.1.1 improves Activity opening behavior and makes repeat openings reus
 - Keep authenticated responses and failures uncached by default, while preserving explicit API cache policies.
 - Return an uncached 404 for missing compiled assets and retain conservative caching for older builds.
 
-Release announcements now require an explicit workflow opt-in. Read [startup measurements](https://ludicord.extra.codes/docs/development#startup-measurements), [page loading](https://ludicord.extra.codes/docs/pages#automatic-ui), and [production caching](https://ludicord.extra.codes/docs/deployment) for details.
+Release announcements now require an explicit workflow opt-in. Read [startup measurements](https://ludicord.extra.codes/docs/development#startup-measurements), [page loading](https://ludicord.extra.codes/docs/pages-and-embeds#activity-opening-and-loading), and [production caching](https://ludicord.extra.codes/docs/production#production-http-caching) for details.
 
 [GitHub release](https://github.com/mrcholer/ludicord/releases/tag/v4.1.1) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/4.1.1) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/4.1.1)
 
@@ -88,7 +88,7 @@ Ludicord 4.0.1 fixes Discord Activity startup when the initial iframe navigation
 - Verified a runtime-only Client ID works for document delivery, API, authentication, and WebSockets.
 - Passed the complete tracked framework suite: 128 passed, 0 failed, 2 skipped.
 
-Read the [security guide](https://ludicord.extra.codes/docs/security), [deployment guide](https://ludicord.extra.codes/docs/deployment), and [troubleshooting guide](https://ludicord.extra.codes/docs/troubleshooting) for configuration details.
+Read the [security guide](https://ludicord.extra.codes/docs/security), [deployment guide](https://ludicord.extra.codes/docs/production#production-http-caching), and [troubleshooting guide](https://ludicord.extra.codes/docs/troubleshooting) for configuration details.
 
 [GitHub release](https://github.com/mrcholer/ludicord/releases/tag/v4.0.1) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/4.0.1) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/4.0.1)
 

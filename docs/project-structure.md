@@ -33,6 +33,7 @@ lib/                          shared application code
 public/                       static assets
 ludicord.config.mjs            framework configuration
 ludicord.generated.d.ts        generated route and parameter types
+ludicord.plugins.generated.d.ts generated plugin declarations
 .ludicord/                    generated build output
 ```
 

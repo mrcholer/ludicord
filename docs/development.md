@@ -25,3 +25,34 @@ Ludicord's development panel handles syntax, TypeScript, render, event-handler, 
 Successful server graph rebuilds remove obsolete temporary bundles; failed rebuilds keep the last working graph. The current run directory is removed on shutdown. Vite remains an internal compiler, not a separate developer-facing server. `vite.config.ts` is unnecessary and ignored. Tailwind is detected when `@tailwindcss/vite` is installed in the app.
 
 Run `ludicord routes` to inspect recursive page and embed ownership, `ludicord info` for environment and project details, `ludicord lint` for React Hooks rules, and `ludicord build` for the complete production validation and client-secret scan.
+
+## Startup measurements
+
+Generated Activity entries record local User Timing measures in development and production. Record an opening in the browser's Performance panel, or inspect them in the console:
+
+```js
+console.table(performance.getEntriesByType("measure")
+  .filter(entry => entry.name.startsWith("ludicord:startup:"))
+  .map(entry => ({
+    stage: entry.name.replace("ludicord:startup:", ""),
+    startMs: Math.round(entry.startTime),
+    durationMs: Math.round(entry.duration),
+    status: entry.detail?.status,
+  })));
+```
+
+| Measure | Meaning |
+| --- | --- |
+| `runtime` | Time from document navigation until the generated entry begins executing, including entry downloads and imported runtime evaluation. |
+| `scope` | Preparation of the selected page's layout, loading UI, metadata, and route registry. |
+| `page-module` | Import and evaluation of the selected page module, started alongside scope preparation. |
+| `discord` | Discord initialization after the Activity mounts. |
+| `auth` | Authentication after Discord initialization; skipped when initialization returns without a session. |
+| `embed-module` | Import and evaluation of the first requested embed module. |
+| `root-commit` | Navigation to the first React root effect, which may still show a loading screen. |
+| `content-commit` | Navigation to the first committed Activity content after its sign-in gate allows rendering. An embed may still be loading. |
+| `embed-commit` | Navigation to the first committed embed subtree, including its layouts. |
+
+Stage measures have `detail.status` of `complete`, `skipped`, or `error`. Only stages actually reached are recorded; for example, failed Discord initialization does not produce an authentication measure. Commit milestones use React effects and do not claim to measure browser paint. Use browser network/resource timings to separate download time from module evaluation; deferred modules and shared imports can overlap, so these durations should not be added together.
+
+Measures are recorded once per entry boot, including under React Strict Mode. HMR entry disposal prevents old asynchronous imports from mounting a stale root or finishing stale measurements; the next entry clears only Ludicord's startup marks and measures. Later embed navigation does not overwrite opening measurements. These timings remain in the browser and are not sent to a server.
