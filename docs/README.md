@@ -38,7 +38,17 @@
 - [Security](security.md)
 - [Troubleshooting](troubleshooting.md)
 
-See [usage recipes](recipes.md) for small application examples. Framework implementation and private applications are not included in this repository.
+## Examples and community learning
+
+- [Usage recipes](recipes.md) for small application examples
+- [Community tutorial series](https://github.com/mrcholer/ludicord/discussions/3)
+  for loading UI, configuration, controllers, navigation, participants,
+  WebSockets, shared state, storage, API security, and diagnostics
+- [GitHub Discussions](https://github.com/mrcholer/ludicord/discussions) for
+  questions, guides, showcases, and reusable resources
+
+Framework implementation and private applications are not included in this
+repository.
 
 ## Reference and updates
 

@@ -1,6 +1,49 @@
 # Ludicord
 
-> Ludicord is a full-stack React framework for Discord Activities.
+> Ludicord is a full-stack React and TypeScript framework for building Discord
+> Activities on the Discord Embedded App SDK. It provides file-system routing,
+> Discord authentication, HTTP API routes, WebSockets, multiplayer rooms,
+> shared state, typed navigation, compiler plugins, WebAssembly support, and
+> production tooling.
+
+Current stable documentation: Ludicord 4.1.1.
+
+## Canonical links
+
+- [Website](https://ludicord.extra.codes/)
+- [Documentation](https://ludicord.extra.codes/docs)
+- [npm package](https://www.npmjs.com/package/ludicord)
+- [GitHub repository](https://github.com/mrcholer/ludicord)
+- [Community tutorials](https://github.com/mrcholer/ludicord/discussions/3)
+- [Issues](https://github.com/mrcholer/ludicord/issues)
+
+## Core conventions
+
+- `app/page.tsx` defines a pathname page and Activity boundary scope.
+- `app/**/embed.tsx` defines an Activity screen owned by its nearest page.
+- `app/**/route.ts` defines an authenticated HTTP route.
+- `app/**/socket.ts` defines an authenticated WebSocket route.
+- `ludicord.config.mjs` owns Discord, Activity, server, WebSocket, import alias,
+  and compiler-plugin configuration.
+- `LudicordActivity` initializes Discord, authentication, shared event stores,
+  safe-area values, and embed routing.
+- Use `Link` or `useEmbedRouter()` inside one page and `PrefixLink` only when
+  navigation must move to another justified pathname page.
+- Keep secrets in server-only environment variables. Never trust browser-sent
+  identity when `request.ludicord` or `client.ludicord` provides verified data.
+
+## Quick start
+
+```bash
+npm create ludicord-app@latest my-activity
+cd my-activity
+npm run dev
+```
+
+Use the locally installed package as the authority. Check its declarations,
+`ludicord.generated.d.ts`, `node_modules/ludicord/dist/docs/`, and
+`node_modules/ludicord/dist/skills/ludicord/SKILL.md` before relying on public
+examples from another version.
 
 ## Agent entry points
 
@@ -14,6 +57,7 @@
 - [Configuration, CLI, and deployment](./skills/ludicord/references/config-deploy.md)
 - [Validation workflow](./skills/ludicord/references/validation.md)
 - [Agent/runtime support map](./AGENT_SUPPORT.md)
+- [AI coding-agent guide](./docs/ai-agents.md)
 
 ## Documentation
 
