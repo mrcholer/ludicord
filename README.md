@@ -2,7 +2,7 @@
   <a href="https://github.com/mrcholer/ludicord"><img src="https://raw.githubusercontent.com/mrcholer/ludicord/main/.github/assets/ludicord-logo.png" alt="Ludicord" width="220" /></a>
 </p>
 
-<h1 align="center">Ludicord</h1>
+<h1 align="center">ludicord</h1>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/ludicord"><img alt="npm version" src="https://img.shields.io/npm/v/ludicord?style=flat-square&color=5865F2" /></a>
@@ -12,59 +12,9 @@
   <a href="https://github.com/mrcholer/ludicord/blob/main/SECURITY.md"><img alt="Security policy" src="https://img.shields.io/badge/security-policy-6D5DFC?style=flat-square" /></a>
 </p>
 
-Ludicord is a full-stack React and TypeScript framework for building **Discord
-Activities** on the **Discord Embedded App SDK**. It combines file-system
-routing, Discord authentication, API routes, WebSockets, multiplayer state,
-typed navigation, compiler plugins, WebAssembly support, testing, and
-production tooling in one CLI.
+The full-stack React framework and CLI for Discord Activities.
 
-Build multiplayer games, watch parties, social experiences, collaborative
-tools, and interactive apps that run inside Discord.
-
-<p align="center">
-  <a href="https://ludicord.extra.codes/">Website</a> ·
-  <a href="https://ludicord.extra.codes/docs">Documentation</a> ·
-  <a href="https://www.npmjs.com/package/ludicord">npm</a> ·
-  <a href="https://github.com/mrcholer/ludicord/discussions">Community</a>
-</p>
-
-## Why Ludicord?
-
-- **Discord-native React:** authenticated users, guilds, channels,
-  participants, voice state, layout events, entitlements, and SDK commands.
-- **Full-stack routing:** `page.tsx` for UI, `embed.tsx` for Activity screens,
-  `route.ts` for HTTP APIs, and `socket.ts` for WebSockets.
-- **Realtime by default:** Activity-instance rooms, shared state, reconnects,
-  heartbeat handling, backpressure, and multi-process adapters.
-- **Type-safe development:** generated route types, typed navigation, typed
-  Discord data, TypeScript diagnostics, and React 18.3/19 support.
-- **Production-ready security:** encrypted sessions, request limits, exact
-  Discord proxy-origin checks, host controls, and safe production errors.
-- **Extensible tooling:** compiler plugins through `ludicord.config.mjs` and an
-  official plugin for typed WebAssembly imports in client and server code.
-- **Coding-agent support:** version-matched offline documentation, `AGENTS.md`,
-  `llms.txt`, and a reusable Ludicord skill for AI coding tools.
-
-## Quick start
-
-```bash
-npm create ludicord-app@latest my-activity
-cd my-activity
-npm run dev
-```
-
-Then follow the [getting started guide](docs/getting-started.md) to connect the
-local Activity to the Discord Developer Portal.
-
-For a complete project, open the
-[full-stack starter](examples/full-stack-starter). It is built automatically on
-every change and demonstrates authenticated HTTP, WebSockets, Discord data,
-typed embeds, automatic auth UI, and responsive Activity styling.
-
-Ludicord 4.1.1 uses unified file-system routing: `page.tsx` for pages,
-`route.ts` for HTTP, `socket.ts` for WebSockets, and `embed.tsx` for hash
-screens owned by their nearest page. Use at most one route file per directory.
-Existing V3 applications retain a compatibility path.
+Ludicord 4.0 introduces unified file-system routing: `page.tsx` for pages, `route.ts` for HTTP, `socket.ts` for WebSockets, and `embed.tsx` for hash screens owned by their nearest page. Use at most one route file per directory. Existing V3 applications retain a compatibility path.
 
 ```bash
 ludicord dev
@@ -76,11 +26,7 @@ Public entry points include `ludicord`, `ludicord/config`, `ludicord/plugins`, `
 
 Projects can register typed compiler extensions in `ludicord.config.mjs`. The official `wasm()` plugin adds portable `.wasm` imports to browser components and server routes while Ludicord keeps ownership of the underlying compiler configuration. See [Plugins and WebAssembly](https://github.com/mrcholer/ludicord/blob/main/docs/plugins.md).
 
-See the public [documentation](docs/README.md),
-[release history](CHANGELOG.md), [tutorial discussion](https://github.com/mrcholer/ludicord/discussions/3),
-and [issue tracker](https://github.com/mrcholer/ludicord/issues). The public
-repository contains documentation and release information, not the framework
-implementation.
+See the public [documentation](https://github.com/mrcholer/ludicord/blob/main/docs/README.md), [release history](https://github.com/mrcholer/ludicord/blob/main/CHANGELOG.md), and [issue tracker](https://github.com/mrcholer/ludicord/issues). The public repository contains documentation and release information, not the framework implementation.
 
 Automatic files: `app/metadata.ts`, `proxy.ts`, `instrumentation.ts`, `layout.tsx`, `loading.tsx`, `error.tsx`, `global-error.tsx`, `not-found.tsx`, `minimize.tsx`, and `app/auth/{loading,error,denied}.tsx`. Embed folders may also inherit nested `layout.tsx` and nearest `loading.tsx`/`error.tsx`. Route groups such as `(games)` organize embed/API/WS source without changing URLs. Default-export the component or convention object and the framework connects it. Embeds use `export default function embed()`.
 
@@ -98,27 +44,13 @@ V4 also accepts the configured application's exact `https://<clientId>.discordsa
 
 Ludicord 4.1 adds trusted compiler plugins through `ludicord.config.mjs`. `definePlugin()` provides portable client/server hooks, and the official `wasm()` plugin adds typed precompiled WebAssembly imports in both environments without exposing Ludicord's underlying compiler configuration.
 
-## AI coding agents and LLM guidance
+## Version-matched AI guidance
 
 Ludicord 4 includes offline docs at `node_modules/ludicord/dist/docs/`, the
 canonical skill at `node_modules/ludicord/dist/skills/ludicord/SKILL.md`, and
 `node_modules/ludicord/AGENTS.md`. The short agent entry point sits at the package root, like Next.js, and points to the detailed resources under `dist/`.
 Point your existing project agent instructions at `node_modules/ludicord/AGENTS.md` when needed.
 
-For repository-level discovery, start with [`llms.txt`](llms.txt),
-[`AGENTS.md`](AGENTS.md), or the [AI coding-agent guide](docs/ai-agents.md).
-The installed package version, its declarations, generated route types, and
-bundled documentation are authoritative for an application.
-
 Use one root and ordinary embeds by default. Prefix routing is optional for
 large projects with independent surfaces or a concrete need for separate
 pathname entry points, shells, or provider lifetimes.
-
-## Community and license
-
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request and use
-[GitHub Discussions](https://github.com/mrcholer/ludicord/discussions) for
-questions, tutorials, and project showcases. Community participation follows
-the [Code of Conduct](CODE_OF_CONDUCT.md).
-
-Ludicord is available under the [MIT License](LICENSE).
