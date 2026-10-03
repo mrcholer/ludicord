@@ -45,7 +45,7 @@ Key settings:
 | `activity.defaultEmbed` | `"home"` | Initial registered embed |
 | `activity.outsideDiscord` | `"error"` | `error`, `allow`, or `mock` outside Discord |
 | `server.port` / `server.host` | `3000` / `"0.0.0.0"` | Listening port/interface |
-| `server.allowedHosts` | `true` | All hosts or an explicit list |
+| `server.allowedHosts` | `true` | All hosts, or a list that also recognizes this application’s exact Discord proxy hostname |
 | `server.allowedOrigins` | `"discord-activity"` | Same-origin plus this application's exact Discord proxy origin |
 | `server.limits.body` | `"2mb"` | HTTP request body limit |
 | `websocket.maxPayload` | `262144` | Per-message byte limit |
@@ -57,6 +57,10 @@ Allow mode does not fabricate Discord identity. Mock mode is for
 development/testing, never a substitute for production authentication.
 Invalid configuration values produce diagnostics. Restart development after
 configuration changes; renew authorization after OAuth scope changes.
+
+Restricted host lists automatically include `<clientId>.discordsays.com` for the
+effective configured application in HTTP, WebSocket and development asset checks.
+Keep your deployment/tunnel hostname explicit; other Activities are not added.
 
 The default derives `https://<clientId>.discordsays.com` from the configured
 Discord Application ID and never allows a wildcard for other Activities. A

@@ -1,7 +1,7 @@
 # Releases
 
 - [Latest release overview](latest.md).
-- [Ludicord 4.1.1 release notes](v4/4.1.1.md).
+- [Ludicord 4.1.2 release notes](v4/4.1.2.md).
 - [Ludicord v4 release archive](v4/README.md).
 - [Ludicord v3 release archive](v3/README.md).
 - [Ludicord v2 release archive](v2/README.md).
