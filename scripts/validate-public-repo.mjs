@@ -115,6 +115,34 @@ function validateAgentEntryPoints() {
   }
 }
 
+function validateCommunityAndExamples() {
+  for (const file of [
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md",
+    ".github/pull_request_template.md",
+    ".github/ISSUE_TEMPLATE/bug.yml",
+    ".github/ISSUE_TEMPLATE/feature.yml",
+    ".github/ISSUE_TEMPLATE/documentation.yml",
+    ".github/dependabot.yml",
+    ".github/workflows/examples.yml",
+    ".github/assets/ludicord-social-preview.png",
+    "examples/README.md",
+    "examples/full-stack-starter/package.json",
+    "examples/full-stack-starter/app/page.tsx",
+  ]) {
+    assert.ok(existsSync(path.join(root, file)), `Missing community or example file: ${file}`);
+  }
+  const currentVersion = json(".release", "current.json").version;
+  const example = json("examples", "full-stack-starter", "package.json");
+  assert.equal(example.private, true, "Public examples must not be publishable packages");
+  assert.equal(example.dependencies?.ludicord, `^${currentVersion}`, "The full-stack example must track the current stable release");
+  assert.ok(read("README.md").includes("examples/full-stack-starter"), "README must link the validated example");
+  const preview = readFileSync(path.join(root, ".github", "assets", "ludicord-social-preview.png"));
+  assert.equal(preview.readUInt32BE(16), 1280, "Social preview width must be 1280 pixels");
+  assert.equal(preview.readUInt32BE(20), 640, "Social preview height must be 640 pixels");
+}
+
 function validateSkillSystem() {
   const required = [
     "skills/ludicord/manifest.yaml",
@@ -211,8 +239,9 @@ function validateRepositoryText() {
 validateCurrentRelease();
 validateReleaseLayout();
 validateAgentEntryPoints();
+validateCommunityAndExamples();
 validateSkillSystem();
 validateMarkdownLinks();
 validateRepositoryText();
 json("types", "schema.json");
-console.log("Validated public release records, type indexes, links, agent entry points, and the routed Ludicord skill system.");
+console.log("Validated public release records, links, community files, examples, social preview, agent entry points, and the routed Ludicord skill system.");

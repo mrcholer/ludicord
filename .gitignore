@@ -1,6 +1,7 @@
 # Documentation-only allowlist. Never mirror the implementation repository here.
 *
 !/.gitignore
+!/LICENSE
 !/*.md
 !/llms.txt
 !/docs/
@@ -42,11 +43,17 @@
 !/.github/assets/
 !/.github/assets/ludicord-banner.png
 !/.github/assets/ludicord-logo.png
+!/.github/assets/ludicord-social-preview.png
 !/.github/workflows/
 !/.github/workflows/*.yml
 !/.github/ISSUE_TEMPLATE/
 !/.github/ISSUE_TEMPLATE/*.md
+!/.github/ISSUE_TEMPLATE/*.yml
 !/.github/ISSUE_TEMPLATE/config.yml
+!/.github/dependabot.yml
+!/.github/pull_request_template.md
+!/examples/
+!/examples/**
 !/.agents/*
 !/.agents/
 !/.agents/skills/
@@ -60,6 +67,7 @@
 # Sensitive and generated content remains excluded everywhere.
 .env
 .env.*
+!examples/**/.env.example
 *.map
 *.log
 node_modules/

@@ -1,0 +1,62 @@
+name: Bug report
+description: Report a reproducible Ludicord problem without private data.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing issues first. For vulnerabilities, use the private process in `SECURITY.md`.
+  - type: input
+    id: ludicord-version
+    attributes:
+      label: Ludicord version
+      description: Use the exact installed version from `npm ls ludicord` or `ludicord --version`.
+      placeholder: 4.1.1
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Include Node.js, package manager, operating system, dev/production, and Discord desktop/web/mobile.
+      placeholder: Node 24, npm 12, Windows 11, development, Discord desktop
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the observable behavior and where it occurs.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction steps
+      description: Use a small project or focused source snippets that you have permission to share.
+      placeholder: |
+        1. Create an Activity with...
+        2. Run...
+        3. Open...
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Sanitized diagnostics
+      description: Remove tokens, cookies, IDs, private URLs, personal data, and local filesystem paths.
+      render: shell
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed secrets, personal data, private source, and unredacted local paths.
+          required: true

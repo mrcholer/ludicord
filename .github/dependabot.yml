@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    labels: ["dependencies"]
+    open-pull-requests-limit: 5
+  - package-ecosystem: npm
+    directory: /examples/full-stack-starter
+    schedule:
+      interval: monthly
+    labels: ["dependencies"]
+    open-pull-requests-limit: 5

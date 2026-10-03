@@ -1,0 +1,5 @@
+node_modules/
+.ludicord/
+.env.local
+dist/
+*.log

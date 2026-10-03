@@ -1,0 +1,48 @@
+name: Feature request
+description: Propose a public API, tooling, documentation, or example improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: Explain the user need before proposing an implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Proposed behavior
+      description: Describe what a Ludicord user should be able to do.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example API or workflow
+      description: A small code or command example is useful when applicable.
+      render: typescript
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: input
+    id: version
+    attributes:
+      label: Relevant Ludicord version
+      placeholder: 4.1.1
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - React and routing
+        - Discord SDK and authentication
+        - API routes and WebSockets
+        - Plugins and WebAssembly
+        - CLI and development tooling
+        - Documentation and examples
+        - Deployment and operations
+    validations:
+      required: true

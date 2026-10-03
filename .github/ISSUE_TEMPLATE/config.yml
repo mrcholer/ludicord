@@ -1,8 +1,14 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://github.com/mrcholer/ludicord/blob/main/docs/README.md
-    about: Read the guides, public API reference and preview version notice.
+    url: https://ludicord.extra.codes/docs
+    about: Read the current guides and public API reference.
+  - name: Ask a question
+    url: https://github.com/mrcholer/ludicord/discussions/categories/q-a
+    about: Get help from maintainers and the community.
+  - name: Ludicord Discord server
+    url: https://discord.gg/FzvXfvyPVe
+    about: Join the community and contact a moderator.
   - name: Security reporting
     url: https://github.com/mrcholer/ludicord/blob/main/SECURITY.md
     about: Report vulnerabilities privately; never post secrets in issues.

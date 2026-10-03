@@ -2,13 +2,20 @@
 
 This page communicates current work, not release-date commitments.
 
-## Latest prepared release: 4.0.0
+## Latest stable release: 4.1.1
 
-The complete Ludicord 4 update is documented in the [v4 release archive](releases/v4/README.md). The npm registry and [`releases/latest.md`](releases/latest.md) are the authority for what is currently available. Push this prepared public repository only after the package release is verified.
+The current stable release is documented in the
+[4.1.1 release notes](releases/v4/4.1.1.md). The npm registry and
+[`releases/latest.md`](releases/latest.md) are the authority for what is
+currently available.
 
-## V4 direction
+## Current direction
 
-V4 focuses on recursive prefix-based routing, prefix-owned React roots and embed registries, typed cross-prefix links, project-root imports, listener-first compilation recovery, clearer startup route reporting, and a rebuilt development diagnostics interface. Read the [V4 release notes](releases/v4/4.0.0.md) and [Prefix Router guide](docs/prefix-router.md).
+Current work focuses on predictable Activity startup, secure production
+delivery, typed compiler plugins, WebAssembly workflows, version-matched coding
+agent guidance, and examples that exercise the public API. Read the
+[release archive](releases/v4/README.md), [plugin guide](docs/plugins.md), and
+[support policy](https://ludicord.extra.codes/docs/support-policy).
 
 Before deploying your own Activity, complete live Discord checks for OAuth, guild access, mobile/PiP, iframe cookies and multi-user reconnect behavior. These depend on your application and Discord permissions; the automated release tests use fixtures.
 

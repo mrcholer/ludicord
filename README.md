@@ -56,6 +56,11 @@ npm run dev
 Then follow the [getting started guide](docs/getting-started.md) to connect the
 local Activity to the Discord Developer Portal.
 
+For a complete project, open the
+[full-stack starter](examples/full-stack-starter). It is built automatically on
+every change and demonstrates authenticated HTTP, WebSockets, Discord data,
+typed embeds, automatic auth UI, and responsive Activity styling.
+
 Ludicord 4.1.1 uses unified file-system routing: `page.tsx` for pages,
 `route.ts` for HTTP, `socket.ts` for WebSockets, and `embed.tsx` for hash
 screens owned by their nearest page. Use at most one route file per directory.
@@ -108,3 +113,12 @@ bundled documentation are authoritative for an application.
 Use one root and ordinary embeds by default. Prefix routing is optional for
 large projects with independent surfaces or a concrete need for separate
 pathname entry points, shells, or provider lifetimes.
+
+## Community and license
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request and use
+[GitHub Discussions](https://github.com/mrcholer/ludicord/discussions) for
+questions, tutorials, and project showcases. Community participation follows
+the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+Ludicord is available under the [MIT License](LICENSE).

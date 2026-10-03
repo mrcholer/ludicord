@@ -1,0 +1,29 @@
+name: Documentation improvement
+description: Report unclear, missing, outdated, or incorrect documentation.
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or section
+      placeholder: https://ludicord.extra.codes/docs/...
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is unclear or incorrect?
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Suggested improvement
+  - type: input
+    id: version
+    attributes:
+      label: Ludicord version
+      placeholder: 4.1.1
+    validations:
+      required: true
