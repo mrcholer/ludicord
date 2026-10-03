@@ -1,6 +1,6 @@
 # Configuration reference
 
-> Documentation for Ludicord 4.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.1.2. See [release status](../releases/README.md).
 
 Create `ludicord.config.mjs` in the application root:
 
@@ -83,7 +83,20 @@ Targets must be `.` or remain inside the project through a `./` path. Absolute p
 
 The `"discord-activity"` policy derives `https://<clientId>.discordsays.com` from `discord.clientId` or `LUDICORD_DISCORD_CLIENT_ID`. It also permits normal same-origin requests and never trusts a wildcard for every Activity. Use `"same-origin"` for a host-only policy. When an array adds another trusted browser origin, include both built-in policies explicitly: `["same-origin", "discord-activity", "https://admin.example.com"]`.
 
-Use an explicit host list when appropriate. CLI host/port flags override environment values; `HOST` and `PORT` override configured defaults.
+Use an explicit host list when appropriate. Ludicord automatically adds the
+configured application's exact `<clientId>.discordsays.com` hostname to that list
+for HTTP requests, WebSocket upgrades and development assets. Other Activities'
+proxy hostnames are not added. The effective Client ID comes from configuration
+in development and uses the supported runtime environment override in production.
+Your deployed server or tunnel hostname must still be listed explicitly because
+Discord URL mappings can target it. A hostname allowance does not replace user
+authentication or the separate Origin policy.
+
+For example, `server: { allowedHosts: ["play.example.com"] }` also recognizes
+`123456789.discordsays.com` when the effective application ID is `123456789`.
+No Discord hostname is added when the application ID is missing or malformed.
+
+CLI host/port flags override environment values; `HOST` and `PORT` override configured defaults.
 
 ## WebSockets
 

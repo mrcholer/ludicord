@@ -1,6 +1,6 @@
 # Troubleshooting
 
-> Documentation for Ludicord 4.1.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.1.2. See [release status](../releases/README.md).
 
 
 Run the checks relevant to the failure:
