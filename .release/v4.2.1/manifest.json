@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "version": "4.2.1",
+  "packages": [
+    {
+      "name": "ludicord",
+      "version": "4.2.1",
+      "filename": "ludicord-4.2.1.tgz",
+      "integrity": "sha512-WDYuN+2Up/FM7zji/eNpXy+SpbUG0RMIQjvBcmJvjEqLRjyr7pJKavOLrZOtBlvKB/2aPr5OFvQQH/NT0f6HHw=="
+    },
+    {
+      "name": "create-ludicord-app",
+      "version": "4.2.1",
+      "filename": "create-ludicord-app-4.2.1.tgz",
+      "integrity": "sha512-gy7qW2tubQD2fNAjYN6TAGm8gshyuJkV0eC8xNSNHOQMxGlKLdY8G/hpAOUIa+oztH4H03ApkUIx3vLWKznn8g=="
+    }
+  ],
+  "notes": "CHANGELOG.md"
+}

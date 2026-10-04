@@ -56,11 +56,3 @@ large projects with independent surfaces or a concrete need for separate
 pathname entry points, shells, or provider lifetimes.
 
 Ludicord 4.2 adds configurable realtime recovery and data-only diagnostics: `useWSDiagnostics()` exposes connection latency and retries, while `useActivityPerformance({ enabled, sampleIntervalMs })` exposes optional frame samples and startup timings. Developers control sampling and build their own UI. See [WebSockets](https://ludicord.extra.codes/docs/websockets) and [performance data](https://ludicord.extra.codes/docs/development).
-
-## Full-stack example
-
-Explore the [full-stack starter](examples/full-stack-starter) for an Activity with authenticated HTTP and WebSocket routes. See [example instructions](examples/README.md) to install and run it.
-
-## Recovery and performance data
-
-Ludicord 4.2 adds configurable handshake deadlines, reconnect jitter, and negotiated health probes for stale connections. Use `useWSDiagnostics(connection)` for status, latency, retries, and safe error details. Use `useActivityPerformance({ enabled, sampleIntervalMs })` for optional frame samples and startup timings; developers control sampling and build their own UI. See [WebSockets](docs/websockets.md), [performance data](docs/development.md), and [4.2.0 release notes](releases/v4/4.2.0.md).
