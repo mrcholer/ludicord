@@ -4,6 +4,8 @@
 
 This page describes supported import paths and their purpose. The package includes TypeScript declarations for exact signatures and data shapes; use editor completion against the version you actually installed.
 
+New in Ludicord 4.2.0: `useWSDiagnostics()` and `LudicordWSDiagnostics` from `ludicord/ws/client`; `useActivityPerformance()`, `getActivityStartupTimings()`, `subscribeActivityStartupTimings()`, and their types from `ludicord/runtime`, `ludicord/activity`, and `ludicord`. See [WebSocket data](websockets.md) and [performance sampling](development.md) for usage and controls. These APIs render no UI and send no telemetry.
+
 ## React and navigation
 
 | Import path | APIs |

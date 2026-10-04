@@ -28,6 +28,26 @@ Run `ludicord routes` to inspect recursive page and embed ownership, `ludicord i
 
 ## Startup measurements
 
+### Performance data for your own UI
+
+These data APIs are available in Ludicord 4.2.0. They render no panel, widget, or overlay and send no telemetry.
+
+```tsx
+import { useActivityPerformance } from "ludicord/runtime";
+
+const performanceData = useActivityPerformance({
+  enabled: showMyMetrics,
+  sampleIntervalMs: 1_000,
+});
+// Your component chooses how to display performanceData.
+```
+
+Calling the hook opts into animation-frame sampling. `enabled: false` stops sampling and clears frame values. `sampleIntervalMs` accepts integers from 100 to 60000 and defaults to 1000. Sampling stops while hidden and resets when visible; React updates only when a sample is ready, rather than every frame. Strict Mode and unmount clean up the listener and pending frame request.
+
+The result contains `enabled`, `fps`, `frameTimeMs`, `sampledFrames`, and `startup`. Frame values are `null` until a sample is available, while hidden, or when disabled. FPS measures animation-frame callback frequency, not GPU paint performance or server ticks. Startup data is independent of the frame-sampling toggle and contains only framework stage names, start/duration milliseconds, and `complete`, `error`, or `skipped` outcomes. Overlapping stages should not be added together.
+
+Use `getActivityStartupTimings()` and `subscribeActivityStartupTimings(listener)` from `ludicord/runtime` for non-React consumers; subscriptions return cleanup. Snapshots are immutable, bounded, and reset for a new generated page scope. The hook returns empty startup data during server rendering. The same performance APIs are exported by `ludicord/activity` and the root `ludicord` entry point. Use `useWSDiagnostics()` from `ludicord/ws/client` for connection data alongside these samples.
+
 Generated Activity entries record local User Timing measures in development and production. Record an opening in the browser's Performance panel, or inspect them in the console:
 
 ```js
