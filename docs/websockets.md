@@ -8,6 +8,8 @@ The following APIs and recovery controls are available in Ludicord 4.2.0.
 
 Client connections have a 10-second handshake deadline and bounded exponential retries with 20% random delay variation. Failed socket construction, transport errors, and stalled handshakes follow the same retry budget. Set `reconnect.jitter: 0` for deterministic delays. Manual close cancels all connection, retry, and health timers; `reconnect.enabled: false` disables automatic retries and browser-resume recovery.
 
+Since 4.2.1, repeated `LudicordWebSocketConnection.start()` calls preserve a pending retry instead of bypassing its backoff. Use `reconnect()` when an immediate restart is intentional; it cancels the pending timer. Zero-delay retries remain finite even with large configured retry budgets.
+
 New clients request a health capability using the framework-owned `ludicord_health=1` query parameter. Only authenticated upgrades advertise support, and health probes do not invoke application handlers. Older clients receive no additional capability messages; newer clients connected to older servers do not send probes. The flag grants no authentication or Activity membership.
 
 Supported servers receive a probe every 15 seconds with a 10-second response deadline. Returning to a visible, online Activity checks an existing open connection as well. A missing response replaces the stale socket through the existing retry policy. Hidden time does not trigger a health failure. Probes share session, payload, message-rate, and byte-rate protections. Disable probes or tune their interval when an application uses unusually low rate limits.

@@ -1,15 +1,19 @@
-# Upgrading to Ludicord 4.2.0
+# Upgrading to Ludicord 4.2.1
 
 > Documentation for Ludicord 4.2.1. See [release status](../releases/README.md).
 
-Check that both 4.2.0 packages are available before upgrading:
+Check that both 4.2.1 packages are available before upgrading:
 
 ```bash
 npm view ludicord version
 npm view create-ludicord-app version
 ```
 
-Update an existing application's framework dependency with `npm install ludicord@4.2.0` (or your package-manager equivalent), update its lockfile, and create a fresh production build. The generator is for new projects; do not run it over an existing non-empty application. Existing V3 trees remain supported through legacy compatibility mode; follow [the routing migration](migration-v4.md) before switching file conventions.
+Update an existing application's framework dependency with `npm install ludicord@4.2.1` (or your package-manager equivalent), update its lockfile, and create a fresh production build. The generator is for new projects; do not run it over an existing non-empty application. Existing V3 trees remain supported through legacy compatibility mode; follow [the routing migration](migration-v4.md) before switching file conventions.
+
+## Retry fixes in 4.2.1
+
+This patch preserves scheduled backoff when `LudicordWebSocketConnection.start()` is called repeatedly and prevents non-finite delays for zero-delay connections with large retry budgets. Explicit `reconnect()` still starts immediately. No routes, API signatures, or UI migration is required.
 
 ## Recovery and diagnostics in 4.2
 
@@ -48,4 +52,4 @@ Use `useWSDiagnostics()` for connection snapshots and `useActivityPerformance({ 
 - Every expected prefix pathname and default embed URL returns the correct shell.
 - Unknown production prefixes return 404 instead of falling through to an unrelated scope.
 
-Back up your current lockfile and keep the last deployable build for rollback. Review the detailed [V4 migration guide](migration-v4.md), [plugins and WebAssembly](plugins.md), [4.2.0 release notes](../releases/v4/4.2.0.md), [security](security.md), and [deployment](deployment.md).
+Back up your current lockfile and keep the last deployable build for rollback. Review the detailed [V4 migration guide](migration-v4.md), [plugins and WebAssembly](plugins.md), [4.2.1 release notes](../releases/v4/4.2.1.md), [security](security.md), and [deployment](deployment.md).
