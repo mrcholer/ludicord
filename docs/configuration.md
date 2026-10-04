@@ -100,6 +100,8 @@ CLI host/port flags override environment values; `HOST` and `PORT` override conf
 
 ## WebSockets
 
+Client-recovery settings added in 4.2.0: `websocket.connectionTimeout` defaults to `10000` (range 100–120000ms); `websocket.healthCheck` defaults to `{ enabled: true, interval: 15000, timeout: 10000 }` (interval 1000–300000ms, timeout 100–120000ms); `websocket.reconnect.jitter` defaults to `0.2` (range 0–1). These values are validated before startup and passed to browser connections; `useWS()` options can override them for one connection. See [WebSockets](websockets.md) for capability negotiation and recovery behavior.
+
 All durations below are milliseconds.
 
 | Setting | Default | Meaning |
