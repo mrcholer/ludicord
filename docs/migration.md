@@ -1,6 +1,6 @@
 # Upgrading to Ludicord 4.1.2
 
-> Documentation for Ludicord 4.1.2. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.2.0. See [release status](../releases/README.md).
 
 Check that both 4.1.2 packages are available before upgrading:
 

@@ -1,6 +1,6 @@
 # Build
 
-> Documentation for Ludicord 4.1.2. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.2.0. See [release status](../releases/README.md).
 
 
 ```bash
