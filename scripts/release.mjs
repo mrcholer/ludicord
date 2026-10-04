@@ -432,8 +432,11 @@ function finalize() {
 
   const exampleManifestFile = path.join(root, "examples", "full-stack-starter", "package.json");
   const exampleManifest = readJson(exampleManifestFile);
-  exampleManifest.dependencies.ludicord = `^${release.version}`;
-  writeFileSync(exampleManifestFile, `${JSON.stringify(exampleManifest, null, 2)}\n`);
+  if (exampleManifest.dependencies.ludicord !== `^${release.version}`) {
+    exampleManifest.dependencies.ludicord = `^${release.version}`;
+    writeFileSync(exampleManifestFile, `${JSON.stringify(exampleManifest, null, 2)}\n`);
+    command("npm", ["install", "--package-lock-only", "--ignore-scripts", "--no-audit", "--no-fund"], path.dirname(exampleManifestFile));
+  }
   const readmeFile = path.join(root, "README.md");
   const readme = readFileSync(readmeFile, "utf8");
   if (!readme.includes("examples/full-stack-starter")) {
