@@ -1,6 +1,6 @@
 # Ludicord documentation
 
-> Documentation for Ludicord 4.2.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.2.2. See [release status](../releases/README.md).
 
 
 ## Learn Ludicord
@@ -63,3 +63,5 @@ repository.
 - [Support](../SUPPORT.md)
 
 - [Package distribution and automated releases](distribution.md)
+
+- [Native rendering libraries](engine-compatibility.md): optional Phaser and Three.js integration, cleanup and asset handling.

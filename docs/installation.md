@@ -1,11 +1,11 @@
 # Installation
 
-> Documentation for Ludicord 4.2.1. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.2.2. See [release status](../releases/README.md).
 
 
 Node.js 20.19 or newer is required. A new project is the simplest installation:
 
-The commands below install the latest **published** release. Confirm the registry reports 4.2.1 before upgrading a production deployment.
+The commands below install the latest **published** release. Confirm the registry reports 4.2.2 before upgrading a production deployment.
 
 ```bash
 npx create-ludicord-app my-activity
