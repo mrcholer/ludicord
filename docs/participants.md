@@ -1,6 +1,6 @@
 # Participants
 
-> Documentation for Ludicord 4.2.2. See [release status](../releases/README.md).
+> Documentation for Ludicord 4.2.3. See [release status](../releases/README.md).
 
 
 ```tsx

@@ -1,5 +1,6 @@
 # Ludicord v4 releases
 
+- [Ludicord 4.2.3](4.2.3.md)
 - [Ludicord 4.2.2](4.2.2.md)
 - [Ludicord 4.2.1](4.2.1.md)
 - [Ludicord 4.2.0](4.2.0.md)

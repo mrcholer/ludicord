@@ -1,5 +1,24 @@
 # Release history
 
+## 4.2.3 — November 22, 2026
+
+Ludicord 4.2.3 makes it easier to diagnose an Activity's local production setup.
+
+## Release summary
+
+- Run `ludicord info --check` to check required Discord settings and get warnings about unrestricted hosts and origins. The command reports missing settings by name and keeps credential values out of the output.
+- Run CLI commands from projects with `app/page.tsx` even when they rely on the default configuration.
+- Use the updated guidance for refreshing Phaser and Three.js embeds during development. Chromium regression checks cover renderer replacement, parent state, and cleanup on navigation.
+
+## Upgrade
+
+Install `ludicord@4.2.3`, update your lockfile, and rebuild your Activity. See the [CLI reference](https://ludicord.extra.codes/docs/cli) and [native renderer guide](https://ludicord.extra.codes/docs/engine-compatibility).
+
+[GitHub release](https://github.com/mrcholer/ludicord/releases/tag/v4.2.3) · [ludicord on npm](https://www.npmjs.com/package/ludicord/v/4.2.3) · [creator on npm](https://www.npmjs.com/package/create-ludicord-app/v/4.2.3)
+
+[Full release notes](releases/v4/4.2.3.md)
+
+
 ## 4.2.2 — October 9, 2026
 
 Ludicord 4.2.2 improves browser dependency compatibility during development.

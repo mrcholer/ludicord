@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "status": "published",
-  "version": "4.2.2",
-  "releaseNotes": "https://github.com/mrcholer/ludicord/blob/main/releases/v4/4.2.2.md",
+  "version": "4.2.3",
+  "releaseNotes": "https://github.com/mrcholer/ludicord/blob/main/releases/v4/4.2.3.md",
   "packages": [
     {
       "name": "ludicord",
-      "version": "4.2.2",
+      "version": "4.2.3",
       "node": ">=20.19.0",
       "peerDependencies": {
         "react": ">=18.3.0 <20",
@@ -85,7 +85,7 @@
     },
     {
       "name": "create-ludicord-app",
-      "version": "4.2.2",
+      "version": "4.2.3",
       "node": ">=20.19.0",
       "peerDependencies": {},
       "typeEntrypoints": [

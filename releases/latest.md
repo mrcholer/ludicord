@@ -1,6 +1,6 @@
 # Latest Ludicord release
 
-The latest synchronized public release is **Ludicord 4.2.2**, published for both `ludicord` and `create-ludicord-app`.
+The latest synchronized public release is **Ludicord 4.2.3**, published for both `ludicord` and `create-ludicord-app`.
 
 ## Install
 
@@ -13,21 +13,21 @@ npx create-ludicord-app@latest my-activity
 Update an existing Activity:
 
 ```bash
-npm install ludicord@4.2.2
+npm install ludicord@4.2.3
 ```
 
 Use the equivalent command for the project's existing package manager and commit the updated lockfile.
 
 ## Release summary
 
-Ludicord 4.2.2 improves browser dependency compatibility during development.
+Ludicord 4.2.3 makes it easier to diagnose an Activity's local production setup.
 
 ## Release records
 
-- [Ludicord 4.2.2 notes](v4/4.2.2.md)
+- [Ludicord 4.2.3 notes](v4/4.2.3.md)
 - [Ludicord v4 archive](v4/README.md)
 - [Published package links](published.md)
 - [Migration guide](../docs/migration.md)
 - [Machine-readable compatibility data](../types/README.md)
 
-The npm registry is authoritative for installable versions. Features planned for a later release are not part of 4.2.2 until matching packages are published.
+The npm registry is authoritative for installable versions. Features planned for a later release are not part of 4.2.3 until matching packages are published.
