@@ -40,6 +40,11 @@ in development. Route transitions and Fast Refresh can also unmount or restart
 effects. The cancellation guard prevents a late import from creating a renderer
 after the component has left the page.
 
+When iterating on a renderer's setup, add `/* @refresh reset */` at the top of
+its embed module to remount that embed on edits. This runs cleanup before it
+starts a replacement renderer. The embed's local state resets, so keep state
+that should survive edits in the parent Activity.
+
 ## Three.js
 
 Install `three` and, when needed for TypeScript, `@types/three`. Load the native
@@ -81,7 +86,8 @@ normal dashboard has no engine imports. Version and environment results belong
 to those checks; they do not establish compatibility with all engine releases,
 PixiJS, Babylon.js, PlayCanvas or React Three Fiber.
 
-Test the actual Discord Activity frame separately. Browser success does not
-verify Discord proxy mappings, CSP, audio permissions, touch input, mobile GPU
-limits, layout events or picture-in-picture. Use same-origin assets where
-possible and retain the framework's authentication and origin protections.
+Ludicord 4.2.2 was also verified with one authenticated participant in Discord
+web. The dashboard reached its protected API, the WebSocket reconnected, and
+both renderers loaded their assets and cleaned up during repeated navigation.
+Test your own Activity in Discord, especially for touch, audio, mobile GPU
+limits, layout events, picture-in-picture and multiple participants.

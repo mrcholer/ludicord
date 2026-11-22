@@ -15,6 +15,7 @@ Run commands through your generated package scripts or the locally installed `lu
 | `ludicord lint` | Validate React Hooks usage in Activity source |
 | `ludicord analyze` | Inspect the latest production bundle report |
 | `ludicord info` | Show environment/project information |
+| `ludicord info --check` | Load local production environment and config, check required Discord authentication settings, and flag unrestricted host and origin settings. Missing required settings give exit code 1. The check runs locally and does not contact Discord. |
 | `ludicord clean` | Remove generated `.ludicord` build/cache output |
 
 `dev` supports `--port`/`-p`, `--host`/`-H`, `--open`, `--debug` and `--no-hmr`. `start` supports host/port overrides; it does not compile or open a development preview.
